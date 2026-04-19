@@ -9,3 +9,6 @@ import ZPM.Probability.FintypePMF.PointMass
 import ZPM.Probability.FintypePMF.Uniform
 import ZPM.Probability.FintypePMF.Empirical
 import ZPM.Probability.FintypePMF.Bridge
+import ZPM.Probability.FintypePMF.Expectation
+import ZPM.Probability.FintypePMF.TVDistance
+import ZPM.Probability.FintypePMF.TransferPrinciple

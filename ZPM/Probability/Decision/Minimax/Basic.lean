@@ -7,4 +7,5 @@ import ZPM.Probability.Decision.Minimax.BoolGame
 import ZPM.Probability.Decision.Minimax.CoveringRow
 import ZPM.Probability.Decision.Minimax.Covering
 import ZPM.Probability.Decision.Minimax.FiniteApproxMinimax
+import ZPM.Probability.Decision.Minimax.BoolTestBridge
 import ZPM.Probability.Decision.Minimax.MWU.Basic

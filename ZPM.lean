@@ -9,7 +9,7 @@ import ZPM.Probability.Concentration.Basic
 import ZPM.Probability.Exchangeability.Basic
 import ZPM.Probability.FintypePMF.Basic
 import ZPM.Probability.Decision.Minimax.Basic
-import ZPM.Combinatorics.SetFamily.DualVC.Basic
+import ZPM.Combinatorics.SetFamily.Basic
 
 /-!
 # ZPM top-level barrel
