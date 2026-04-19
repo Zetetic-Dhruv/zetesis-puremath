@@ -1,36 +1,51 @@
 #!/bin/bash
-# Canonical metrics for zetesis-puremath.
-set -euo pipefail
+# Canonical metrics for zetesis-puremath. Tolerates empty or single-file trees.
+set -u
 cd "$(dirname "$0")/.."
 
-echo "{"
-echo "  \"generated\": \"$(date -u +%Y-%m-%dT%H:%M:%SZ)\","
-
-if [ -d "ZPM" ] && [ -n "$(find ZPM -name '*.lean' -type f 2>/dev/null | head -1)" ]; then
-  LINES=$(find ZPM -name "*.lean" | xargs wc -l | tail -1 | awk '{print $1}')
-else
-  LINES=0
+# Enumerate all .lean files under the ZPM library.
+ZPM_FILES=()
+if [ -f "ZPM.lean" ]; then
+  ZPM_FILES+=("ZPM.lean")
 fi
-echo "  \"total_lines\": $LINES,"
+if [ -d "ZPM" ]; then
+  while IFS= read -r f; do
+    [ -n "$f" ] && ZPM_FILES+=("$f")
+  done < <(find ZPM -name "*.lean" -type f 2>/dev/null)
+fi
 
-FILES=$(find ZPM -name "*.lean" -type f 2>/dev/null | wc -l | tr -d ' ')
-echo "  \"total_files\": $FILES,"
+FILES=${#ZPM_FILES[@]}
 
-PUB_THM=$(grep -rn --include="*.lean" -E '^(theorem|lemma) ' ZPM/ 2>/dev/null | wc -l | tr -d ' ')
-PRIV_THM=$(grep -rn --include="*.lean" -E '^private (theorem|lemma) ' ZPM/ 2>/dev/null | wc -l | tr -d ' ')
-TOTAL_THM=$((PUB_THM + PRIV_THM))
-echo "  \"public_theorems\": $PUB_THM,"
-echo "  \"private_theorems\": $PRIV_THM,"
-echo "  \"total_theorems\": $TOTAL_THM,"
+count_lines() {
+  if [ "$FILES" -eq 0 ]; then echo 0; return; fi
+  wc -l "${ZPM_FILES[@]}" 2>/dev/null | tail -1 | awk '{print $1}' || echo 0
+}
 
-DEFS=$(grep -rn --include="*.lean" -E '^(def |noncomputable def |private def |abbrev )' ZPM/ 2>/dev/null | wc -l | tr -d ' ')
-echo "  \"definitions\": $DEFS,"
+count_matches() {
+  local pattern="$1"
+  if [ "$FILES" -eq 0 ]; then echo 0; return; fi
+  local n
+  n=$(grep -hE "$pattern" "${ZPM_FILES[@]}" 2>/dev/null | wc -l | tr -d ' ')
+  echo "${n:-0}"
+}
 
-STRUCTS=$(grep -rn --include="*.lean" -E '^structure ' ZPM/ 2>/dev/null | wc -l | tr -d ' ')
-echo "  \"structures\": $STRUCTS,"
+LINES=$(count_lines)
+PUB_THM=$(count_matches '^(theorem|lemma) ')
+PRIV_THM=$(count_matches '^private (theorem|lemma) ')
+DEFS=$(count_matches '^(def |noncomputable def |private def |abbrev )')
+STRUCTS=$(count_matches '^structure ')
+SORRY=$(count_matches '^[[:space:]]*sorry[[:space:]]*$')
 
-SORRY_LINES=$(grep -rn --include="*.lean" -E '^[[:space:]]*sorry[[:space:]]*$' ZPM/ 2>/dev/null || true)
-if [ -z "$SORRY_LINES" ]; then SORRY=0; else SORRY=$(echo "$SORRY_LINES" | wc -l | tr -d ' '); fi
-echo "  \"sorry_tactics\": $SORRY"
-
-echo "}"
+cat <<JSON
+{
+  "generated": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+  "total_lines": $LINES,
+  "total_files": $FILES,
+  "public_theorems": $PUB_THM,
+  "private_theorems": $PRIV_THM,
+  "total_theorems": $((PUB_THM + PRIV_THM)),
+  "definitions": $DEFS,
+  "structures": $STRUCTS,
+  "sorry_tactics": $SORRY
+}
+JSON
