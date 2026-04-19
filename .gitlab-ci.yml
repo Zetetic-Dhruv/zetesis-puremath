@@ -36,7 +36,7 @@ comparator:
 
     # Regenerate generated artifacts and fail if they drift.
     - bash scripts/build_verification.sh
-    - git diff --exit-code Verification/ChallengeCrown.lean Verification/SolutionCrown.lean premise/final.json
+    - git diff --exit-code Verification/ChallengeCrown.lean Verification/SolutionCrown.lean Verification/config.crown.json premise/final.json
         || { echo "Generated Verification files are stale."; exit 1; }
 
     # Build lean4export matched to the toolchain.
