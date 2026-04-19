@@ -12,3 +12,4 @@ import ZPM.Probability.FintypePMF.Bridge
 import ZPM.Probability.FintypePMF.Expectation
 import ZPM.Probability.FintypePMF.TVDistance
 import ZPM.Probability.FintypePMF.TransferPrinciple
+import ZPM.Probability.FintypePMF.PositivePrior

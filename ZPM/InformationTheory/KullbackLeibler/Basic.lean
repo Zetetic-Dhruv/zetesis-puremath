@@ -5,3 +5,4 @@ Authors: Dhruv Gupta
 -/
 import ZPM.InformationTheory.KullbackLeibler.Real
 import ZPM.InformationTheory.KullbackLeibler.Binary.Basic
+import ZPM.InformationTheory.KullbackLeibler.Fintype

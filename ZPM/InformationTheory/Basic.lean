@@ -6,3 +6,4 @@ Authors: Dhruv Gupta
 import ZPM.InformationTheory.KullbackLeibler.Basic
 import ZPM.InformationTheory.MutualInformation.Basic
 import ZPM.InformationTheory.Pinsker.Basic
+import ZPM.InformationTheory.CrossEntropy.Basic
