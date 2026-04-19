@@ -74,6 +74,16 @@ jobs:
           lake env lean Verification/PrintAxioms.lean 2>&1 \
             | tee test/verification/CI/print_axioms_results.txt
 
+      - name: Commit results to repo
+        if: success()
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add test/verification/CI/lean4checker_results.txt test/verification/CI/print_axioms_results.txt
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Update lean4checker verification results [CI skip]"
+          git push
+
       - name: Upload report
         if: always()
         uses: actions/upload-artifact@v4
