@@ -29,7 +29,11 @@ def headlines : List Lean.Name := [
   ``MeasureTheory.AnalyticSet.compactCap_eq,
   ``MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact,
   ``ProbabilityTheory.chebyshev_majority_bound,
-  ``BinaryMatrix.assouad_transpose_vcDim
+  ``BinaryMatrix.assouad_transpose_vcDim,
+  ``ProbabilityTheory.covering_minimax,
+  ``ProbabilityTheory.finite_approx_minimax,
+  ``ProbabilityTheory.mwu_potential_T_bound,
+  ``ProbabilityTheory.mwu_approx_minimax
 ]
 
 end Verification.Headlines

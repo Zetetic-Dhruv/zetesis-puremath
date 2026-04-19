@@ -10,6 +10,16 @@ A module belongs here if and only if its content is substrate-neutral pure mathe
 
 If Mathlib already contains a declaration and a Zetesis-side file is merely an ergonomic wrapper with no novel content, the file stays in its specialized project (for example, `formal-learning-theory-kernel` or `SMFE`). It is not migrated into this repo.
 
+### Duplicate rule exception: proof-engineering specializations
+
+A Zetesis-side type that nominally overlaps with a Mathlib type IS admitted to `zetesis-puremath` if and only if all three hold:
+
+1. It is a specialization over a strictly-more-structured value or index type than the Mathlib counterpart (for example, an `ℝ`-valued PMF where Mathlib is `ℝ≥0∞`-valued, or a `Fintype`-indexed version where Mathlib is any type).
+2. The specialization enables proof engineering that the Mathlib type cannot support (for example, `linarith`, `nlinarith`, `field_simp` on `ℝ` where Mathlib's `ℝ≥0∞`-valued counterpart would require manual `toReal` round-trips and break field-arithmetic tactics).
+3. A bridge declaration linking the specialization back to the Mathlib counterpart is provided in the same subtree.
+
+Precedent: `ZPM.Probability.FintypePMF` (`ℝ`-valued, `Fintype`-indexed, `Finset.sum`-based) coexists with `Mathlib.Probability.ProbabilityMassFunction` (`ℝ≥0∞`-valued, any-type, `HasSum`-based) because the multiplicative-weights-update proof chain uses `ℝ`-arithmetic tactics that do not transfer to `ℝ≥0∞` without proof-LOC blowup. The bridge lives at `ZPM.Probability.FintypePMF.Bridge`.
+
 ## Admission rule
 
 A module enters `zetesis-puremath` only if it passes all four of:

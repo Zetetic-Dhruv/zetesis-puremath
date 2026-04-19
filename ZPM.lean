@@ -7,6 +7,8 @@ import ZPM.MeasureTheory.AnalyticMeasurability.NullMeasurable
 import ZPM.MeasureTheory.ChoquetCapacity.Basic
 import ZPM.Probability.Concentration.Basic
 import ZPM.Probability.Exchangeability.Basic
+import ZPM.Probability.FintypePMF.Basic
+import ZPM.Probability.Decision.Minimax.Basic
 import ZPM.Combinatorics.SetFamily.DualVC.Basic
 
 /-!

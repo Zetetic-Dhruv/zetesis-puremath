@@ -8,3 +8,7 @@ import Verification.Definitions
 -- TODO(phase-1): challenge for MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact
 -- TODO(phase-1): challenge for ProbabilityTheory.chebyshev_majority_bound
 -- TODO(phase-1): challenge for BinaryMatrix.assouad_transpose_vcDim
+-- TODO(phase-1): challenge for ProbabilityTheory.covering_minimax
+-- TODO(phase-1): challenge for ProbabilityTheory.finite_approx_minimax
+-- TODO(phase-1): challenge for ProbabilityTheory.mwu_potential_T_bound
+-- TODO(phase-1): challenge for ProbabilityTheory.mwu_approx_minimax
