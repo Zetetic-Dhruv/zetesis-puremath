@@ -1,0 +1,16 @@
+.DS_Store
+.lake/
+lake-packages/
+build/
+*.olean
+*.ilean
+*.trace
+*.oleanmap
+
+# Private Claude memory must never be committed
+.claude/memory/
+MEMORY.md
+feedback_*.md
+user_*.md
+project_*.md
+reference_*.md

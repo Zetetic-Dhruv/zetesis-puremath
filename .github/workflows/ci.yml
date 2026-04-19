@@ -1,0 +1,69 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> $GITHUB_PATH
+
+      - name: Cache Mathlib
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.elan
+            .lake
+          key: lean-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          restore-keys: |
+            lean-
+
+      - name: Fetch Mathlib cache
+        run: lake exe cache get || true
+
+      - name: Build ZPM
+        run: lake build ZPM
+
+      - name: Build Verification
+        run: lake build Verification
+
+      - name: Build verification_extract
+        run: lake build verification_extract
+
+      - name: Zero sorry enforcement (Tier 0)
+        run: |
+          echo "=== Sorry check (must be exactly 0) ==="
+          SORRY_COUNT=$(grep -rn --include="*.lean" -E '^[[:space:]]*sorry[[:space:]]*$' ZPM/ 2>/dev/null | wc -l | tr -d ' ')
+          echo "Found $SORRY_COUNT sorry tactics in ZPM/"
+          if [ "$SORRY_COUNT" -gt 0 ]; then
+            echo "::error::Sorry detected ($SORRY_COUNT). This repo is sorry-free. No sorry allowed in ZPM/."
+            grep -rn --include="*.lean" -E '^[[:space:]]*sorry[[:space:]]*$' ZPM/
+            exit 1
+          fi
+          echo "Confirmed: 0 sorry tactics in ZPM/."
+
+      - name: Verification generator freshness (regenerate and diff)
+        run: |
+          bash scripts/build_verification.sh
+          git diff --exit-code Verification/ChallengeCrown.lean Verification/SolutionCrown.lean premise/final.json \
+            || { echo "::error::Generated Verification/ files are stale. Run scripts/build_verification.sh locally and commit."; exit 1; }
+
+      - name: Print axioms (Tier 1)
+        run: |
+          lake env lean Verification/PrintAxioms.lean 2>&1 | tee /tmp/axioms.txt
+          if grep -qiE '(sorry|unsound|bad axiom)' /tmp/axioms.txt; then
+            echo "::error::Forbidden axiom detected"
+            exit 1
+          fi
+
+      - name: Verify metrics
+        run: bash scripts/metrics.sh

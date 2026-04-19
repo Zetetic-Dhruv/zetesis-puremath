@@ -1,0 +1,82 @@
+name: lean4checker
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  lean4checker:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache .lake and elan
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.elan
+            .lake
+          key: lean4checker-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          restore-keys: |
+            lean4checker-
+
+      - name: Fetch Mathlib cache
+        run: lake exe cache get
+
+      - name: Build ZPM
+        run: lake build ZPM
+
+      - name: Build Verification
+        run: lake build Verification
+
+      - name: Run lean4checker --fresh on every ZPM + Verification module
+        run: |
+          mkdir -p test/verification/CI
+          PASS=0
+          FAIL=0
+          {
+            echo "lean4checker --fresh: full repo replay"
+            echo "Date: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "Toolchain: $(cat lean-toolchain)"
+            echo "Commit: ${{ github.sha }}"
+            echo ""
+            MODULES=$(find ZPM Verification -name "*.lean" -type f \
+              | sed 's|/|.|g; s|\.lean$||' \
+              | sort)
+            for mod in $MODULES; do
+              echo -n "$mod ... "
+              if lake env leanchecker --fresh "$mod" 2>&1; then
+                echo "OK"
+                PASS=$((PASS + 1))
+              else
+                echo "FAILED"
+                FAIL=$((FAIL + 1))
+              fi
+            done
+            echo ""
+            echo "=== Summary ==="
+            echo "Passed: $PASS"
+            echo "Failed: $FAIL"
+            echo "Total:  $((PASS + FAIL))"
+          } 2>&1 | tee test/verification/CI/lean4checker_results.txt
+
+      - name: Print axioms
+        run: |
+          lake env lean Verification/PrintAxioms.lean 2>&1 \
+            | tee test/verification/CI/print_axioms_results.txt
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean4checker-results
+          path: test/verification/CI/
