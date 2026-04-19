@@ -1,0 +1,79 @@
+# Tier 3 verification: comparator with real Landlock sandbox.
+# Adapted from formal-learning-theory-kernel's .gitlab-ci.yml.
+#
+# Prerequisites before this pipeline produces a PASS:
+# 1. Verification/ChallengeCrown.lean must be hand-written with the full
+#    crown-jewel theorem statements (signatures identical to the matching
+#    entries in SolutionCrown). Currently the extractor emits TODO stubs.
+# 2. The GitLab project must exist (mirror of the GitHub repo).
+
+variables:
+  LEAN_TOOLCHAIN: "leanprover/lean4:v4.30.0-rc2"
+
+comparator:
+  image: ubuntu:24.04
+  timeout: 2 hours
+  cache:
+    key: "lean-${CI_COMMIT_REF_SLUG}"
+    paths:
+      - .lake/
+    policy: pull-push
+  script:
+    - apt-get update -qq && apt-get install -y -qq curl git golang-go jq ca-certificates
+    - curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf
+        | sh -s -- -y --default-toolchain none
+    - export PATH="$HOME/.elan/bin:$HOME/go/bin:$PATH"
+
+    # Install landrun and verify Landlock is available on the runner.
+    - go install github.com/zouuup/landrun/cmd/landrun@latest
+    - landrun --best-effort --ro / -- /usr/bin/true
+    - echo "Landlock sandbox confirmed"
+
+    # Build ZPM + Verification.
+    - lake exe cache get
+    - lake build ZPM
+    - lake build Verification
+
+    # Regenerate generated artifacts and fail if they drift.
+    - bash scripts/build_verification.sh
+    - git diff --exit-code Verification/ChallengeCrown.lean Verification/SolutionCrown.lean premise/final.json
+        || { echo "Generated Verification files are stale."; exit 1; }
+
+    # Build lean4export matched to the toolchain.
+    - git clone --depth 1 https://github.com/leanprover/lean4export /tmp/lean4export
+    - cd /tmp/lean4export && echo "$LEAN_TOOLCHAIN" > lean-toolchain && lake build
+    - export PATH="/tmp/lean4export/.lake/build/bin:$PATH"
+    - cd "$CI_PROJECT_DIR"
+
+    # Build comparator matched to the toolchain.
+    - git clone --depth 1 https://github.com/leanprover/comparator /tmp/comparator
+    - cd /tmp/comparator && echo "$LEAN_TOOLCHAIN" > lean-toolchain && lake build
+    - cd "$CI_PROJECT_DIR"
+
+    # Run comparator with real Landlock sandbox.
+    - lake env /tmp/comparator/.lake/build/bin/comparator
+        Verification/config.crown.json
+        2>&1 | tee comparator_output.txt
+
+    - |
+      cat > verification_summary.json <<ENDJSON
+      {
+        "tier": 3,
+        "tool": "comparator",
+        "sandbox": "landrun (Landlock)",
+        "infrastructure": "GitLab CI",
+        "toolchain": "$LEAN_TOOLCHAIN",
+        "commit": "$CI_COMMIT_SHA",
+        "pipeline": "$CI_PIPELINE_URL",
+        "date": "$(date -u +%Y-%m-%dT%H:%M:%SZ)",
+        "result": "see comparator_output.txt"
+      }
+      ENDJSON
+      cat verification_summary.json
+
+  artifacts:
+    paths:
+      - comparator_output.txt
+      - verification_summary.json
+    expire_in: 90 days
+    when: always

@@ -1,0 +1,17 @@
+{
+  "challenge_module": "Verification.ChallengeCrown",
+  "solution_module": "Verification.SolutionCrown",
+  "theorem_names": [
+    "challenge_MeasureTheory_AnalyticSet_nullMeasurableSet",
+    "challenge_MeasureTheory_AnalyticSet_compactCap_eq",
+    "challenge_MeasureTheory_AnalyticSet_cap_eq_iSup_isCompact",
+    "challenge_ProbabilityTheory_chebyshev_majority_bound",
+    "challenge_BinaryMatrix_assouad_transpose_vcDim",
+    "challenge_ProbabilityTheory_covering_minimax",
+    "challenge_ProbabilityTheory_finite_approx_minimax",
+    "challenge_ProbabilityTheory_mwu_potential_T_bound",
+    "challenge_ProbabilityTheory_mwu_approx_minimax"
+  ],
+  "permitted_axioms": ["propext", "Quot.sound", "Classical.choice"],
+  "enable_nanoda": false
+}
