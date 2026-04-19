@@ -11,6 +11,7 @@ import ZPM.Probability.FintypePMF.Basic
 import ZPM.Probability.Decision.Minimax.Basic
 import ZPM.Combinatorics.SetFamily.Basic
 import ZPM.InformationTheory.Basic
+import ZPM.MeasureTheory.ProbabilityMeasure.TotalVariation.Basic
 
 /-!
 # ZPM top-level barrel
