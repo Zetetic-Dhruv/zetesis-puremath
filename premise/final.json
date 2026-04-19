@@ -1,3 +1,9 @@
 {
-  "theorems": []
+  "theorems": [
+    { "name": "MeasureTheory.AnalyticSet.nullMeasurableSet" },
+    { "name": "MeasureTheory.AnalyticSet.compactCap_eq" },
+    { "name": "MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact" },
+    { "name": "ProbabilityTheory.chebyshev_majority_bound" },
+    { "name": "BinaryMatrix.assouad_transpose_vcDim" }
+  ]
 }

@@ -4,4 +4,8 @@
 import Verification.Definitions
 import ZPM
 
--- No headline theorems declared yet.
+-- TODO(phase-1): solution for MeasureTheory.AnalyticSet.nullMeasurableSet
+-- TODO(phase-1): solution for MeasureTheory.AnalyticSet.compactCap_eq
+-- TODO(phase-1): solution for MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact
+-- TODO(phase-1): solution for ProbabilityTheory.chebyshev_majority_bound
+-- TODO(phase-1): solution for BinaryMatrix.assouad_transpose_vcDim

@@ -23,6 +23,12 @@ namespace Verification.Headlines
 
 /-- List of fully-qualified Lean names that ZPM exposes as crown-jewel
 theorems. Populated incrementally as ZPM phases land. -/
-def headlines : List Lean.Name := []
+def headlines : List Lean.Name := [
+  ``MeasureTheory.AnalyticSet.nullMeasurableSet,
+  ``MeasureTheory.AnalyticSet.compactCap_eq,
+  ``MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact,
+  ``ProbabilityTheory.chebyshev_majority_bound,
+  ``BinaryMatrix.assouad_transpose_vcDim
+]
 
 end Verification.Headlines

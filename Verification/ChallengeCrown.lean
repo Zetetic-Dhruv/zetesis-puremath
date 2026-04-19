@@ -3,4 +3,8 @@
 
 import Verification.Definitions
 
--- No headline theorems declared yet.
+-- TODO(phase-1): challenge for MeasureTheory.AnalyticSet.nullMeasurableSet
+-- TODO(phase-1): challenge for MeasureTheory.AnalyticSet.compactCap_eq
+-- TODO(phase-1): challenge for MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact
+-- TODO(phase-1): challenge for ProbabilityTheory.chebyshev_majority_bound
+-- TODO(phase-1): challenge for BinaryMatrix.assouad_transpose_vcDim
