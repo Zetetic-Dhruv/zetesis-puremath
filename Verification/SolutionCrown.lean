@@ -4,12 +4,16 @@
 import Verification.Definitions
 import ZPM
 
--- TODO(phase-1): solution for MeasureTheory.AnalyticSet.nullMeasurableSet
--- TODO(phase-1): solution for MeasureTheory.AnalyticSet.compactCap_eq
--- TODO(phase-1): solution for MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact
--- TODO(phase-1): solution for ProbabilityTheory.chebyshev_majority_bound
--- TODO(phase-1): solution for BinaryMatrix.assouad_transpose_vcDim
--- TODO(phase-1): solution for ProbabilityTheory.covering_minimax
--- TODO(phase-1): solution for ProbabilityTheory.finite_approx_minimax
--- TODO(phase-1): solution for ProbabilityTheory.mwu_potential_T_bound
--- TODO(phase-1): solution for ProbabilityTheory.mwu_approx_minimax
+-- Re-exports of ZPM headlines. Lean's type elaboration copies each original
+-- theorem's type onto its `challenge_*` alias automatically, so this file
+-- requires no pretty-printer round-trip.
+
+noncomputable def challenge_MeasureTheory_AnalyticSet_nullMeasurableSet := @MeasureTheory.AnalyticSet.nullMeasurableSet
+noncomputable def challenge_MeasureTheory_AnalyticSet_compactCap_eq := @MeasureTheory.AnalyticSet.compactCap_eq
+noncomputable def challenge_MeasureTheory_AnalyticSet_cap_eq_iSup_isCompact := @MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact
+noncomputable def challenge_ProbabilityTheory_chebyshev_majority_bound := @ProbabilityTheory.chebyshev_majority_bound
+noncomputable def challenge_BinaryMatrix_assouad_transpose_vcDim := @BinaryMatrix.assouad_transpose_vcDim
+noncomputable def challenge_ProbabilityTheory_covering_minimax := @ProbabilityTheory.covering_minimax
+noncomputable def challenge_ProbabilityTheory_finite_approx_minimax := @ProbabilityTheory.finite_approx_minimax
+noncomputable def challenge_ProbabilityTheory_mwu_potential_T_bound := @ProbabilityTheory.mwu_potential_T_bound
+noncomputable def challenge_ProbabilityTheory_mwu_approx_minimax := @ProbabilityTheory.mwu_approx_minimax

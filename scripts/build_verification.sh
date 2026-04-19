@@ -12,9 +12,10 @@ if [ ! -x "$BIN" ]; then
   exit 1
 fi
 
-"$BIN" challenge > Verification/ChallengeCrown.lean
-"$BIN" solution  > Verification/SolutionCrown.lean
-"$BIN" premise   > premise/final.json
+# lake env sets LEAN_PATH so the exe can find ZPM.olean at runtime.
+lake env "$BIN" challenge > Verification/ChallengeCrown.lean
+lake env "$BIN" solution  > Verification/SolutionCrown.lean
+lake env "$BIN" premise   > premise/final.json
 
 echo "Regenerated:"
 echo "  Verification/ChallengeCrown.lean"
