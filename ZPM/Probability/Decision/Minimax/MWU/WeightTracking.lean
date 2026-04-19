@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Dhruv Gupta
 -/
 import ZPM.Probability.Decision.Minimax.MWU.Run
+import Mathlib.Algebra.BigOperators.Fin
 
 /-!
 # Individual-weight tracking for MWU
