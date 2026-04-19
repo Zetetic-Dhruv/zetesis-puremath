@@ -42,7 +42,7 @@ theorem MeasureTheory.AnalyticSet.exists_isCompact_measureReal_gt
   have hmem : ∃ r ∈ {r : ENNReal | ∃ K : Set α, IsCompact K ∧ K ⊆ s ∧ r = μ K},
       μ s < r + ENNReal.ofReal ε := by
     by_contra h
-    push_neg at h
+    push Not at h
     have hbound : sSup {r | ∃ K, IsCompact K ∧ K ⊆ s ∧ r = μ K} ≤ μ s - ENNReal.ofReal ε := by
       apply sSup_le
       intro r hr

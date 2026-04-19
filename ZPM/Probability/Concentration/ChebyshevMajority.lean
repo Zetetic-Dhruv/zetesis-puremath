@@ -143,7 +143,7 @@ lemma ProbabilityTheory.chebyshev_majority_bound
         ENNReal.sub_eq_of_eq_add hne h_add.symm
       rw [← hgood_eq]
       exact tsub_le_tsub_left hcompl_le _
-    · push_neg at hδ1
+    · push Not at hδ1
       have h1d : 1 - δ ≤ 0 := by linarith
       simp [ENNReal.ofReal_eq_zero.mpr h1d]
   apply le_trans hgood

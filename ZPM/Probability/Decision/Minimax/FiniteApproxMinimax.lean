@@ -34,7 +34,7 @@ theorem finite_approx_minimax
       v - ε ≤ boolGamePayoff M p c := by
   by_cases hv : v ≤ 0
   · exact ⟨FintypePMF.uniform R, fun c => le_trans (by linarith) (boolGamePayoff_nonneg M _ c)⟩
-  · push_neg at hv
+  · push Not at hv
     obtain ⟨p, hp⟩ := covering_minimax M v hv hrow
     exact ⟨p, fun c => le_trans hε_feasible (hp c)⟩
 

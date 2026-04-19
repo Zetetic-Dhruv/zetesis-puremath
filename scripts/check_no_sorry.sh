@@ -1,12 +1,14 @@
 #!/bin/bash
 # Strict sorry check. Matches only standalone `sorry` tactic lines; ignores comments and identifiers.
-set -euo pipefail
+# Tolerates empty trees (grep exits non-zero on zero matches, so we don't use pipefail).
+set -u
 cd "$(dirname "$0")/.."
 
-SORRY_COUNT=$(grep -rn --include="*.lean" -E '^[[:space:]]*sorry[[:space:]]*$' ZPM/ 2>/dev/null | wc -l | tr -d ' ')
-if [ "$SORRY_COUNT" -gt 0 ]; then
+MATCHES=$(grep -rn --include="*.lean" -E '^[[:space:]]*sorry[[:space:]]*$' ZPM/ 2>/dev/null || true)
+if [ -n "$MATCHES" ]; then
+  SORRY_COUNT=$(echo "$MATCHES" | wc -l | tr -d ' ')
   echo "ERROR: found $SORRY_COUNT standalone sorry tactic(s) in ZPM/:"
-  grep -rn --include="*.lean" -E '^[[:space:]]*sorry[[:space:]]*$' ZPM/
+  echo "$MATCHES"
   exit 1
 fi
 echo "OK: 0 sorry tactics in ZPM/."

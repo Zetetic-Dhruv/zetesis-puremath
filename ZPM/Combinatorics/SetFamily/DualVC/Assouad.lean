@@ -25,7 +25,7 @@ theorem assouad_transpose_vcDim {m n : ℕ} (M : BinaryMatrix m n)
     {d : ℕ} (hd : M.vcDim ≤ d) :
     M.transpose.vcDim ≤ 2 ^ (d + 1) - 1 := by
   by_contra hlt
-  push_neg at hlt
+  push Not at hlt
   have hge : 2 ^ (d + 1) ≤ M.transpose.vcDim := by omega
   have hpos : (⊥ : ℕ) < 2 ^ (d + 1) := by
     show 0 < 2 ^ (d + 1)

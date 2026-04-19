@@ -62,7 +62,7 @@ lemma hitRate_from_potential
         (H : ℝ) * (-Real.log (1 - η)) := by
     by_cases hv_sign : 0 ≤ v
     · nlinarith [mul_nonneg hTreal_nonneg (mul_nonneg (le_of_lt hη) hv_sign)]
-    · push_neg at hv_sign
+    · push Not at hv_sign
       have hlog_neg : Real.log (1 - η) < 0 := Real.log_neg (by linarith) (by linarith)
       have h_rhs_nn : 0 ≤ (H : ℝ) * (-Real.log (1 - η)) := mul_nonneg hHnonneg (by linarith)
       have hTreal_pos : (0 : ℝ) < T := by exact_mod_cast hTpos
