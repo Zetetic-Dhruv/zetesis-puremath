@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script>
+  MathJax = { 
+    tex: {
+		    inlineMath: [['\\(','\\)']]
+	} }
+</script>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<meta name="generator" content="plasTeX" />
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>zetesis-puremath Blueprint: Binary KL and Pinsker’s inequality</title>
+<link rel="next" href="sec-mi.html" title="Mutual information" />
+<link rel="prev" href="sec-kl-real.html" title="Real-valued KL bridge" />
+<link rel="up" href="chap-information.html" title="Information theory" />
+<link rel="stylesheet" href="styles/theme-white.css" />
+<link rel="stylesheet" href="styles/amsthm.css" />
+<link rel="stylesheet" href="styles/pygments.css" />
+</head>
+
+<body>
+<header>
+<svg  id="toc-toggle" class="icon icon-list-numbered "><use xlink:href="symbol-defs.svg#icon-list-numbered"></use></svg>
+<h1 id="doc_title"><a href="index.html">zetesis-puremath Blueprint</a></h1>
+</header>
+
+<div class="wrapper">
+<nav class="toc">
+<ul class="sub-toc-0">
+<li class="">
+  <a href="chap-intro.html"><span class="toc_ref">1</span> <span class="toc_entry">Introduction</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sect0001.html"><span class="toc_ref">1.1</span> <span class="toc_entry">What is formalized here</span></a>
+ </li>
+<li class="">
+  <a href="sect0002.html"><span class="toc_ref">1.2</span> <span class="toc_entry">Verification tiers</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="chap-measure.html"><span class="toc_ref">2</span> <span class="toc_entry">Measure theory</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-analytic-measurability.html"><span class="toc_ref">2.1</span> <span class="toc_entry">Analytic measurability</span></a>
+ </li>
+<li class="">
+  <a href="sec-choquet-capacity.html"><span class="toc_ref">2.2</span> <span class="toc_entry">Choquet capacity</span></a>
+ </li>
+<li class="">
+  <a href="sec-cylinders.html"><span class="toc_ref">2.3</span> <span class="toc_entry">Baire-space cylinder infrastructure</span></a>
+ </li>
+<li class="">
+  <a href="sec-tv.html"><span class="toc_ref">2.4</span> <span class="toc_entry">Total variation distance</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class=" active">
+  <a href="chap-information.html"><span class="toc_ref">3</span> <span class="toc_entry">Information theory</span></a>
+  <span class="expand-toc">▼</span>
+  <ul class="sub-toc-1 active">
+     <li class="">
+  <a href="sec-kl-real.html"><span class="toc_ref">3.1</span> <span class="toc_entry">Real-valued KL bridge</span></a>
+ </li>
+<li class=" active current">
+  <a href="sec-binary-kl.html"><span class="toc_ref">3.2</span> <span class="toc_entry">Binary KL and Pinsker’s inequality</span></a>
+ </li>
+<li class="">
+  <a href="sec-mi.html"><span class="toc_ref">3.3</span> <span class="toc_entry">Mutual information</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="chap-probability.html"><span class="toc_ref">4</span> <span class="toc_entry">Probability</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-concentration.html"><span class="toc_ref">4.1</span> <span class="toc_entry">Bounded random variables + concentration</span></a>
+ </li>
+<li class="">
+  <a href="sec-exchangeability.html"><span class="toc_ref">4.2</span> <span class="toc_entry">Exchangeability and double-sample</span></a>
+ </li>
+<li class="">
+  <a href="sec-fintype-pmf.html"><span class="toc_ref">4.3</span> <span class="toc_entry">Finite-type PMF</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="chap-decision.html"><span class="toc_ref">5</span> <span class="toc_entry">Decision theory: minimax and MWU</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-bool-game.html"><span class="toc_ref">5.1</span> <span class="toc_entry">Boolean-matrix zero-sum games</span></a>
+ </li>
+<li class="">
+  <a href="sec-mwu.html"><span class="toc_ref">5.2</span> <span class="toc_entry">Multiplicative weights update</span></a>
+ </li>
+<li class="">
+  <a href="sec-approx-minimax.html"><span class="toc_ref">5.3</span> <span class="toc_entry">Approximate minimax</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="chap-rkhs.html"><span class="toc_ref">6</span> <span class="toc_entry">Reproducing-kernel Hilbert spaces</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-bounded-kernel.html"><span class="toc_ref">6.1</span> <span class="toc_entry">Bounded kernels</span></a>
+ </li>
+<li class="">
+  <a href="sec-kme.html"><span class="toc_ref">6.2</span> <span class="toc_entry">Kernel mean embedding</span></a>
+ </li>
+<li class="">
+  <a href="sec-mmd.html"><span class="toc_ref">6.3</span> <span class="toc_entry">Maximum Mean Discrepancy</span></a>
+ </li>
+<li class="">
+  <a href="sec-hsic.html"><span class="toc_ref">6.4</span> <span class="toc_entry">Hilbert-Schmidt Independence Criterion</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="chap-combinatorics.html"><span class="toc_ref">7</span> <span class="toc_entry">Combinatorics: dual VC</span></a>
+  <span class="expand-toc">▶</span>
+  <ul class="sub-toc-1">
+     <li class="">
+  <a href="sec-binary-matrix.html"><span class="toc_ref">7.1</span> <span class="toc_entry">Binary matrix setup</span></a>
+ </li>
+<li class="">
+  <a href="sec-sauer-shelah.html"><span class="toc_ref">7.2</span> <span class="toc_entry">Sauer-Shelah corollary</span></a>
+ </li>
+<li class="">
+  <a href="sec-assouad-dual-vc.html"><span class="toc_ref">7.3</span> <span class="toc_entry">Assouad’s dual VC bound</span></a>
+ </li>
+
+  </ul>
+ </li>
+<li class="">
+  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+ </li>
+</ul>
+</nav>
+
+<div class="content">
+<div class="content-wrapper">
+
+
+<div class="main-text">
+<h1 id="sec:binary-kl">3.2 Binary KL and Pinsker’s inequality</h1>
+
+<div class="defn_thmwrapper theorem-style-definition" id="def:kl-bin">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">3.4</span>
+    <span class="defn_thmtitle">Binary KL</span>
+  </div>
+  <div class="defn_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klBin</span></span></small></p>
+<p> For \(p, q \in [0, 1]\), </p>
+<div class="displaymath" id="a0000000011">
+  \[  \mathrm{KL}_\mathrm {bin}(p, q) \; :=\;  p \log \tfrac {p}{q} + (1-p) \log \tfrac {1-p}{1-q}  \]
+</div>
+<p> with the convention \(0 \cdot \log (0/\cdot ) = 0\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:deriv-kl-bin">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">3.5</span>
+    <span class="lemma_thmtitle">Derivative in \(q\)</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.hasDerivAt_klBin_q</span></span></small></p>
+<p> For \(q \in (0, 1)\), \(\partial _q \mathrm{KL}_\mathrm {bin}(p, q) = (q - p) / (q (1 - q))\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:binary-pinsker">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">3.6</span>
+    <span class="thm_thmtitle">Binary Pinsker, sharp constant \(2\)</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.binary_pinsker</span></span></small></p>
+<p>  For \(p \in [0, 1]\) and \(q \in (0, 1)\), \(2 (p - q)^2 \; \le \;  \mathrm{KL}_\mathrm {bin}(p, q)\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:pinsker">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">3.7</span>
+    <span class="thm_thmtitle">Pinsker’s inequality</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.pinsker_proof</span></span></small></p>
+<p>  For probability measures \(P \ll Q\) with \(\mathrm{KL}(P,Q) {\lt} \infty \), </p>
+<div class="displaymath" id="a0000000012">
+  \[  \mathrm{TV}(P, Q) \; \le \;  \sqrt{\mathrm{KL}_\mathbb {R}(P, Q) / 2}  \]
+</div>
+<p> <span class="cite">
+	[
+</span>. The convention matches Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.7</a> (half-sup TV); with the \(L^1\) convention the bound reads \(\|  P - Q \| _1 \le \sqrt{2\, \mathrm{KL}}\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:kl-bin-le-kl">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">3.8</span>
+    <span class="thm_thmtitle">Binary-to-general coarsening</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klBin_le_klDivReal</span></span></small></p>
+<p>  For every measurable \(A\) with \(P(A) = p\), \(Q(A) = q\), \(\mathrm{KL}_\mathrm {bin}(p, q) \le \mathrm{KL}_\mathbb {R}(P, Q)\). This is the two-point data-processing inequality and is the step linking the binary Pinsker to the general measure-theoretic Pinsker. </p>
+
+  </div>
+</div>
+
+</div> <!--main-text -->
+</div> <!-- content-wrapper -->
+</div> <!-- content -->
+</div> <!-- wrapper -->
+
+<nav class="prev_up_next">
+  <a href="sec-kl-real.html" title="Real-valued KL bridge"><svg  class="icon icon-arrow-left "><use xlink:href="symbol-defs.svg#icon-arrow-left"></use></svg>
+</a>
+  <a href="chap-information.html" title="Information theory"><svg  class="icon icon-arrow-up "><use xlink:href="symbol-defs.svg#icon-arrow-up"></use></svg>
+</a>
+  <a href="sec-mi.html" title="Mutual information"><svg  class="icon icon-arrow-right "><use xlink:href="symbol-defs.svg#icon-arrow-right"></use></svg>
+</a>
+</nav>
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/plastex.js"></script>
+<script type="text/javascript" src="js/svgxuse.js"></script>
+</body>
+</html>
