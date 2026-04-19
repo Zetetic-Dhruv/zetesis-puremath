@@ -54,7 +54,12 @@ jobs:
       - name: Verification generator freshness (regenerate and diff)
         run: |
           bash scripts/build_verification.sh
-          git diff --exit-code Verification/ChallengeCrown.lean Verification/SolutionCrown.lean premise/final.json \
+          git diff --exit-code \
+            Verification/ChallengeCrown.lean \
+            Verification/SolutionCrown.lean \
+            Verification/config.crown.json \
+            Verification/PrintAxioms.lean \
+            premise/final.json \
             || { echo "::error::Generated Verification/ files are stale. Run scripts/build_verification.sh locally and commit."; exit 1; }
 
       - name: Print axioms (Tier 1)
