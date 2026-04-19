@@ -1,0 +1,123 @@
+\chapter{Reproducing-kernel Hilbert spaces}\label{chap:rkhs}
+
+Background conventions: the Mathlib class \texttt{RKHS ℝ H X ℝ} is the
+scalar-valued reproducing-kernel Hilbert space on a domain $X$, with
+Hilbert space $\RKHS = H$ and feature map
+$k_x := \mathrm{kerFun}\,H\,x\,1 \in H$ satisfying
+$f(x) = \langle k_x, f \rangle$ \cite{aronszajn1950}. Throughout,
+\RKHS{} denotes a complete, separable, real inner product space.
+
+\section{Bounded kernels}\label{sec:bounded-kernel}
+
+\begin{defn}[Bounded kernel]
+\label{def:bounded-kernel}
+  \lean{BoundedKernel}
+  \leanok
+A \texttt{BoundedKernel}~$\RKHS$ is a witness $\langle C, h_{\ge 0}, h_{\le} \rangle$
+with $C \ge 0$ and $\| k_x \| \le C$ for all $x : X$. Bounded-feature
+kernels are the canonical setting for kernel mean embeddings
+\cite[\S4.2]{steinwart-christmann}.
+\end{defn}
+
+\begin{thm}[Evaluation bound]
+\label{thm:eval-bound}
+  \lean{norm\_apply\_le\_bound\_mul\_norm}
+  \leanok
+  \uses{def:bounded-kernel}
+$|f(x)| \le C \cdot \|f\|$ for every $f \in \RKHS$ and $x \in X$.
+\end{thm}
+
+\section{Kernel mean embedding}\label{sec:kme}
+
+\begin{defn}[Kernel mean embedding]
+\label{def:kme}
+  \lean{kernelMeanEmbedding}
+  \leanok
+  \uses{def:bounded-kernel}
+For a measure $P$ on $X$, set
+\[
+  \mu_P \;:=\; \int_X k_x \,\mathrm{d}P(x) \;\in\; \RKHS
+\]
+(Bochner integral) \cite{smola2007kme}.
+\end{defn}
+
+\begin{thm}[Reproducing property for the embedding]
+\label{thm:kme-reproducing}
+  \lean{kernelMeanEmbedding\_reproducing}
+  \leanok
+  \uses{def:kme}
+For integrable $f$,
+$\langle \mu_P, f \rangle \;=\; \int_X f(x) \,\mathrm{d}P(x)$
+\cite[\S2, eq.\ (2)]{gretton2012kernel}.
+\end{thm}
+
+\begin{thm}[Norm bound]
+\label{thm:kme-norm-bound}
+  \lean{kernelMeanEmbedding\_norm\_le}
+  \leanok
+  \uses{def:kme, def:bounded-kernel}
+Under \texttt{IsProbabilityMeasure}~$P$, $\|\mu_P\| \le C$.
+\end{thm}
+
+\section{Maximum Mean Discrepancy}\label{sec:mmd}
+
+\begin{defn}[Squared MMD]
+\label{def:mmd-sq}
+  \lean{mmdSq}
+  \leanok
+  \uses{def:kme}
+$\MMD^2(P, Q) \;:=\; \| \mu_P - \mu_Q \|^2$ \cite[Defn.\ 2]{gretton2012kernel}.
+\end{defn}
+
+\begin{thm}[Metric axioms mod characteristic]
+\label{thm:mmd-sq-props}
+  \lean{mmdSq\_nonneg, mmdSq\_self, mmdSq\_comm}
+  \leanok
+  \uses{def:mmd-sq}
+$\MMD^2 \ge 0$, $\MMD^2(P, P) = 0$, and $\MMD^2$ is symmetric in its
+arguments.
+\end{thm}
+
+\begin{defn}[Characteristic RKHS]
+\label{def:is-characteristic}
+  \lean{IsCharacteristic}
+  \leanok
+$\RKHS$ is \emph{characteristic on $X$} iff the kernel mean embedding
+$P \mapsto \mu_P$ is injective. This is the modern definition
+\cite[Defn.\ 6]{sriperumbudur2010hilbert}.
+\end{defn}
+
+\begin{thm}[Zero-iff-equal under characteristic kernel]
+\label{thm:mmd-zero-iff}
+  \lean{mmdSq\_zero\_iff}
+  \leanok
+  \uses{def:mmd-sq, def:is-characteristic}
+Under \texttt{IsCharacteristic}~$\RKHS$,
+$\MMD^2(P, Q) = 0 \iff P = Q$.
+\end{thm}
+
+\section{Hilbert-Schmidt Independence Criterion}\label{sec:hsic}
+
+\begin{defn}[HSIC via product-space MMD]
+\label{def:hsic}
+  \lean{hsicDef}
+  \leanok
+  \uses{def:mmd-sq}
+For a joint measure $P$ on $X \times Y$ with marginals $P_X$, $P_Y$,
+\[
+  \HSIC(P) \;:=\; \MMD^2\bigl(P,\; P_X \otimes P_Y\bigr).
+\]
+This is the modern unified formulation \cite[Thm 24]{sriperumbudur2010hilbert};
+originally introduced as a cross-covariance-operator Hilbert-Schmidt
+norm \cite{gretton2005hsic}.
+\end{defn}
+
+\begin{thm}[Zero-iff-independent]
+\label{thm:hsic-zero-iff}
+  \lean{hsicDef\_nonneg, hsicDef\_eq\_zero\_of\_independent, hsicDef\_zero\_iff\_independent}
+  \leanok
+  \uses{def:hsic, def:is-characteristic}
+$\HSIC(P) \ge 0$; $P = P_X \otimes P_Y$ implies $\HSIC(P) = 0$;
+conversely, under characteristic kernels on $X \times Y$,
+$\HSIC(P) = 0 \iff P = P_X \otimes P_Y$.
+\end{thm}

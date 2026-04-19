@@ -1,0 +1,114 @@
+\chapter{Measure theory}\label{chap:measure}
+
+\section{Analytic measurability}\label{sec:analytic-measurability}
+
+\begin{thm}[Analytic null-measurability]
+\label{thm:analytic-null-measurable}
+  \lean{MeasureTheory.AnalyticSet.nullMeasurableSet}
+  \leanok
+Let $\alpha$ be a Polish space, $\mu$ a finite Borel measure on
+$\alpha$, and $S \subseteq \alpha$ analytic. Then $S$ is
+$\mu$-null-measurable.
+\end{thm}
+
+\begin{thm}[Inner approximation by compacts]
+\label{thm:analytic-inner-approx}
+  \lean{MeasureTheory.AnalyticSet.exists\_isCompact\_measureReal\_gt}
+  \leanok
+Under the hypotheses of Theorem~\ref{thm:analytic-null-measurable},
+for every $\delta > 0$ there exists a compact $K \subseteq S$ with
+$\mu(S) - \mu(K) < \delta$ (in $\R$-valued form).
+\end{thm}
+
+\section{Choquet capacity}\label{sec:choquet-capacity}
+
+\begin{defn}[Choquet capacity]
+\label{def:choquet-capacity}
+  \lean{MeasureTheory.IsChoquetCapacity}
+  \leanok
+A map $I : \mathrm{Set}(\alpha) \to \R_{\ge 0}^\infty$ is a
+\emph{Choquet capacity} iff (i) it is monotone, (ii) continuous from
+below along increasing sequences, and (iii) continuous from above
+along antitone sequences of closed sets. Every finite Borel measure
+on a Polish space is a Choquet capacity \cite{dellacherie-meyer}.
+\end{defn}
+
+\begin{defn}[Compact capacity hull]
+\label{def:compact-cap}
+  \lean{MeasureTheory.compactCap}
+  \leanok
+For $\mu$ and $S$ as above,
+\[
+  \mathrm{compactCap}\,\mu\,S \;:=\; \sup \{ \mu(K) : K \subseteq S,\; K \text{ compact} \}.
+\]
+\end{defn}
+
+\begin{thm}[Kechris 30.13: analytic capacitability]
+\label{thm:analytic-capacitability}
+  \lean{MeasureTheory.AnalyticSet.cap\_eq\_iSup\_isCompact}
+  \leanok
+  \uses{def:choquet-capacity, def:compact-cap}
+Let $I$ be a Choquet capacity on a Polish space $\alpha$, and $S$ an
+analytic subset of $\alpha$. Then
+\[
+  I(S) \;=\; \sup \{ I(K) : K \subseteq S,\; K \text{ compact} \}.
+\]
+The proof is the Kechris~30.13 diagonal construction on cylinders in
+Baire space $\N^\N$ \cite{kechris1995classical}. Together with
+Definition~\ref{def:compact-cap} and the fact that every finite Borel
+measure is a Choquet capacity, this specializes to
+$\mu(S) = \mathrm{compactCap}\,\mu\,S$
+(Theorem~\ref{thm:analytic-null-measurable} is an immediate corollary).
+\end{thm}
+
+\section{Baire-space cylinder infrastructure}\label{sec:cylinders}
+
+The proof of Theorem~\ref{thm:analytic-capacitability} requires a
+small theory of cylinders in $\N^\N$:
+
+\begin{defn}[Cylinder, bounded box, truncate]
+\label{def:cyl-bnd}
+  \lean{Cyl, Bnd, truncate}
+  \leanok
+For $N : \N \to \N$ and $n \in \N$,
+$\mathrm{Cyl}\,N\,n \;:=\; \{ g : \N \to \N \mid \forall i \le n,\; g\,i \le N\,i \}$
+and $\mathrm{Bnd}\,N \;:=\; \bigcap_n \mathrm{Cyl}\,N\,n$.
+$\mathrm{Bnd}\,N = \prod_i [0, N_i]$ is compact. The map $\mathrm{truncate}\,N\,g\,i := \min(g\,i, N\,i)$ sends any sequence
+into $\mathrm{Bnd}\,N$ and agrees with $g$ on cylinders.
+\end{defn}
+
+The lemmas \texttt{bnd\_subset\_cyl}, \texttt{cyl\_succ\_eq},
+\texttt{cyl\_inter\_eq\_cyl\_update}, \texttt{monotone\_cyl\_split},
+\texttt{iInter\_closure\_image\_cyl\_eq}, \texttt{isCompact\_bnd},
+and \texttt{truncate\_mem\_bnd} are the technical core of the proof;
+they are annotated with \texttt{\textbackslash lean} in the source
+repository and are all \texttt{\textbackslash leanok}.
+
+\section{Total variation distance}\label{sec:tv}
+
+\begin{defn}[Real-valued total variation]
+\label{def:tv-dist-real}
+  \lean{MeasureTheory.tvDistReal}
+  \leanok
+For finite Borel measures $P, Q$ on $\alpha$,
+\[
+  \TV(P, Q) \;:=\; \sup_A \bigl| P(A).\mathrm{toReal} - Q(A).\mathrm{toReal} \bigr|
+\]
+where the supremum is over measurable $A \subseteq \alpha$. This is
+the \emph{half-sup} / metric convention (Billingsley, Villani),
+chosen so that Pinsker reads as
+$\TV(P,Q) \le \sqrt{\KL(P\|Q)/2}$.
+The lemmas
+\texttt{tvDistReal\_set\_nonempty} and
+\texttt{tvDistReal\_set\_bddAbove} discharge the nonemptiness and
+boundedness conditions that $\R$-valued \texttt{sSup} requires.
+\end{defn}
+
+\begin{remark}
+The repository also contains a second total-variation object,
+$\mathrm{FintypePMF.tvDistance}\,p\,q = \sum_a |p\,a - q\,a|$ (the
+$L^1$ convention, see Chapter~\ref{chap:probability}); the two
+conventions differ by a factor of $2$ on discrete supports.
+Downstream consumers should not compose them without inserting the
+factor-of-$\tfrac{1}{2}$ correction.
+\end{remark}

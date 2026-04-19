@@ -1,0 +1,64 @@
+\chapter{Introduction}\label{chap:intro}
+
+This blueprint pins every mathematical definition and headline theorem in
+\texttt{zetesis-puremath}\footnote{\url{https://github.com/Zetetic-Dhruv/zetesis-puremath}}
+to its Lean~4 declaration. The companion source is a personal pure-math
+reservoir: content needed by the author's formalization projects
+(\texttt{formal-learning-theory-kernel}, SMFE, and others) that is either
+absent from Mathlib or specialized in a way Mathlib's current formulation
+does not support directly.
+
+\section{What is formalized here}
+
+Six substrates, each with its own chapter below:
+
+\begin{itemize}
+  \item \textbf{Measure theory on Polish spaces.} Analytic sets are
+    null-measurable under finite Borel measures; Kechris 30.13
+    capacitability theorem for analytic sets;
+    real-valued metric total variation distance.
+  \item \textbf{Information theory.} Real-valued Kullback-Leibler bridge
+    to Mathlib's \texttt{ENNReal}-valued \texttt{klDiv}; binary KL with a
+    full derivative / monotonicity chain; Pinsker's inequality with the
+    sharp constant; mutual information and its zero-iff-product
+    characterization.
+  \item \textbf{Probability.} \texttt{BoundedRandomVariable} typeclass
+    with a Chebyshev-via-majority bound; double-sample /
+    \texttt{ValidSplit} / \texttt{SplitMeasure} exchangeability
+    infrastructure; \texttt{FintypePMF} (an \R-valued, \texttt{linarith}-
+    compatible specialization of Mathlib's \texttt{PMF}).
+  \item \textbf{Decision theory.} Covering-based minimax;
+    multiplicative-weights-update (MWU) in the Freund-Schapire
+    $\beta = (1-\eta)$ convention; approximate-minimax bound
+    $T = \mathcal{O}(\log N / \eps^2)$.
+  \item \textbf{Reproducing-kernel Hilbert spaces.} Kernel mean
+    embedding with the reproducing property; Maximum Mean Discrepancy
+    (MMD) and characteristic kernels; Hilbert-Schmidt Independence
+    Criterion (HSIC).
+  \item \textbf{Combinatorics.} Assouad's 1983 dual VC bound
+    $\VCdim(M^\top) \le 2^{d+1} - 1$.
+\end{itemize}
+
+\section{Verification tiers}
+
+All 114 public theorems discharge under the following tiers, all green at
+commit \texttt{471e5d5} (see
+\href{https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/test/verification/CI}{\texttt{test/verification/CI/}}):
+
+\begin{itemize}
+  \item \textbf{Tier 0}: \texttt{lake build} --- 0 errors, 0 warnings, 0
+    \texttt{sorry} in \texttt{ZPM/}.
+  \item \textbf{Tier 1}: \texttt{\#print axioms} --- 113 theorems use
+    only \texttt{propext}, \texttt{Classical.choice}, \texttt{Quot.sound};
+    the 114th (\texttt{challenge\_bnd\_subset\_cyl}) uses none.
+  \item \textbf{Tier 2}: \texttt{leanchecker --fresh} per module (GitHub
+    Actions \texttt{workflow\_dispatch}).
+  \item \textbf{Tier 3}: \texttt{comparator} + Landlock sandbox on
+    GitLab CI; \emph{``Lean default kernel accepts the solution. Your
+    solution is okay!''} (pipeline \#2463996501, duration 36 min).
+\end{itemize}
+
+Every statement in this blueprint carries a \texttt{\textbackslash lean\{...\}}
+annotation linking to the Lean declaration; where the full proof is in
+the source, \texttt{\textbackslash leanok} marks the entry as formally
+verified.

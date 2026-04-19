@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>zetesis-puremath</title>
+  <meta name="description" content="A personal pure-mathematics reservoir in Lean 4: analytic measurability, information theory, concentration, minimax, kernel embeddings, and dual VC. 114 theorems, zero sorry, four-tier verified.">
+  <style>
+    :root {
+      --text: #1a1a1a;
+      --muted: #555;
+      --accent: #0b4f8b;
+      --accent-hover: #083a66;
+      --rule: #e4e4e4;
+      --bg: #fafafa;
+      --card: #ffffff;
+      --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.55;
+      max-width: 50rem;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 4rem;
+      font-size: 16px;
+    }
+    header { border-bottom: 1px solid var(--rule); padding-bottom: 1.5rem; margin-bottom: 1.75rem; }
+    h1 { font-size: 2rem; margin: 0 0 0.45rem; letter-spacing: -0.015em; font-weight: 600; line-height: 1.2; }
+    .tagline { color: var(--muted); margin: 0 0 1.1rem; font-size: 1.05rem; line-height: 1.45; }
+    .badges { margin: 0 0 1rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+    .badges img { vertical-align: middle; height: 20px; }
+    .badges a { display: inline-flex; }
+    .stats { font-family: var(--mono); font-size: 0.82rem; color: var(--muted); margin: 0; line-height: 1.6; }
+    .stats code { font-family: var(--mono); color: var(--text); background: var(--card); padding: 0.08em 0.32em; border: 1px solid var(--rule); border-radius: 3px; }
+    h2 { font-size: 1.2rem; margin: 2.2rem 0 0.85rem; letter-spacing: -0.005em; font-weight: 600; }
+    p { margin: 0 0 1rem; }
+    p.lead { font-size: 1.04rem; margin-top: 0; }
+    ul { margin: 0 0 1rem; padding-left: 1.3rem; }
+    li { margin-bottom: 0.45rem; }
+    a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 2px; }
+    a:hover { color: var(--accent-hover); text-decoration-thickness: 2px; }
+    code { font-family: var(--mono); font-size: 0.9em; background: var(--card); padding: 0.08em 0.32em; border: 1px solid var(--rule); border-radius: 3px; }
+    .links { display: flex; flex-direction: column; gap: 0.5rem; }
+    .link-row { display: flex; align-items: baseline; padding: 0.5rem 0; border-top: 1px solid var(--rule); text-decoration: none; color: var(--text); }
+    .link-row:hover { background: var(--card); }
+    .link-row .label { color: var(--accent); font-weight: 600; min-width: 11rem; flex-shrink: 0; font-size: 0.96rem; }
+    .link-row .desc { color: var(--muted); font-size: 0.92rem; }
+    footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.88rem; }
+    @media (max-width: 42rem) { body { padding: 1.5rem 1rem 3rem; font-size: 15px; } h1 { font-size: 1.6rem; } .tagline { font-size: 0.98rem; } .link-row .label { min-width: auto; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>zetesis-puremath</h1>
+    <p class="tagline">
+      A personal pure-mathematics reservoir in Lean 4: analytic measurability,
+      information theory, concentration, minimax, kernel embeddings, and dual VC.
+    </p>
+    <p class="badges">
+      <a href="https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/ci.yml" aria-label="CI status">
+        <img src="https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/ci.yml/badge.svg" alt="CI status">
+      </a>
+      <a href="https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/lean4checker.yml" aria-label="lean4checker status">
+        <img src="https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/lean4checker.yml/badge.svg" alt="lean4checker status">
+      </a>
+      <a href="https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/docs.yml" aria-label="Docs build status">
+        <img src="https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/docs.yml/badge.svg" alt="Docs build status">
+      </a>
+      <a href="https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification/-/pipelines" aria-label="Comparator status">
+        <img src="https://img.shields.io/badge/comparator-PASS-brightgreen" alt="comparator PASS">
+      </a>
+      <a href="https://github.com/leanprover/lean4/releases/tag/v4.30.0-rc6" aria-label="Lean version">
+        <img src="https://img.shields.io/badge/Lean-v4.30.0--rc2-blue" alt="Lean v4.30.0-rc2">
+      </a>
+      <img src="https://img.shields.io/badge/sorry-0-brightgreen" alt="Zero sorry declarations">
+    </p>
+    <p class="stats">
+      114 theorems &middot; 3-axiom closure (<code>propext</code>, <code>Quot.sound</code>, <code>Classical.choice</code>) &middot;
+      mathlib4 <code>2c53994</code>
+    </p>
+  </header>
+
+  <section>
+    <p class="lead">
+      A collection of pure-mathematics results I have needed in my formalization
+      projects (the
+      <a href="https://github.com/Zetetic-Dhruv/formal-learning-theory-kernel">formal-learning-theory-kernel</a>,
+      SMFE, and others) that are absent from Mathlib or specialized in a way
+      Mathlib's current formulation does not support directly. Every declaration
+      is proved in Lean 4. Zero <code>sorry</code>. Only the standard Lean kernel
+      axioms appear in the axiom closure.
+    </p>
+  </section>
+
+  <section>
+    <h2>Navigate</h2>
+    <div class="links">
+      <a class="link-row" href="./blueprint/">
+        <span class="label">Mathematical blueprint</span>
+        <span class="desc">Definitions and crown theorems, with clickable cross-references into the Lean source. Also available as PDF at <code>/blueprint.pdf</code>.</span>
+      </a>
+      <a class="link-row" href="./docs/">
+        <span class="label">API documentation</span>
+        <span class="desc">Per-module doc-gen4 reference with Mathlib cross-links and per-declaration docstrings.</span>
+      </a>
+      <a class="link-row" href="https://github.com/Zetetic-Dhruv/zetesis-puremath#readme">
+        <span class="label">Project README</span>
+        <span class="desc">Charter, area table, duplicate policy, dependency pin.</span>
+      </a>
+      <a class="link-row" href="https://github.com/Zetetic-Dhruv/zetesis-puremath/blob/main/Verification/RED_TEAM_AUDIT.md">
+        <span class="label">Red-team audit</span>
+        <span class="desc">Consolidated audit of all 114 theorems across six clusters (premise quality, definition alignment with literature, Mathlib overlap, sufficiency, generalizability).</span>
+      </a>
+      <a class="link-row" href="https://github.com/Zetetic-Dhruv/zetesis-puremath">
+        <span class="label">Source repository</span>
+        <span class="desc">GitHub, Apache 2.0.</span>
+      </a>
+      <a class="link-row" href="https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification">
+        <span class="label">Tier 3 comparator</span>
+        <span class="desc">GitLab CI pipeline running <code>lean4export</code> + <code>comparator</code> + Landlock sandbox for adversarial solution checking.</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <h2>What is in here</h2>
+    <ul>
+      <li>Analytic sets are <code>NullMeasurableSet</code> under finite Borel measures on Polish spaces; Kechris 30.13 (capacitability for analytic sets).</li>
+      <li>&#8477;-valued metric total variation distance with nonempty/bounded set-lemmas.</li>
+      <li>Binary KL with full derivative/monotonicity chain; Pinsker's inequality with the sharp constant; &#8477;-valued mutual information with zero-iff-product.</li>
+      <li>Chebyshev-via-majority concentration bound; <code>FintypePMF</code> with <code>linarith</code>-compatible arithmetic and a bridge to <code>Mathlib.PMF</code>.</li>
+      <li>Multiplicative-weights-update (MWU) approximate minimax with <code>T = O(log N / &epsilon;&sup2;)</code>.</li>
+      <li>Kernel mean embedding of a measure into an RKHS; Maximum Mean Discrepancy and <code>IsCharacteristic</code>; Hilbert-Schmidt Independence Criterion.</li>
+      <li>Assouad's dual VC bound <code>VCdim(M&#7488;) &le; 2^(d+1) &minus; 1</code> for binary matrices.</li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>
+      Author: Dhruv Gupta. Source licensed under
+      <a href="https://github.com/Zetetic-Dhruv/zetesis-puremath/blob/main/LICENSE">Apache 2.0</a>.
+    </p>
+  </footer>
+</body>
+</html>

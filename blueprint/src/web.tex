@@ -1,0 +1,41 @@
+% Web master for the zetesis-puremath blueprint.
+% Rendered by plastex with the leanblueprint plugin into static HTML.
+
+\documentclass{report}
+
+\usepackage{amsmath, amsfonts, amsthm, amssymb, mathtools}
+\usepackage{stmaryrd}
+\usepackage{bm}
+\usepackage{thmtools}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{enumitem}
+\usepackage{booktabs}
+\usepackage[capitalize]{cleveref}
+\usepackage[showmore, dep_graph, project=../../]{blueprint}
+
+\input{preamble/common}
+\input{preamble/web}
+
+\home{https://zetetic-dhruv.github.io/zetesis-puremath/}
+\github{https://github.com/Zetetic-Dhruv/zetesis-puremath}
+\dochome{https://zetetic-dhruv.github.io/zetesis-puremath/docs}
+
+\title{zetesis-puremath Blueprint}
+\author{Dhruv Gupta}
+
+\begin{document}
+\maketitle
+
+\input{chapters/ch00_intro}
+\input{chapters/ch01_measure}
+\input{chapters/ch02_information}
+\input{chapters/ch03_probability}
+\input{chapters/ch04_decision}
+\input{chapters/ch05_rkhs}
+\input{chapters/ch06_combinatorics}
+
+\bibliographystyle{alpha}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,113 @@
+\chapter{Information theory}\label{chap:information}
+
+\section{Real-valued KL bridge}\label{sec:kl-real}
+
+\begin{defn}[Real-valued KL]
+\label{def:kl-div-real}
+  \lean{InformationTheory.klDivReal}
+  \leanok
+For measures $P, Q$ on a measurable space, set
+\[
+  \KL_\R(P, Q) \;:=\;
+  \begin{cases}
+    \int \log \tfrac{\mathrm{d}P}{\mathrm{d}Q}\,\mathrm{d}P & \text{if $P \ll Q$,}\\
+    0 & \text{otherwise.}
+  \end{cases}
+\]
+This bridges Mathlib's \texttt{ENNReal}-valued \texttt{klDiv} to $\R$
+for \texttt{linarith}-compatible arithmetic; the identity
+$\KL_\R(P,Q) = (\KL(P,Q)).\mathrm{toReal}$ holds unconditionally
+(\texttt{klDivReal\_eq\_toReal\_klDiv}).
+\end{defn}
+
+\begin{thm}[Non-negativity]
+\label{thm:kl-real-nonneg}
+  \lean{InformationTheory.klDivReal\_nonneg}
+  \leanok
+$\KL_\R(P, Q) \ge 0$ for all measures (Gibbs' inequality).
+\end{thm}
+
+\begin{thm}[Zero iff equal, under finiteness]
+\label{thm:kl-real-zero-iff}
+  \lean{InformationTheory.klDivReal\_eq\_zero\_iff}
+  \leanok
+If $P \ll Q$, $\KL(P, Q) \ne \infty$, and both are finite measures, then
+$\KL_\R(P, Q) = 0 \iff P = Q$ \cite[Thm 2.6.3]{cover-thomas}.
+\end{thm}
+
+\section{Binary KL and Pinsker's inequality}\label{sec:binary-kl}
+
+\begin{defn}[Binary KL]
+\label{def:kl-bin}
+  \lean{InformationTheory.klBin}
+  \leanok
+For $p, q \in [0, 1]$,
+\[
+  \KL_\mathrm{bin}(p, q) \;:=\; p \log \tfrac{p}{q} + (1-p) \log \tfrac{1-p}{1-q}
+\]
+with the convention $0 \cdot \log(0/\cdot) = 0$.
+\end{defn}
+
+\begin{lemma}[Derivative in $q$]
+\label{lem:deriv-kl-bin}
+  \lean{InformationTheory.hasDerivAt\_klBin\_q}
+  \leanok
+For $q \in (0, 1)$,
+$\partial_q \KL_\mathrm{bin}(p, q) = (q - p) / (q (1 - q))$.
+\end{lemma}
+
+\begin{thm}[Binary Pinsker, sharp constant $2$]
+\label{thm:binary-pinsker}
+  \lean{InformationTheory.binary\_pinsker}
+  \leanok
+  \uses{def:kl-bin, lem:deriv-kl-bin}
+For $p \in [0, 1]$ and $q \in (0, 1)$,
+$2 (p - q)^2 \;\le\; \KL_\mathrm{bin}(p, q)$.
+\end{thm}
+
+\begin{thm}[Pinsker's inequality]
+\label{thm:pinsker}
+  \lean{InformationTheory.pinsker\_proof}
+  \leanok
+  \uses{thm:binary-pinsker, def:tv-dist-real, def:kl-div-real}
+For probability measures $P \ll Q$ with $\KL(P,Q) < \infty$,
+\[
+  \TV(P, Q) \;\le\; \sqrt{\KL_\R(P, Q) / 2}
+\]
+\cite[Thm 11.6.1]{cover-thomas}.
+The convention matches
+Definition~\ref{def:tv-dist-real} (half-sup TV);
+with the $L^1$ convention the bound reads
+$\| P - Q \|_1 \le \sqrt{2\,\KL}$.
+\end{thm}
+
+\begin{thm}[Binary-to-general coarsening]
+\label{thm:kl-bin-le-kl}
+  \lean{InformationTheory.klBin\_le\_klDivReal}
+  \leanok
+  \uses{def:kl-bin, def:kl-div-real}
+For every measurable $A$ with $P(A) = p$, $Q(A) = q$,
+$\KL_\mathrm{bin}(p, q) \le \KL_\R(P, Q)$. This is
+the two-point data-processing inequality and is the step linking the
+binary Pinsker to the general measure-theoretic Pinsker.
+\end{thm}
+
+\section{Mutual information}\label{sec:mi}
+
+\begin{defn}[Real-valued mutual information]
+\label{def:mi-real}
+  \lean{InformationTheory.mutualInformationReal}
+  \leanok
+For a probability measure $P$ on $X \times Y$ with marginals
+$P_X, P_Y$,
+$\MI_\R(P) \;:=\; \KL_\R(P, P_X \otimes P_Y)$.
+\end{defn}
+
+\begin{thm}[Non-negativity and independence]
+\label{thm:mi-zero-iff}
+  \lean{InformationTheory.mutualInformationReal\_nonneg, InformationTheory.mutualInformationReal\_eq\_zero\_iff\_product}
+  \leanok
+  \uses{def:mi-real}
+$\MI_\R(P) \ge 0$; under $P \ll P_X \otimes P_Y$ and finiteness,
+$\MI_\R(P) = 0 \iff P = P_X \otimes P_Y$.
+\end{thm}

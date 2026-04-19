@@ -1,0 +1,107 @@
+\chapter{Probability}\label{chap:probability}
+
+\section{Bounded random variables + concentration}\label{sec:concentration}
+
+\begin{defn}[Bounded random variable]
+\label{def:bounded-rv}
+  \lean{ProbabilityTheory.BoundedRandomVariable}
+  \leanok
+$f : \Omega \to \R$ is \emph{bounded} in $[a, b]$ under $\mu$ iff
+$f$ is measurable and $f(\omega) \in [a, b]$ for $\mu$-almost every
+$\omega$.
+\end{defn}
+
+\begin{thm}[Chebyshev majority bound]
+\label{thm:chebyshev-majority}
+  \lean{ProbabilityTheory.chebyshev\_majority\_bound}
+  \leanok
+  \uses{def:bounded-rv}
+Let $X_1, \dots, X_k$ be independent random variables with each
+$\mu(A_j) \ge 2/3$ where $A_j = \{ X_j = \text{correct} \}$. Then for
+$k \ge 9 / \delta$, the probability that a majority of the $X_j$ is
+correct is at least $1 - \delta$. Proof via Popoviciu's variance
+bound + Chebyshev's inequality \cite[\S2]{boucheron2013concentration}.
+\end{thm}
+
+\section{Exchangeability and double-sample}\label{sec:exchangeability}
+
+\begin{defn}[Sample bundle]
+\label{def:sample-bundle}
+  \lean{ProbabilityTheory.ExchangeableSample}
+  \leanok
+A bundle $\langle m, \mu, \mathrm{IsProbabilityMeasure}\,\mu \rangle$
+where $m \in \N$ is the sample size and $\mu$ is a probability measure
+on the sample space. Used with the product measure
+$\mu^{\otimes 2m}$ as the natural exchangeable double-sample domain.
+\end{defn}
+
+\begin{defn}[Valid split]
+\label{def:valid-split}
+  \lean{ProbabilityTheory.ValidSplit}
+  \leanok
+$s : \mathrm{Fin}(2m) \to \mathrm{Bool}$ is a \emph{valid split} iff
+exactly $m$ of its values are \texttt{true}. There are
+$\binom{2m}{m}$ valid splits (Vapnik-Chervonenkis double-sample
+\cite{vapnik1971}).
+\end{defn}
+
+\begin{defn}[Uniform split measure]
+\label{def:split-measure}
+  \lean{ProbabilityTheory.SplitMeasure}
+  \leanok
+  \uses{def:valid-split}
+The uniform probability measure on the set of valid splits. This is
+the symmetrization measure for the double-sample trick.
+\end{defn}
+
+\section{Finite-type PMF}\label{sec:fintype-pmf}
+
+\begin{defn}[Real-valued fintype PMF]
+\label{def:fintype-pmf}
+  \lean{ProbabilityTheory.FintypePMF}
+  \leanok
+For a fintype $\alpha$, a \texttt{FintypePMF}~$\alpha$ is a pair
+$\langle p, h_{\ge 0}, h_{\sum = 1} \rangle$ where $p : \alpha \to \R$,
+$p \ge 0$ pointwise, and $\sum_{a : \alpha} p(a) = 1$. This is an
+$\R$-valued, \texttt{linarith}-compatible specialization of Mathlib's
+$\R_{\ge 0}^\infty$-valued \texttt{PMF} \cite[\S4]{boucheron2013concentration}.
+\end{defn}
+
+\begin{thm}[Bridge to Mathlib PMF]
+\label{thm:fintype-pmf-bridge}
+  \lean{ProbabilityTheory.FintypePMF.toPMF\_apply}
+  \leanok
+  \uses{def:fintype-pmf}
+The map $\mathrm{toPMF} : \mathrm{FintypePMF}\,\alpha \to \mathrm{PMF}\,\alpha$
+satisfies $(\mathrm{toPMF}\,p)(a) = \mathrm{ENNReal.ofReal}(p.\mathrm{prob}\,a)$,
+which is lossless on valid FintypePMF inputs.
+\end{thm}
+
+\begin{defn}[$L^1$ TV distance]
+\label{def:tv-distance-fintype}
+  \lean{ProbabilityTheory.FintypePMF.tvDistance}
+  \leanok
+$\mathrm{tvDistance}\,p\,q \;:=\; \sum_{a : \alpha} | p(a) - q(a) |$.
+This is the \emph{full $L^1$} convention, not the half-sup TV of
+Definition~\ref{def:tv-dist-real}; on discrete supports they differ
+by a factor of $2$.
+\end{defn}
+
+\begin{thm}[Basic properties]
+\label{thm:tv-distance-props}
+  \lean{ProbabilityTheory.FintypePMF.tvDistance\_nonneg, ProbabilityTheory.FintypePMF.tvDistance\_comm, ProbabilityTheory.FintypePMF.tvDistance\_self}
+  \leanok
+  \uses{def:tv-distance-fintype}
+$\mathrm{tvDistance}$ is non-negative, symmetric, and $0$ on
+$p = q$.
+\end{thm}
+
+\begin{thm}[Transfer principle]
+\label{thm:tv-transfer}
+  \lean{ProbabilityTheory.FintypePMF.expectation\_approx\_of\_tv}
+  \leanok
+  \uses{def:tv-distance-fintype}
+For Boolean-valued $f$,
+$\bigl| \E_p[f] - \E_q[f] \bigr| \;\le\; \mathrm{tvDistance}(p, q)$.
+In the half-sup TV convention this would read $\le 2 \cdot \TV(p, q)$.
+\end{thm}

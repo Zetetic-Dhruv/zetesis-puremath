@@ -1,0 +1,105 @@
+\chapter{Decision theory: minimax and MWU}\label{chap:decision}
+
+\section{Boolean-matrix zero-sum games}\label{sec:bool-game}
+
+\begin{defn}[Boolean-matrix payoff]
+\label{def:bool-game-payoff}
+  \lean{ProbabilityTheory.boolGamePayoff}
+  \leanok
+For a Boolean matrix $M : R \to C \to \mathrm{Bool}$, a row
+distribution $p : \mathrm{FintypePMF}\,R$, and a pure column
+$c : C$,
+\[
+  \mathrm{boolGamePayoff}\,M\,p\,c \;:=\; \sum_{r : R} p(r) \cdot [M\,r\,c].
+\]
+This is the expected $\{0, 1\}$-gain of the row player, against a
+pure column play, in the matrix game $M$ \cite{freund1999games}.
+\end{defn}
+
+\begin{thm}[One-sided minimax sanity]
+\label{thm:minimax-value-le-one}
+  \lean{ProbabilityTheory.minimax\_value\_le\_one}
+  \leanok
+  \uses{def:bool-game-payoff}
+If the row player can guarantee value $v$ against every mixed
+column (the \texttt{hrow} hypothesis), then $v \le 1$.
+\end{thm}
+
+\section{Multiplicative weights update}\label{sec:mwu}
+
+\begin{defn}[MWU config]
+\label{def:mwu-config}
+  \lean{ProbabilityTheory.MWUConfig}
+  \leanok
+An \texttt{MWUConfig}~$C$ is a pair $\langle w, h_{>0} \rangle$ where
+$w : C \to \R$ is the strictly positive weight vector. The
+\emph{potential} is $\Phi(w) := \sum_c w(c)$, the \emph{induced PMF}
+is $\mathrm{toPMF}(w)(c) := w(c) / \Phi(w)$
+\cite[Thm 2.1]{arora2012multiplicative}.
+\end{defn}
+
+\begin{defn}[Update and closed-form]
+\label{def:mwu-update}
+  \lean{ProbabilityTheory.mwuUpdateWeights}
+  \leanok
+  \uses{def:mwu-config}
+Given a row $r : R$ and step size $\eta < 1$, the update is
+$w'(c) := w(c) \cdot (1 - \eta)$ if $M\,r\,c = \mathrm{true}$, else
+$w'(c) := w(c)$. This is the Freund-Schapire
+$\beta = (1 - \eta)$ Hedge convention \cite{freund1997}.
+The closed form
+\[
+  w_T(c) \;=\; w_0(c) \cdot (1 - \eta)^{\mathrm{hitCount}_T(c)}
+\]
+is Theorem \texttt{mwu\_weight\_eq\_pow\_hitCount}.
+\end{defn}
+
+\begin{thm}[One-step potential bound]
+\label{thm:potential-one-step}
+  \lean{ProbabilityTheory.potential\_one\_step\_bound}
+  \leanok
+  \uses{def:mwu-config, def:mwu-update}
+If the row player can guarantee value $v$ against every mixed column
+and $0 \le \eta < 1$, then after one MWU step
+$\Phi_{t+1} \le \Phi_t \cdot (1 - \eta v)$.
+\end{thm}
+
+\begin{thm}[$T$-step potential bound]
+\label{thm:potential-T-bound}
+  \lean{ProbabilityTheory.mwu\_potential\_T\_bound}
+  \leanok
+  \uses{thm:potential-one-step}
+Induction gives $\Phi_T \;\le\; |C| \cdot (1 - \eta v)^T$.
+\end{thm}
+
+\section{Approximate minimax}\label{sec:approx-minimax}
+
+\begin{thm}[Approximate minimax via MWU]
+\label{thm:mwu-approx-minimax}
+  \lean{ProbabilityTheory.mwu\_approx\_minimax}
+  \leanok
+  \uses{thm:potential-T-bound}
+Fix $\eps > 0$, set $\eta = \eps/4$ and
+$T = \max\{1, \lceil 16 \log N / \eps^2 \rceil \}$ where $N = |C|$.
+If the row player can guarantee value $v$ against every mixed
+column, then the empirical row mixture produced by $T$ rounds of MWU
+achieves
+\[
+  v - \eps \;\le\; \mathrm{boolGamePayoff}\,M\,p\,c
+  \qquad\text{for every pure $c \in C$.}
+\]
+This is the Freund-Schapire constructive minimax
+\cite[Thm 3]{freund1999games}; \cite[\S3.1]{arora2012multiplicative}
+unifies this with general online learning.
+\end{thm}
+
+\begin{thm}[Covering-based minimax (existential)]
+\label{thm:covering-minimax}
+  \lean{ProbabilityTheory.covering\_minimax, ProbabilityTheory.finite\_approx\_minimax}
+  \leanok
+An existence counterpart to Theorem~\ref{thm:mwu-approx-minimax}: given
+the same row-guarantees hypothesis, there is a mixed-row PMF with
+payoff at least $1 / |C|$ against every pure column. This gives
+$v - \eps \le 1/|C|$ under a feasibility side-condition and is the
+logical dual of the quantitative MWU bound.
+\end{thm}

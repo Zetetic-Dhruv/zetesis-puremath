@@ -1,0 +1,135 @@
+name: Blueprint
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'blueprint/src/**'
+      - 'docs/index.html'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      # ---------------------------------------------------------------
+      # PDF build (pdflatex)
+      # ---------------------------------------------------------------
+      - name: Build blueprint PDF
+        uses: xu-cheng/texlive-action@v2
+        with:
+          docker_image: ghcr.io/xu-cheng/texlive-full:latest
+          run: |
+            cd blueprint/src
+            mkdir -p ../print
+            cp references.bib ../print/
+            pdflatex -output-directory=../print -interaction=nonstopmode print.tex || true
+            cd ../print
+            bibtex print || echo "bibtex failed, citations will show as [?]"
+            cd ../src
+            pdflatex -output-directory=../print -interaction=nonstopmode print.tex || true
+            pdflatex -output-directory=../print -interaction=nonstopmode print.tex || true
+            test -f ../print/print.pdf || (echo "PDF build failed" && exit 1)
+
+      # ---------------------------------------------------------------
+      # HTML build (plastex via leanblueprint)
+      # ---------------------------------------------------------------
+      - name: Install leanblueprint
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y graphviz libgraphviz-dev pkg-config
+          python3 -m venv $HOME/blueprint-venv
+          $HOME/blueprint-venv/bin/pip install --upgrade pip wheel
+          $HOME/blueprint-venv/bin/pip install invoke leanblueprint pygraphviz
+          echo "$HOME/blueprint-venv/bin" >> "$GITHUB_PATH"
+
+      - name: Flatten chapter files for plastex
+        run: |
+          cd blueprint/src
+          for f in chapters/*.tex; do
+            ln -sf "$f" "$(basename $f)"
+          done
+          for f in preamble/*.tex; do
+            ln -sf "$f" "$(basename $f)"
+          done
+          cat > web_flat.tex << 'FLATEOF'
+          \documentclass{report}
+          \usepackage{amsmath, amsfonts, amsthm, amssymb, mathtools}
+          \usepackage{stmaryrd}
+          \usepackage{bm}
+          \usepackage{thmtools}
+          \usepackage{hyperref}
+          \usepackage{graphicx}
+          \usepackage{enumitem}
+          \usepackage{booktabs}
+          \usepackage[capitalize]{cleveref}
+          \usepackage[showmore, dep_graph, project=../../]{blueprint}
+          \input{common}
+          \input{web}
+          \home{https://zetetic-dhruv.github.io/zetesis-puremath/}
+          \github{https://github.com/Zetetic-Dhruv/zetesis-puremath}
+          \dochome{https://zetetic-dhruv.github.io/zetesis-puremath/docs}
+          \title{zetesis-puremath Blueprint}
+          \author{Dhruv Gupta}
+          \begin{document}
+          \maketitle
+          \input{ch00_intro}
+          \input{ch01_measure}
+          \input{ch02_information}
+          \input{ch03_probability}
+          \input{ch04_decision}
+          \input{ch05_rkhs}
+          \input{ch06_combinatorics}
+          \bibliographystyle{alpha}
+          \bibliography{references}
+          \end{document}
+          FLATEOF
+
+      - name: Build blueprint web HTML
+        run: |
+          cd blueprint/src
+          plastex --renderer=HTML5 web_flat.tex || true
+          find . -name "*.html" -not -path "./.git/*" | head -20
+
+      # ---------------------------------------------------------------
+      # Deploy to gh-pages
+      # ---------------------------------------------------------------
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-deploy
+
+      - name: Deploy outputs
+        run: |
+          cp docs/index.html gh-pages-deploy/index.html
+          cp blueprint/print/print.pdf gh-pages-deploy/blueprint.pdf
+          rm -rf gh-pages-deploy/blueprint 2>/dev/null || true
+          mkdir -p gh-pages-deploy/blueprint
+          if [ -d blueprint/web ]; then
+            cp -r blueprint/web/. gh-pages-deploy/blueprint/
+          elif [ -d blueprint/src/web_flat ]; then
+            cp -r blueprint/src/web_flat/. gh-pages-deploy/blueprint/
+          fi
+          ls -la gh-pages-deploy/
+          ls -la gh-pages-deploy/blueprint/ 2>/dev/null | head -10 || true
+
+      - name: Push to gh-pages
+        working-directory: gh-pages-deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "No changes to deploy" && exit 0
+          git commit -m "Deploy blueprint from ${{ github.sha }}"
+          for i in 1 2 3; do
+            git pull --rebase origin gh-pages && git push && break
+            echo "Push attempt $i failed, retrying..."
+            sleep 5
+          done

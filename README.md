@@ -1,5 +1,8 @@
 # zetesis-puremath
 
+> **Blueprint** (definitions + crown theorems, with clickable Lean cross-refs): <https://zetetic-dhruv.github.io/zetesis-puremath/blueprint/>
+> &nbsp;&nbsp;**API docs**: <https://zetetic-dhruv.github.io/zetesis-puremath/docs/> &nbsp;&middot;&nbsp; **Landing**: <https://zetetic-dhruv.github.io/zetesis-puremath/>
+
 A personal pure-mathematics reservoir in Lean 4: pieces of mathematics I have needed in my formalization projects (the [formal-learning-theory-kernel](https://github.com/Zetetic-Dhruv/formal-learning-theory-kernel), SMFE, and others) that are absent from Mathlib, or that I have chosen to specialize in a way Mathlib's current formulation does not support directly.
 
 Every declaration in this repo is proved in Lean 4. Zero `sorry`. Only the standard Lean kernel axioms (`propext`, `Classical.choice`, `Quot.sound`) appear in the axiom closure.

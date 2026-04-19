@@ -1,0 +1,55 @@
+% PDF master for the zetesis-puremath blueprint.
+
+\documentclass[11pt,a4paper,openright]{book}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+\usepackage{amsmath,amssymb,amsthm,mathtools}
+\usepackage{thmtools}
+\usepackage{stmaryrd}
+\usepackage{bm}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{float}
+\usepackage{graphicx}
+\usepackage{booktabs}
+
+\usepackage[
+  colorlinks=true,
+  linkcolor=defblue,
+  citecolor=thmred,
+  urlcolor=edgeorange,
+  bookmarksdepth=3
+]{hyperref}
+\usepackage[capitalize]{cleveref}
+
+\input{preamble/common}
+\input{preamble/print}
+
+\title{%
+  \textbf{\Huge zetesis-puremath Blueprint}\\[0.8em]
+  \Large A Lean 4 pure-mathematics reservoir:\\
+  analytic measurability, information theory,
+  concentration, minimax,\\
+  kernel embeddings, and dual VC.
+}
+\author{Dhruv Gupta}
+\date{April 2026}
+
+\begin{document}
+\frontmatter
+\maketitle
+\tableofcontents
+
+\mainmatter
+\input{content}
+
+\backmatter
+\bibliographystyle{alpha}
+\bibliography{references}
+
+\end{document}

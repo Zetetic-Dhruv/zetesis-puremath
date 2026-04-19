@@ -1,0 +1,110 @@
+% Shared preamble for print and web versions of the zetesis-puremath blueprint.
+
+% ---------------------------------------------------------------
+% Blueprint package fallbacks (overridden by `blueprint` pkg on the web build)
+% ---------------------------------------------------------------
+\providecommand{\lean}[1]{\par{\footnotesize\textsf{Lean:~\texttt{#1}}}\par\medskip\noindent\ignorespaces}
+\providecommand{\leanok}{}
+\providecommand{\uses}[1]{}
+\providecommand{\proves}[1]{}
+\providecommand{\notready}{}
+\providecommand{\discussion}[1]{}
+\providecommand{\home}[1]{}
+\providecommand{\github}[1]{}
+\providecommand{\dochome}[1]{}
+
+% ---------------------------------------------------------------
+% Colors
+% ---------------------------------------------------------------
+\usepackage{xcolor}
+\definecolor{defblue}{RGB}{31,78,121}
+\definecolor{thmred}{RGB}{153,0,0}
+\definecolor{edgeorange}{RGB}{204,102,0}
+\definecolor{notegray}{RGB}{100,100,100}
+\definecolor{layergray}{RGB}{245,245,245}
+
+% ---------------------------------------------------------------
+% Theorem environments (chapter-wide shared numbering, like the book)
+% ---------------------------------------------------------------
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}[chapter]
+\newtheorem{notation}[defn]{Notation}
+\newtheorem{convention}[defn]{Convention}
+\newtheorem{example}[defn]{Example}
+
+\theoremstyle{plain}
+\newtheorem{thm}[defn]{Theorem}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{lemma}[defn]{Lemma}
+\newtheorem{cor}[defn]{Corollary}
+\newtheorem{claim}[defn]{Claim}
+
+\theoremstyle{remark}
+\newtheorem{remark}[defn]{Remark}
+\newtheorem{warning}[defn]{Warning}
+
+% Legacy aliases so \begin{theorem}/\begin{definition}/... still compile.
+\newenvironment{definition}[1][]{\begin{defn}[#1]}{\end{defn}}
+\newenvironment{theorem}[1][]{\begin{thm}[#1]}{\end{thm}}
+\newenvironment{proposition}[1][]{\begin{prop}[#1]}{\end{prop}}
+\newenvironment{corollary}[1][]{\begin{cor}[#1]}{\end{cor}}
+
+% ---------------------------------------------------------------
+% Math macros
+% ---------------------------------------------------------------
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\E}{\ensuremath{\mathbb{E}}}
+\providecommand{\Pr}{}
+\renewcommand{\Pr}{\ensuremath{\mathbb{P}}}
+\newcommand{\ind}{\ensuremath{\mathbf{1}}}
+\newcommand{\eps}{\varepsilon}
+
+% Information theory
+\newcommand{\KL}{\ensuremath{\mathrm{KL}}}
+\newcommand{\TV}{\ensuremath{\mathrm{TV}}}
+\newcommand{\MI}{\ensuremath{\mathrm{MI}}}
+\newcommand{\CE}{\ensuremath{\mathrm{CE}}}
+
+% RKHS
+\newcommand{\MMD}{\ensuremath{\mathrm{MMD}}}
+\newcommand{\HSIC}{\ensuremath{\mathrm{HSIC}}}
+\newcommand{\RKHS}{\ensuremath{\mathcal{H}}}
+
+% Combinatorics
+\newcommand{\VCdim}{\ensuremath{\mathrm{VCdim}}}
+
+% ---------------------------------------------------------------
+% Lean 4 code listings
+% ---------------------------------------------------------------
+\usepackage{listings}
+\lstdefinelanguage{Lean4}{
+  morekeywords={def,theorem,lemma,structure,class,instance,abbrev,
+    noncomputable,private,where,let,have,show,by,exact,apply,intro,
+    cases,rcases,simp,omega,linarith,constructor,refine,obtain,
+    induction,unfold,rw,ext,fun,if,then,else,match,with,do,return,
+    sorry,import,open,variable,section,namespace,end,set_option,
+    universe,Type,Prop,Sort,Finset,Set,Nat,Bool,true,false,Fin,
+    Measure,MeasurableSpace,MeasurableSet},
+  sensitive=true,
+  morecomment=[l]{--},
+  morecomment=[n]{/-}{-/},
+  morestring=[b]",
+}
+\lstset{
+  language=Lean4,
+  basicstyle=\ttfamily\footnotesize,
+  keywordstyle=\bfseries\color{defblue},
+  commentstyle=\itshape\color{notegray},
+  breaklines=true,
+  frame=single,
+  framerule=0.4pt,
+  rulecolor=\color{layergray},
+  backgroundcolor=\color{layergray},
+  xleftmargin=1em,
+  xrightmargin=1em,
+  aboveskip=0.8em,
+  belowskip=0.8em,
+  numbers=none,
+}

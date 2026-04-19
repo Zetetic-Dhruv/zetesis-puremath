@@ -1,0 +1,72 @@
+\chapter{Combinatorics: dual VC}\label{chap:combinatorics}
+
+\section{Binary matrix setup}\label{sec:binary-matrix}
+
+\begin{defn}[Binary matrix]
+\label{def:binary-matrix}
+  \lean{BinaryMatrix}
+  \leanok
+$\mathrm{BinaryMatrix}\,m\,n \;:=\; \mathrm{Fin}\,m \to \mathrm{Fin}\,n \to \mathrm{Bool}$.
+Type-definitionally equal to $\mathrm{Matrix}\,(\mathrm{Fin}\,m)\,(\mathrm{Fin}\,n)\,\mathrm{Bool}$.
+\end{defn}
+
+\begin{defn}[Shattering]
+\label{def:shatters}
+  \lean{BinaryMatrix.shatters, BinaryMatrix.toFinsetFamily}
+  \leanok
+  \uses{def:binary-matrix}
+For a binary matrix $M$ and $S \subseteq \mathrm{Fin}\,n$, $M$
+\emph{shatters} $S$ iff every pattern $t \subseteq S$ is realized by
+some row. The induced set family
+$\mathrm{toFinsetFamily}\,M$ consists of the true-supports of the rows
+of $M$ \cite{vapnik1971,sauer1972}.
+\end{defn}
+
+\begin{thm}[Consistency with \texttt{Finset.Shatters}]
+\label{thm:shatters-iff}
+  \lean{BinaryMatrix.shatters\_iff}
+  \leanok
+  \uses{def:shatters}
+$M$ shatters $S \iff \mathrm{toFinsetFamily}\,M$ shatters $S$ in
+Mathlib's sense.
+\end{thm}
+
+\section{Sauer-Shelah corollary}\label{sec:sauer-shelah}
+
+\begin{thm}[Cardinality of the induced family]
+\label{thm:card-toFinsetFamily-le}
+  \lean{BinaryMatrix.card\_toFinsetFamily\_le}
+  \leanok
+  \uses{def:shatters}
+If $\VCdim(\mathrm{toFinsetFamily}\,M) \le d$ then
+$|\mathrm{toFinsetFamily}\,M| \le \sum_{k = 0}^{d} \binom{n}{k}$.
+This is the Sauer-Shelah bound \cite{sauer1972,vapnik1971} routed
+through Mathlib's
+\texttt{Finset.card\_shatterer\_le\_sum\_vcDim}
+(Pajor + Sauer-Shelah) into the matrix setting.
+\end{thm}
+
+\section{Assouad's dual VC bound}\label{sec:assouad-dual-vc}
+
+\begin{lemma}[Dual-to-primal shattering coding]
+\label{lem:transpose-shatters-imp-shatters}
+  \lean{BinaryMatrix.transpose\_shatters\_imp\_shatters}
+  \leanok
+  \uses{def:shatters}
+If $M^\top$ shatters $S \subseteq \mathrm{Fin}\,m$ with $|S| \ge 2^{d+1}$,
+then $M$ shatters some $T \subseteq \mathrm{Fin}\,n$ with $|T| = d + 1$.
+Proof by a bitstring-coding argument: over $(d+1)$-bit patterns on $S$,
+each pattern must be realized by a distinct column, giving $d + 1$
+distinguishing columns that $M$ shatters
+\cite[Thm~2.13]{assouad1983}.
+\end{lemma}
+
+\begin{thm}[Assouad's bound: $\VCdim(M^\top) \le 2^{d+1} - 1$]
+\label{thm:assouad}
+  \lean{BinaryMatrix.assouad\_transpose\_vcDim}
+  \leanok
+  \uses{lem:transpose-shatters-imp-shatters}
+If $\VCdim(M) \le d$ then $\VCdim(M^\top) \le 2^{d+1} - 1$
+\cite[Thm~2.13]{assouad1983}. The bound is tight at small $d$; no
+strengthening is known for general $d$ without additional structure.
+\end{thm}

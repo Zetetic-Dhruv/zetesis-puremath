@@ -1,0 +1,102 @@
+name: Docs
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 240
+    steps:
+      - name: Checkout main
+        uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Set toolchain
+        run: elan default "$(cat lean-toolchain)"
+
+      - name: Cache .lake
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.elan
+            .lake
+          key: lean-docs-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          restore-keys: |
+            lean-docs-
+            lean-
+
+      - name: Fetch mathlib olean cache
+        run: lake exe cache get
+
+      - name: Build ZPM
+        run: lake build ZPM
+
+      - name: Determine doc-gen4 revision
+        id: docgen
+        run: |
+          TOOLCHAIN="$(cut -f2 -d: lean-toolchain)"
+          echo "rev=$TOOLCHAIN" >> "$GITHUB_OUTPUT"
+
+      - name: Create docbuild subpackage
+        run: |
+          mkdir -p docbuild
+          cat > docbuild/lakefile.toml <<EOF
+          name = "docbuild"
+          reservoir = false
+          packagesDir = "../.lake/packages"
+
+          [[require]]
+          name = "ZPM"
+          path = "../"
+
+          [[require]]
+          scope = "leanprover"
+          name = "doc-gen4"
+          rev = "${{ steps.docgen.outputs.rev }}"
+          EOF
+
+      - name: Resolve docbuild dependencies
+        working-directory: docbuild
+        env:
+          MATHLIB_NO_CACHE_ON_UPDATE: "1"
+        run: lake update
+
+      - name: Build API documentation
+        working-directory: docbuild
+        run: lake build ZPM:docs
+
+      - name: Checkout gh-pages
+        uses: actions/checkout@v4
+        with:
+          ref: gh-pages
+          path: gh-pages-deploy
+
+      - name: Copy API docs into gh-pages tree
+        run: |
+          rm -rf gh-pages-deploy/docs
+          mkdir -p gh-pages-deploy/docs
+          cp -r docbuild/.lake/build/doc/. gh-pages-deploy/docs/
+
+          # Also copy landing page so it stays current
+          cp docs/index.html gh-pages-deploy/index.html
+
+          ls -la gh-pages-deploy/
+
+      - name: Push to gh-pages
+        working-directory: gh-pages-deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet && echo "No changes to deploy" && exit 0
+          git commit -m "Deploy docs from ${{ github.sha }}"
+          git push
