@@ -4,15 +4,15 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Dhruv Gupta
 -/
 import ZPM.Combinatorics.SetFamily.DualVC.MathlibBridge
+import ZPM.Combinatorics.SetFamily.DualVC.FinsetDual
 import ZPM.Combinatorics.SetFamily.DualVC.TransposeCoding
 
 /-!
-# Assouad's dual VC bound
+# Assouad's dual VC bound (matrix form)
 
-If a binary matrix `M` has VC dimension at most `d`, then its transpose
-has VC dimension at most `2^(d+1) - 1`. Proof by the bitstring coding
-argument (Assouad 1983): from a shattered set of size `2^(d+1)` in `Mᵀ`,
-extract `d + 1` shattered columns of `M`, contradicting `M.vcDim ≤ d`.
+Matrix-level corollary of `Finset.vcDim_dualFamily_le`: if a binary matrix
+`M` has VC dimension at most `d`, then its transpose has VC dimension at most
+`2^(d+1) - 1`.
 -/
 
 open Classical Finset
@@ -20,7 +20,8 @@ open Classical Finset
 namespace BinaryMatrix
 
 /-- **Assouad's dual VC bound (matrix form)**: `M.vcDim ≤ d` implies
-`M.transpose.vcDim ≤ 2^(d+1) - 1`. -/
+`M.transpose.vcDim ≤ 2^(d+1) - 1`. Matrix corollary of
+`Finset.vcDim_dualFamily_le`. -/
 theorem assouad_transpose_vcDim {m n : ℕ} (M : BinaryMatrix m n)
     {d : ℕ} (hd : M.vcDim ≤ d) :
     M.transpose.vcDim ≤ 2 ^ (d + 1) - 1 := by

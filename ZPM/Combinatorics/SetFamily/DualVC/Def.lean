@@ -16,6 +16,18 @@ and VC dimension via Mathlib's `Finset.vcDim`.
 
 open Classical Finset
 
+namespace Finset
+variable {α : Type*} [DecidableEq α]
+
+/-- The **dual family** of a family of sets: for each element `x` of the ground set `X`,
+the subfamily `{A ∈ 𝒜 : x ∈ A}`. This is Assouad's dual construction (Assouad 1983,
+*Densité et dimension*, Ann. Inst. Fourier **33** (3), Thm 2.13). -/
+def dualFamily (𝒜 : Finset (Finset α)) (X : Finset α) :
+    Finset (Finset (Finset α)) :=
+  X.image (fun x => 𝒜.filter (fun A => x ∈ A))
+
+end Finset
+
 /-- An `m × n` binary matrix, represented as `Fin m → Fin n → Bool`. -/
 abbrev BinaryMatrix (m n : ℕ) := Fin m → Fin n → Bool
 

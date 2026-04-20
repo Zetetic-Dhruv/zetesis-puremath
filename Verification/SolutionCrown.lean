@@ -175,6 +175,35 @@ theorem challenge_BoundedKernel_norm_kerFun_le : ∀ {H : Type u_1} {inst : Norm
           x)
         (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne))))
     (@BoundedKernel.bound.{u_1, u_2} H inst inst_1 inst_2 X inst_3 self) := @BoundedKernel.norm_kerFun_le
+theorem challenge_Finset_dualFamily_shatters_imp_shatters : ∀ {α : Type u_1} [inst : DecidableEq.{u_1 + 1} α] (𝒜 : Finset.{u_1} (Finset.{u_1} α)) (X : Finset.{u_1} α)
+  (S : Finset.{u_1} (Finset.{u_1} α)),
+  @Finset.Shatters.{u_1} (Finset.{u_1} α) (fun (a b : Finset.{u_1} α) => @Finset.decidableEq.{u_1} α inst a b)
+      (@Finset.dualFamily.{u_1} α inst 𝒜 X) S →
+    ∀ {d : Nat},
+      @LE.le.{0} Nat instLENat
+          (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+            (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+            (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+              (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+          (@Finset.card.{u_1} (Finset.{u_1} α) S) →
+        @Exists.{u_1 + 1} (Finset.{u_1} α) fun (T : Finset.{u_1} α) =>
+          And (@HasSubset.Subset.{u_1} (Finset.{u_1} α) (@Finset.instHasSubset.{u_1} α) T X)
+            (And
+              (@Eq.{1} Nat (@Finset.card.{u_1} α T)
+                (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+                  (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+              (@Finset.Shatters.{u_1} α inst 𝒜 T)) := @Finset.dualFamily_shatters_imp_shatters
+theorem challenge_Finset_vcDim_dualFamily_le : ∀ {α : Type u_1} [inst : DecidableEq.{u_1 + 1} α] (𝒜 : Finset.{u_1} (Finset.{u_1} α)) (X : Finset.{u_1} α) {d : Nat},
+  @LE.le.{0} Nat instLENat (@Finset.vcDim.{u_1} α inst 𝒜) d →
+    @LE.le.{0} Nat instLENat
+      (@Finset.vcDim.{u_1} (Finset.{u_1} α) (fun (a b : Finset.{u_1} α) => @Finset.decidableEq.{u_1} α inst a b)
+        (@Finset.dualFamily.{u_1} α inst 𝒜 X))
+      (@HSub.hSub.{0, 0, 0} Nat Nat Nat (@instHSub.{0} Nat instSubNat)
+        (@HPow.hPow.{0, 0, 0} Nat Nat Nat (@instHPow.{0, 0} Nat Nat (@Monoid.toPow.{0} Nat Nat.instMonoid))
+          (@OfNat.ofNat.{0} Nat (nat_lit 2) (instOfNatNat (nat_lit 2)))
+          (@HAdd.hAdd.{0, 0, 0} Nat Nat Nat (@instHAdd.{0} Nat instAddNat) d
+            (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))))
+        (@OfNat.ofNat.{0} Nat (nat_lit 1) (instOfNatNat (nat_lit 1)))) := @Finset.vcDim_dualFamily_le
 theorem challenge_InformationTheory_antitoneOn_g : ∀ (p : Real),
   @LT.lt.{0} Real Real.instLT (@OfNat.ofNat.{0} Real (nat_lit 0) (@Zero.toOfNat0.{0} Real Real.instZero)) p →
     @LT.lt.{0} Real Real.instLT p (@OfNat.ofNat.{0} Real (nat_lit 1) (@One.toOfNat1.{0} Real Real.instOne)) →

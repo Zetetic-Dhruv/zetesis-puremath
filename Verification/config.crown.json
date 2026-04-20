@@ -9,6 +9,8 @@
     "challenge_BinaryMatrix_transpose_shatters_imp_shatters",
     "challenge_BoundedKernel_bound_nonneg",
     "challenge_BoundedKernel_norm_kerFun_le",
+    "challenge_Finset_dualFamily_shatters_imp_shatters",
+    "challenge_Finset_vcDim_dualFamily_le",
     "challenge_InformationTheory_antitoneOn_g",
     "challenge_InformationTheory_binary_pinsker",
     "challenge_InformationTheory_deriv_factor_nonneg",

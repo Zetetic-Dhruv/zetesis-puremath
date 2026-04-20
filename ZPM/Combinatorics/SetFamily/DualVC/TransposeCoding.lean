@@ -3,16 +3,14 @@ Copyright (c) 2026 Dhruv Gupta. All rights reserved.
 Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Dhruv Gupta
 -/
-import ZPM.Combinatorics.SetFamily.DualVC.Def
-import Mathlib.Data.Fintype.EquivFin
+import ZPM.Combinatorics.SetFamily.DualVC.MathlibBridge
+import ZPM.Combinatorics.SetFamily.DualVC.FinsetDual
 
 /-!
-# Bitstring coding: transpose-shattering implies column-shattering
+# Bitstring coding: transpose-shattering implies column-shattering (matrix corollary)
 
-Assouad's technique for the dual VC bound: if the transpose `Mᵀ` shatters a
-set `S` with `|S| ≥ 2^(d+1)`, then `M` itself shatters a column set of size
-`d + 1`. Each row is encoded as a bitstring over `d+1` distinguished
-columns, extracted via `Mᵀ`-shattering of the coordinate projections.
+Assouad's dual technique, stated in matrix form. This is now a corollary of
+`Finset.dualFamily_shatters_imp_shatters` via `toFinsetFamily`.
 -/
 
 open Classical Finset
@@ -20,89 +18,105 @@ open Classical Finset
 namespace BinaryMatrix
 
 /-- If `M.transpose` shatters `S ⊆ Fin m` with `|S| ≥ 2^(d+1)`, then `M`
-shatters some set of `d+1` columns. -/
+shatters some set of `d+1` columns. Matrix corollary of the Finset form. -/
 theorem transpose_shatters_imp_shatters {m n : ℕ} (M : BinaryMatrix m n)
     {d : ℕ} (S : Finset (Fin m)) (hS : M.transpose.shatters S)
     (hcard : 2 ^ (d + 1) ≤ S.card) :
     ∃ T : Finset (Fin n), T.card = d + 1 ∧ M.shatters T := by
-  let eS := S.equivFin
-  let eFun : (Fin (d + 1) → Bool) ≃ Fin (2 ^ (d + 1)) :=
-    Fintype.equivOfCardEq (by simp)
-  let eFin : Fin (2 ^ (d + 1)) ↪ Fin S.card := Fin.castLEEmb hcard
-  let eFinS : Fin S.card ≃ ↥S := eS.symm
-  let embed : (Fin (d + 1) → Bool) → ↥S := eFinS ∘ eFin ∘ eFun
-  have hembed_inj : Function.Injective embed := by
-    intro a b hab
-    simp only [embed, Function.comp] at hab
-    exact eFun.injective (eFin.injective (eFinS.injective hab))
-  let T_k (k : Fin (d + 1)) : Finset (Fin m) :=
-    S.filter (fun i => ∃ b : Fin (d + 1) → Bool, (embed b).val = i ∧ b k = true)
-  have hT_k_sub : ∀ k, T_k k ⊆ S := fun k => Finset.filter_subset _ _
-  have hcols : ∀ k : Fin (d + 1), ∃ c : Fin n, ∀ i ∈ S,
-      (M i c = true ↔ i ∈ T_k k) := by
-    intro k
-    obtain ⟨c, hc⟩ := hS (T_k k) (hT_k_sub k)
-    exact ⟨c, fun i hi => by
-      have := hc i hi
-      simp only [transpose] at this
-      exact this⟩
-  choose c hc using hcols
-  have hM_embed : ∀ (b : Fin (d + 1) → Bool) (k : Fin (d + 1)),
-      M (embed b).val (c k) = b k := by
-    intro b k
-    have hemb_mem : (embed b).val ∈ S := (embed b).property
-    have := (hc k (embed b).val hemb_mem).mp
-    have := (hc k (embed b).val hemb_mem).mpr
-    by_cases hbk : b k = true
-    · have hmem : (embed b).val ∈ T_k k := by
-        simp only [T_k, Finset.mem_filter]
-        exact ⟨hemb_mem, ⟨b, rfl, hbk⟩⟩
-      rw [(hc k _ hemb_mem).mpr hmem, hbk]
-    · simp only [Bool.not_eq_true] at hbk
-      have hmem : (embed b).val ∉ T_k k := by
-        simp only [T_k, Finset.mem_filter, not_and]
-        intro _
-        rintro ⟨b', hb'eq, hb'k⟩
-        have : embed b' = embed b := by
-          exact Subtype.val_injective (by rw [hb'eq])
-        have := hembed_inj this
-        rw [this] at hb'k
-        rw [hbk] at hb'k
-        exact Bool.noConfusion hb'k
-      rw [Bool.eq_false_iff.mpr (mt (hc k _ hemb_mem).mp hmem), hbk]
-  let T : Finset (Fin n) := Finset.univ.image c
-  have hc_inj : Function.Injective c := by
-    intro j k hjk
-    by_contra hjk_ne
-    let b0 : Fin (d + 1) → Bool := fun i => i == j
-    have h1 : M (embed b0).val (c j) = true := by
-      rw [hM_embed b0 j]; simp [b0]
-    have h2 : M (embed b0).val (c k) = false := by
-      rw [hM_embed b0 k]; simp only [b0]
-      cases hkj : (k == j)
-      · rfl
-      · exfalso; exact hjk_ne (beq_iff_eq.mp hkj).symm
-    rw [hjk] at h1
-    rw [h1] at h2
-    exact Bool.noConfusion h2
-  have hT_card : T.card = d + 1 := by
-    simp only [T, card_image_of_injective _ hc_inj, card_univ, Fintype.card_fin]
-  have hT_shatters : M.shatters T := by
-    intro t ht
-    let g : Fin (d + 1) → Bool := fun k => decide (c k ∈ t)
-    refine ⟨(embed g).val, fun j hj => ?_⟩
-    simp only [T] at hj
-    rw [Finset.mem_image] at hj
-    obtain ⟨k, _, rfl⟩ := hj
-    constructor
-    · intro hM
-      rw [hM_embed g k] at hM
-      simp only [g] at hM
-      rwa [decide_eq_true_eq] at hM
-    · intro hck
-      rw [hM_embed g k]
-      simp only [g]
-      rwa [decide_eq_true_eq]
-  exact ⟨T, hT_card, hT_shatters⟩
+  -- Row function: each `i : Fin m` gives `row i : Finset (Fin n)`.
+  let row : Fin m → Finset (Fin n) := fun i => Finset.univ.filter (fun j => M i j = true)
+  -- Rows are injective on `S` (distinct rows get separated by the shattering columns).
+  have hrow_inj : ∀ ⦃i₁⦄, i₁ ∈ S → ∀ ⦃i₂⦄, i₂ ∈ S → row i₁ = row i₂ → i₁ = i₂ := by
+    intro i₁ hi₁ i₂ hi₂ hrow
+    by_contra hne
+    -- Use shattering with `t := {i₁}` to separate them.
+    obtain ⟨j, hj⟩ := hS {i₁} (by simp [hi₁])
+    have h1 : M i₁ j = true := by
+      have := (hj i₁ hi₁).mpr (by simp)
+      simpa [transpose] using this
+    have h2 : M i₂ j = false := by
+      have hne' : i₂ ∉ ({i₁} : Finset (Fin m)) := by simp [Ne.symm hne]
+      have hiff := hj i₂ hi₂
+      simp only [transpose] at hiff
+      have : M i₂ j ≠ true := fun h => hne' (hiff.mp h)
+      exact Bool.eq_false_iff.mpr this
+    -- But `row i₁ = row i₂` means `M i₁ j = true ↔ M i₂ j = true`.
+    have : j ∈ row i₁ ↔ j ∈ row i₂ := by rw [hrow]
+    simp only [row, mem_filter, mem_univ, true_and] at this
+    rw [h1, h2] at this
+    exact absurd (this.mp rfl) (by decide)
+  -- Build the image family S' of rows.
+  let S' : Finset (Finset (Fin n)) := S.image row
+  -- Cardinality of S' matches S (via injectivity).
+  have hS'_card : S'.card = S.card :=
+    Finset.card_image_of_injOn (fun i hi j hj => hrow_inj hi hj)
+  have hS'_ge : 2 ^ (d + 1) ≤ S'.card := hS'_card ▸ hcard
+  -- Key: `(M.toFinsetFamily.dualFamily univ).Shatters S'`.
+  have hS'_shat : (M.toFinsetFamily.dualFamily (Finset.univ : Finset (Fin n))).Shatters S' := by
+    intro t' ht'_sub
+    -- Define `t := S.filter (fun i => row i ∈ t')`.
+    let t : Finset (Fin m) := S.filter (fun i => row i ∈ t')
+    have ht_sub : t ⊆ S := Finset.filter_subset _ _
+    -- Apply transpose-shattering on t to extract column j.
+    obtain ⟨j, hj⟩ := hS t ht_sub
+    -- Build `u := M.toFinsetFamily.filter (fun A => j ∈ A)`, which lies in the dualFamily.
+    let u : Finset (Finset (Fin n)) :=
+      M.toFinsetFamily.filter (fun A => j ∈ A)
+    refine ⟨u, ?_, ?_⟩
+    · -- u is in the dualFamily image.
+      simp only [dualFamily, mem_image, mem_univ, true_and]
+      exact ⟨j, rfl⟩
+    · -- S' ∩ u = t'.
+      ext A
+      rw [mem_inter]
+      constructor
+      · rintro ⟨hAS', hAu⟩
+        -- hAu : A ∈ u, unfold the filter
+        rw [show u = M.toFinsetFamily.filter (fun A => j ∈ A) from rfl,
+            Finset.mem_filter] at hAu
+        obtain ⟨_hAfam, hjA⟩ := hAu
+        -- A = row i for some i ∈ S.
+        simp only [S', mem_image] at hAS'
+        obtain ⟨i, hi, rfl⟩ := hAS'
+        -- From j ∈ row i: M i j = true, so by `hj`, i ∈ t.
+        have hMij : M i j = true := by
+          simp only [row, mem_filter, mem_univ, true_and] at hjA
+          exact hjA
+        have hit : i ∈ t := by
+          have hth := (hj i hi).mp
+          simp only [transpose] at hth
+          exact hth hMij
+        simp only [t, mem_filter] at hit
+        exact hit.2
+      · intro hAt'
+        -- A ∈ t' ⊆ S', so A = row i for some i ∈ S with row i ∈ t'.
+        have hAS' : A ∈ S' := ht'_sub hAt'
+        refine ⟨hAS', ?_⟩
+        rw [show u = M.toFinsetFamily.filter (fun A => j ∈ A) from rfl,
+            Finset.mem_filter]
+        refine ⟨?_, ?_⟩
+        · -- A ∈ M.toFinsetFamily
+          simp only [S', mem_image] at hAS'
+          obtain ⟨i, _, rfl⟩ := hAS'
+          simp only [toFinsetFamily, mem_image, mem_univ, true_and]
+          exact ⟨i, rfl⟩
+        · -- j ∈ A
+          simp only [S', mem_image] at hAS'
+          obtain ⟨i, hi, rfl⟩ := hAS'
+          have hit : i ∈ t := by
+            simp only [t, mem_filter]
+            exact ⟨hi, hAt'⟩
+          have hMij : M i j = true := by
+            have hth := (hj i hi).mpr
+            simp only [transpose] at hth
+            exact hth hit
+          simp only [row, mem_filter, mem_univ, true_and]
+          exact hMij
+  -- Invoke the Finset-level bitstring coding.
+  obtain ⟨T, _hTuniv, hT_card, hT_shat⟩ :=
+    Finset.dualFamily_shatters_imp_shatters M.toFinsetFamily Finset.univ S' hS'_shat hS'_ge
+  -- Translate Mathlib-shatters on M.toFinsetFamily back to M.shatters.
+  refine ⟨T, hT_card, ?_⟩
+  exact (shatters_iff M T).mpr hT_shat
 
 end BinaryMatrix

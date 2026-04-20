@@ -10,6 +10,8 @@ import Verification.SolutionCrown
 #print axioms challenge_BinaryMatrix_transpose_shatters_imp_shatters
 #print axioms challenge_BoundedKernel_bound_nonneg
 #print axioms challenge_BoundedKernel_norm_kerFun_le
+#print axioms challenge_Finset_dualFamily_shatters_imp_shatters
+#print axioms challenge_Finset_vcDim_dualFamily_le
 #print axioms challenge_InformationTheory_antitoneOn_g
 #print axioms challenge_InformationTheory_binary_pinsker
 #print axioms challenge_InformationTheory_deriv_factor_nonneg

@@ -6,5 +6,6 @@ Authors: Dhruv Gupta
 import ZPM.Combinatorics.SetFamily.DualVC.Def
 import ZPM.Combinatorics.SetFamily.DualVC.MathlibBridge
 import ZPM.Combinatorics.SetFamily.DualVC.SauerShelah
+import ZPM.Combinatorics.SetFamily.DualVC.FinsetDual
 import ZPM.Combinatorics.SetFamily.DualVC.TransposeCoding
 import ZPM.Combinatorics.SetFamily.DualVC.Assouad
