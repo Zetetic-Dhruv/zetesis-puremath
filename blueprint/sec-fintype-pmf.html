@@ -191,7 +191,14 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.toPMF_apply</span></span></small></p>
-<p>  The map \(\mathrm{toPMF} : \mathrm{FintypePMF}\, \alpha \to \mathrm{PMF}\, \alpha \) satisfies \((\mathrm{toPMF}\, p)(a) = \mathrm{ENNReal.ofReal}(p.\mathrm{prob}\, a)\), which is lossless on valid FintypePMF inputs. </p>
+<p>  The map \(\mathrm{toPMF} : \mathrm{FintypePMF}\, \alpha \to \mathrm{PMF}\, \alpha \) satisfies \((\mathrm{toPMF}\, p)(a) = \mathrm{ENNReal.ofReal}(p.\mathrm{prob}\, a)\), which is lossless on valid FintypePMF inputs <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -206,7 +213,22 @@
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance</span></span></small></p>
-<p> \(\mathrm{tvDistance}\, p\, q \; :=\;  \sum _{a : \alpha } | p(a) - q(a) |\). This is the <em>full \(L^1\)</em> convention, not the half-sup TV of Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.18</a>; on discrete supports they differ by a factor of \(2\). </p>
+<p> \(\mathrm{tvDistance}\, p\, q \; :=\;  \sum _{a : \alpha } | p(a) - q(a) |\). This is the <em>full \(L^1\)</em> convention, not the half-sup TV of Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.22</a>; on discrete supports they differ by a factor of \(2\) <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.1
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#villani2009" >24</a>
+	, 
+	Ch.
+	
+	1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -221,7 +243,14 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_nonneg</span></span></small></p>
-<p>  \(\mathrm{tvDistance}(p, q) \ge 0\). </p>
+<p>  \(\mathrm{tvDistance}(p, q) \ge 0\) <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -236,7 +265,14 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_comm</span></span></small></p>
-<p>  \(\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)\). </p>
+<p>  \(\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)\) <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -251,7 +287,14 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_self</span></span></small></p>
-<p>  \(\mathrm{tvDistance}(p, p) = 0\). </p>
+<p>  \(\mathrm{tvDistance}(p, p) = 0\) <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -266,7 +309,14 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.expectation_approx_of_tv</span></span></small></p>
-<p>  For Boolean-valued \(f\), \(\bigl| \mathbb {E}_p[f] - \mathbb {E}_q[f] \bigr| \; \le \;  \mathrm{tvDistance}(p, q)\). In the half-sup TV convention this would read \(\le 2 \cdot \mathrm{TV}(p, q)\). </p>
+<p>  For Boolean-valued \(f\), \(\bigl| \mathbb {E}_p[f] - \mathbb {E}_q[f] \bigr| \; \le \;  \mathrm{tvDistance}(p, q)\). In the half-sup TV convention this would read \(\le 2 \cdot \mathrm{TV}(p, q)\) <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.1
+	]
+</span>. </p>
 
   </div>
 </div>

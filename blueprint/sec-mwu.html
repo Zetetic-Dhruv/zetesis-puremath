@@ -213,7 +213,15 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.potential_one_step_bound</span></span></small></p>
-<p>  If the row player can guarantee value \(v\) against every mixed column and \(0 \le \eta {\lt} 1\), then after one MWU step \(\Phi _{t+1} \le \Phi _t \cdot (1 - \eta v)\). </p>
+<p>  If the row player can guarantee value \(v\) against every mixed column and \(0 \le \eta {\lt} 1\), then after one MWU step \(\Phi _{t+1} \le \Phi _t \cdot (1 - \eta v)\) <span class="cite">
+	[
+	<a href="sect0003.html#arora2012multiplicative" >3</a>
+	, 
+	Cor.
+	
+	2.2
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -228,7 +236,38 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.mwu_potential_T_bound</span></span></small></p>
-<p>  Induction gives \(\Phi _T \; \le \;  |C| \cdot (1 - \eta v)^T\). </p>
+<p>  Induction gives \(\Phi _T \; \le \;  |C| \cdot (1 - \eta v)^T\) <span class="cite">
+	[
+	<a href="sect0003.html#arora2012multiplicative" >3</a>
+	, 
+	Thm
+	
+	2.1
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mwu-weight-eq-pow-hitCount">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">5.7</span>
+    <span class="thm_thmtitle">Closed-form weight</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.mwu_weight_eq_pow_hitCount</span></span></small></p>
+<p>  \(w_T(c) = w_0(c) \cdot (1 - \eta )^{\mathrm{hitCount}_T(c)}\) <span class="cite">
+	[
+	<a href="sect0003.html#freund1997" >9</a>
+	, 
+	eq.
+	
+	(2)
+	]
+</span>. </p>
 
   </div>
 </div>

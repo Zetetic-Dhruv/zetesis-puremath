@@ -173,7 +173,23 @@
 <div class="displaymath" id="a0000000012">
   \[  \mathrm{KL}_\mathrm {bin}(p, q) \; :=\;  p \log \tfrac {p}{q} + (1-p) \log \tfrac {1-p}{1-q}  \]
 </div>
-<p> with the convention \(0 \cdot \log (0/\cdot ) = 0\). </p>
+<p> with the convention \(0 \cdot \log (0/\cdot ) = 0\) <span class="cite">
+	[
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	§
+	2.3, eq.
+	
+	(2.26)
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#polyanskiy-wu" >16</a>
+	, 
+	§
+	2.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -188,7 +204,23 @@
   <div class="lemma_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.hasDerivAt_klBin_q</span></span></small></p>
-<p> For \(q \in (0, 1)\), \(\partial _q \mathrm{KL}_\mathrm {bin}(p, q) = (q - p) / (q (1 - q))\). </p>
+<p>  For \(q \in (0, 1)\), \(\partial _q \mathrm{KL}_\mathrm {bin}(p, q) = (q - p) / (q (1 - q))\) <span class="cite">
+	[
+	<a href="sect0003.html#polyanskiy-wu" >16</a>
+	, 
+	§
+	2.1, eq.
+	
+	(2.6)
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4.4
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -203,7 +235,17 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.binary_pinsker</span></span></small></p>
-<p>  For \(p \in [0, 1]\) and \(q \in (0, 1)\), \(2 (p - q)^2 \; \le \;  \mathrm{KL}_\mathrm {bin}(p, q)\). </p>
+<p>  For \(p \in [0, 1]\) and \(q \in (0, 1)\), \(2 (p - q)^2 \; \le \;  \mathrm{KL}_\mathrm {bin}(p, q)\) <span class="cite">
+	[
+	<a href="sect0003.html#kullback1967" >15</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	Lemma 11.6.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -228,7 +270,7 @@
 	, 
 	Thm 11.6.1
 	]
-</span>. The convention matches Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.18</a> (half-sup TV); with the \(L^1\) convention the bound reads \(\|  P - Q \| _1 \le \sqrt{2\, \mathrm{KL}}\). </p>
+</span>. The convention matches Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.22</a> (half-sup TV); with the \(L^1\) convention the bound reads \(\|  P - Q \| _1 \le \sqrt{2\, \mathrm{KL}}\). </p>
 
   </div>
 </div>
@@ -243,7 +285,13 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klBin_le_klDivReal</span></span></small></p>
-<p>  For every measurable \(A\) with \(P(A) = p\), \(Q(A) = q\), \(\mathrm{KL}_\mathrm {bin}(p, q) \le \mathrm{KL}_\mathbb {R}(P, Q)\). This is the two-point data-processing inequality and is the step linking the binary Pinsker to the general measure-theoretic Pinsker. </p>
+<p>  For every measurable \(A\) with \(P(A) = p\), \(Q(A) = q\), \(\mathrm{KL}_\mathrm {bin}(p, q) \le \mathrm{KL}_\mathbb {R}(P, Q)\). This is the two-point data-processing inequality and is the step linking the binary Pinsker to the general measure-theoretic Pinsker <span class="cite">
+	[
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	Thm 2.8.1
+	]
+</span>. </p>
 
   </div>
 </div>

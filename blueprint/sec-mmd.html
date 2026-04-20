@@ -163,7 +163,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">6.6</span>
+    <span class="defn_thmlabel">6.10</span>
     <span class="defn_thmtitle">Squared MMD</span>
   </div>
   <div class="defn_thmcontent">
@@ -186,13 +186,21 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.7</span>
+    <span class="thm_thmlabel">6.11</span>
     <span class="thm_thmtitle">Non-negativity of \(\mathrm{MMD}^2\)</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_nonneg</span></span></small></p>
-<p>  \(\mathrm{MMD}^2(P, Q) \ge 0\). </p>
+<p>  \(\mathrm{MMD}^2(P, Q) \ge 0\) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Lemma
+	
+	5
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -201,13 +209,21 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.8</span>
+    <span class="thm_thmlabel">6.12</span>
     <span class="thm_thmtitle">\(\mathrm{MMD}^2\) on identical measures</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_self</span></span></small></p>
-<p>  \(\mathrm{MMD}^2(P, P) = 0\). </p>
+<p>  \(\mathrm{MMD}^2(P, P) = 0\) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Lemma
+	
+	5
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -216,13 +232,21 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.9</span>
+    <span class="thm_thmlabel">6.13</span>
     <span class="thm_thmtitle">Symmetry of \(\mathrm{MMD}^2\)</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_comm</span></span></small></p>
-<p>  \(\mathrm{MMD}^2(P, Q) = \mathrm{MMD}^2(Q, P)\). </p>
+<p>  \(\mathrm{MMD}^2(P, Q) = \mathrm{MMD}^2(Q, P)\) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Lemma
+	
+	5
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -231,7 +255,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">6.10</span>
+    <span class="defn_thmlabel">6.14</span>
     <span class="defn_thmtitle">Characteristic RKHS</span>
   </div>
   <div class="defn_thmcontent">
@@ -254,13 +278,52 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.11</span>
+    <span class="thm_thmlabel">6.15</span>
     <span class="thm_thmtitle">Zero-iff-equal under characteristic kernel</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_zero_iff</span></span></small></p>
-<p>  Under <span class="ttfamily">IsCharacteristic</span>&#160;\(\mathcal{H}\), \(\mathrm{MMD}^2(P, Q) = 0 \iff P = Q\). </p>
+<p>  Under <span class="ttfamily">IsCharacteristic</span>&#160;\(\mathcal{H}\), \(\mathrm{MMD}^2(P, Q) = 0 \iff P = Q\) <span class="cite">
+	[
+	<a href="sect0003.html#sriperumbudur2010hilbert" >20</a>
+	, 
+	Thm
+	
+	8
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Thm
+	
+	5
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mmd-eq-zero">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.16</span>
+    <span class="thm_thmtitle">Forward direction: equal measures \(\Rightarrow \) zero MMD</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_eq_zero</span></span></small></p>
+<p>  \(P = Q \Rightarrow \mathrm{MMD}^2(P, Q) = 0\) (direct consequence of \(\mu _P = \mu _Q\)) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Lemma
+	
+	5
+	]
+</span>. </p>
 
   </div>
 </div>

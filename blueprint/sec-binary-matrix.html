@@ -184,7 +184,15 @@
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">BinaryMatrix.toFinsetFamily</span></span></small></p>
-<p>  The <em>induced set family</em> of a binary matrix \(M : \mathrm{Fin}\, m \to \mathrm{Fin}\, n \to \mathrm{Bool}\) consists of the true-supports of its rows, \(\{  \{  j : M\, i\, j = \mathrm{true} \}  : i \in \mathrm{Fin}\, m \} \). </p>
+<p>  The <em>induced set family</em> of a binary matrix \(M : \mathrm{Fin}\, m \to \mathrm{Fin}\, n \to \mathrm{Bool}\) consists of the true-supports of its rows, \(\{  \{  j : M\, i\, j = \mathrm{true} \}  : i \in \mathrm{Fin}\, m \} \) <span class="cite">
+	[
+	<a href="sect0003.html#vapnik1971" >23</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#sauer1972" >17</a>
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -199,7 +207,15 @@
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">BinaryMatrix.shatters</span></span></small></p>
-<p>  For a binary matrix \(M\) and \(S \subseteq \mathrm{Fin}\, n\), \(M\) <em>shatters</em> \(S\) iff every pattern \(t \subseteq S\) is realized by some row of \(M\) (Vapnik–Chervonenkis 1971; Sauer 1972). </p>
+<p>  For a binary matrix \(M\) and \(S \subseteq \mathrm{Fin}\, n\), \(M\) <em>shatters</em> \(S\) iff every pattern \(t \subseteq S\) is realized by some row of \(M\) <span class="cite">
+	[
+	<a href="sect0003.html#vapnik1971" >23</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#sauer1972" >17</a>
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -214,7 +230,26 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">BinaryMatrix.shatters_iff</span></span></small></p>
-<p>  \(M\) shatters \(S \iff \mathrm{toFinsetFamily}\, M\) shatters \(S\) in Mathlib’s sense. </p>
+<p>  \(M\) shatters \(S \iff \mathrm{toFinsetFamily}\, M\) shatters \(S\) in Mathlib’s sense <span class="cite">
+	[
+	<a href="sect0003.html#sauer1972" >17</a>
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:bool-fun-eq-of-filter-eq">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">7.5</span>
+    <span class="lemma_thmtitle">Boolean function equality via filter</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">BinaryMatrix.bool_fun_eq_of_filter_eq</span></span></small></p>
+<p> Two Boolean-valued functions \(f, g : \mathrm{Fin}\, n \to \mathrm{Bool}\) with equal true-filters are equal. </p>
 
   </div>
 </div>

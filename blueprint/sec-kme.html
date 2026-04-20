@@ -163,7 +163,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">6.3</span>
+    <span class="defn_thmlabel">6.6</span>
     <span class="defn_thmtitle">Kernel mean embedding</span>
   </div>
   <div class="defn_thmcontent">
@@ -186,7 +186,7 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.4</span>
+    <span class="thm_thmlabel">6.7</span>
     <span class="thm_thmtitle">Reproducing property for the embedding</span>
   </div>
   <div class="thm_thmcontent">
@@ -194,11 +194,19 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">kernelMeanEmbedding_reproducing</span></span></small></p>
 <p>  For integrable \(f\), \(\langle \mu _P, f \rangle \; =\;  \int _X f(x) \, \mathrm{d}P(x)\) <span class="cite">
 	[
+	<a href="sect0003.html#smola2007kme" >19</a>
+	, 
+	eq.
+	
+	(4)
+	]
+</span>, <span class="cite">
+	[
 	<a href="sect0003.html#gretton2012kernel" >11</a>
 	, 
 	§
 	2, eq.
-	 
+	
 	(2)
 	]
 </span>. </p>
@@ -210,13 +218,43 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.5</span>
+    <span class="thm_thmlabel">6.8</span>
     <span class="thm_thmtitle">Norm bound</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">kernelMeanEmbedding_norm_le</span></span></small></p>
-<p>  Under <span class="ttfamily">IsProbabilityMeasure</span>&#160;\(P\), \(\| \mu _P\|  \le C\). </p>
+<p>  Under <span class="ttfamily">IsProbabilityMeasure</span>&#160;\(P\), \(\| \mu _P\|  \le C\) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Lemma
+	
+	4
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:kme-integrable">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.9</span>
+    <span class="thm_thmtitle">Integrability of the KME integrand</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">kernelMeanEmbedding_integrable</span></span></small></p>
+<p>  Under <span class="ttfamily">IsFiniteMeasure</span>&#160;\(P\), continuity of \(x \mapsto k_x\), and a bounded kernel, the feature map \(x \mapsto k_x\) is Bochner-integrable against \(P\), so \(\int _X k_x \, \mathrm{d}P(x)\) is well-defined <span class="cite">
+	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	§
+	2
+	]
+</span>. </p>
 
   </div>
 </div>

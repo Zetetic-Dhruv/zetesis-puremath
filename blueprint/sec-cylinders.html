@@ -158,13 +158,20 @@
 <div class="main-text">
 <h1 id="sec:cylinders">2.3 Baire-space cylinder infrastructure</h1>
 
-<p>The proof of Theorem&#160;<a href="sec-choquet-capacity.html#thm:analytic-capacitability">2.5</a> requires a small theory of cylinders in \(\mathbb {N}^\mathbb {N}\). </p>
+<p>The proof of Theorem&#160;<a href="sec-choquet-capacity.html#thm:analytic-capacitability">2.8</a> requires a small theory of cylinders in \(\mathbb {N}^\mathbb {N}\), adapted from <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	§
+	7.A
+	]
+</span>. </p>
 <div class="defn_thmwrapper theorem-style-definition" id="def:cyl">
   <div class="defn_thmheading">
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">2.6</span>
+    <span class="defn_thmlabel">2.10</span>
     <span class="defn_thmtitle">Cylinder</span>
   </div>
   <div class="defn_thmcontent">
@@ -172,8 +179,16 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">Cyl</span></span></small></p>
 <p> For \(N : \mathbb {N}\to \mathbb {N}\) and \(n \in \mathbb {N}\), </p>
 <div class="displaymath" id="a0000000008">
-  \[  \mathrm{Cyl}\, N\, n \; :=\;  \{  g : \mathbb {N}\to \mathbb {N}\mid \forall i \le n,\;  g\, i \le N\, i \} .  \]
+  \[  \mathrm{Cyl}\, N\, n \; :=\;  \{  g : \mathbb {N}\to \mathbb {N}\mid \forall i \le n,\;  g\, i \le N\, i \}   \]
 </div>
+<p> <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	§
+	7.A
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -182,13 +197,20 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">2.7</span>
+    <span class="defn_thmlabel">2.11</span>
     <span class="defn_thmtitle">Bounded box</span>
   </div>
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">Bnd</span></span></small></p>
-<p>  \(\mathrm{Bnd}\, N \; :=\;  \bigcap _n \mathrm{Cyl}\, N\, n \; =\;  \prod _i [0, N_i]\). </p>
+<p>  \(\mathrm{Bnd}\, N \; :=\;  \bigcap _n \mathrm{Cyl}\, N\, n \; =\;  \prod _i [0, N_i]\) <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	§
+	7.A
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -197,7 +219,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">2.8</span>
+    <span class="defn_thmlabel">2.12</span>
     <span class="defn_thmtitle">Truncation map</span>
   </div>
   <div class="defn_thmcontent">
@@ -212,7 +234,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.9</span>
+    <span class="lemma_thmlabel">2.13</span>
     <span class="lemma_thmtitle">\(\mathrm{Bnd}\, N\) is compact</span>
   </div>
   <div class="lemma_thmcontent">
@@ -227,7 +249,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.10</span>
+    <span class="lemma_thmlabel">2.14</span>
     <span class="lemma_thmtitle">\(\mathrm{Bnd} \subseteq \mathrm{Cyl}\)</span>
   </div>
   <div class="lemma_thmcontent">
@@ -242,7 +264,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.11</span>
+    <span class="lemma_thmlabel">2.15</span>
     <span class="lemma_thmtitle">Cylinder successor splits along the next coordinate</span>
   </div>
   <div class="lemma_thmcontent">
@@ -257,7 +279,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.12</span>
+    <span class="lemma_thmlabel">2.16</span>
     <span class="lemma_thmtitle">Intersection with a coordinate update</span>
   </div>
   <div class="lemma_thmcontent">
@@ -272,7 +294,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.13</span>
+    <span class="lemma_thmlabel">2.17</span>
     <span class="lemma_thmtitle">Monotone split</span>
   </div>
   <div class="lemma_thmcontent">
@@ -287,7 +309,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.14</span>
+    <span class="lemma_thmlabel">2.18</span>
     <span class="lemma_thmtitle">Truncate lands in \(\mathrm{Bnd}\)</span>
   </div>
   <div class="lemma_thmcontent">
@@ -302,7 +324,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.15</span>
+    <span class="lemma_thmlabel">2.19</span>
     <span class="lemma_thmtitle">Truncate agrees on cylinders</span>
   </div>
   <div class="lemma_thmcontent">
@@ -317,7 +339,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.16</span>
+    <span class="lemma_thmlabel">2.20</span>
     <span class="lemma_thmtitle">Cylinder extensionality</span>
   </div>
   <div class="lemma_thmcontent">
@@ -332,7 +354,7 @@
     <span class="lemma_thmcaption">
     Lemma
     </span>
-    <span class="lemma_thmlabel">2.17</span>
+    <span class="lemma_thmlabel">2.21</span>
     <span class="lemma_thmtitle">Intersection of cylinder-closure images equals compact image</span>
   </div>
   <div class="lemma_thmcontent">

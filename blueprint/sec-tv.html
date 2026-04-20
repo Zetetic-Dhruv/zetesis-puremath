@@ -163,7 +163,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">2.18</span>
+    <span class="defn_thmlabel">2.22</span>
     <span class="defn_thmtitle">Real-valued total variation</span>
   </div>
   <div class="defn_thmcontent">
@@ -173,7 +173,52 @@
 <div class="displaymath" id="a0000000009">
   \[  \mathrm{TV}(P, Q) \; :=\;  \sup _A \bigl| P(A).\mathrm{toReal} - Q(A).\mathrm{toReal} \bigr|  \]
 </div>
-<p> where the supremum is over measurable \(A \subseteq \alpha \). This is the <em>half-sup</em> / metric convention (Billingsley, Villani), chosen so that Pinsker reads as \(\mathrm{TV}(P,Q) \le \sqrt{\mathrm{KL}(P\| Q)/2}\). The lemmas <span class="ttfamily">tvDistReal_set_nonempty</span> and <span class="ttfamily">tvDistReal_set_bddAbove</span> discharge the nonemptiness and boundedness conditions that \(\mathbb {R}\)-valued <span class="ttfamily">sSup</span> requires. </p>
+<p> where the supremum is over measurable \(A \subseteq \alpha \). This is the <em>half-sup</em> / metric convention, chosen so that Pinsker reads as \(\mathrm{TV}(P,Q) \le \sqrt{\mathrm{KL}(P\| Q)/2}\) <span class="cite">
+	[
+	<a href="sect0003.html#bogachev2007" >4</a>
+	, 
+	§
+	3
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#villani2009" >24</a>
+	, 
+	Ch.
+	
+	1
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:tvDistReal-set-nonempty">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.23</span>
+    <span class="lemma_thmtitle">Set nonempty</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.tvDistReal_set_nonempty</span></span></small></p>
+<p>  The set \(\{  |P(A).\mathrm{toReal} - Q(A).\mathrm{toReal}| : A \text{ measurable} \} \) is nonempty (witnessed by \(A = \emptyset \)). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:tvDistReal-set-bddAbove">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.24</span>
+    <span class="lemma_thmtitle">Set bounded above</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.tvDistReal_set_bddAbove</span></span></small></p>
+<p>  The same set is bounded above by \(P(\alpha ).\mathrm{toReal} + Q(\alpha ).\mathrm{toReal}\). </p>
 
   </div>
 </div>
@@ -182,7 +227,7 @@
     <span class="remark_thmcaption">
     Remark
     </span>
-    <span class="remark_thmlabel">2.19</span>
+    <span class="remark_thmlabel">2.25</span>
   </div>
   <div class="remark_thmcontent">
   <p>The repository also contains a second total-variation object, \(\mathrm{FintypePMF.tvDistance}\, p\, q = \sum _a |p\, a - q\, a|\) (the \(L^1\) convention, see Chapter&#160;<a href="chap-probability.html">4</a>); the two conventions differ by a factor of \(2\) on discrete supports. Downstream consumers should not compose them without inserting the factor-of-\(\tfrac {1}{2}\) correction. </p>

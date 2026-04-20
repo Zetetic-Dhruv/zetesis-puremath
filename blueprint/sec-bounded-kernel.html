@@ -191,7 +191,72 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">norm_apply_le_bound_mul_norm</span></span></small></p>
-<p>  \(|f(x)| \le C \cdot \| f\| \) for every \(f \in \mathcal{H}\) and \(x \in X\). </p>
+<p>  \(|f(x)| \le C \cdot \| f\| \) for every \(f \in \mathcal{H}\) and \(x \in X\) <span class="cite">
+	[
+	<a href="sect0003.html#steinwart-christmann" >21</a>
+	, 
+	Thm
+	
+	4.23
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:rkhs-eval-eq-inner">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.3</span>
+    <span class="thm_thmtitle">Reproducing identity</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">rkhs_eval_eq_inner</span></span></small></p>
+<p> \(f(x) = \langle k_x,\,  f \rangle \) for every \(f \in \mathcal{H}\) and \(x \in X\) <span class="cite">
+	[
+	<a href="sect0003.html#aronszajn1950" >1</a>
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:continuous-rkhs-apply">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.4</span>
+    <span class="thm_thmtitle">Continuity of RKHS evaluations</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">continuous_rkhs_apply</span></span></small></p>
+<p> If the feature map \(x \mapsto k_x\) is continuous, then every \(f \in \mathcal{H}\) is continuous on \(X\) <span class="cite">
+	[
+	<a href="sect0003.html#steinwart-christmann" >21</a>
+	, 
+	Lemma
+	
+	4.29
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:rkhs-fun-integrable">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.5</span>
+    <span class="thm_thmtitle">RKHS functions are integrable under a finite measure</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">rkhs_fun_integrable</span></span></small></p>
+<p> Under <span class="ttfamily">IsFiniteMeasure</span>&#160;\(P\) and a continuous feature map, every \(f \in \mathcal{H}\) is \(P\)-integrable (via \(L^\infty \subset L^1\) on finite measures). </p>
 
   </div>
 </div>

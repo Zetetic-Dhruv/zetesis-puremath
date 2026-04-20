@@ -169,11 +169,23 @@
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.IsChoquetCapacity</span></span></small></p>
-<p> A map \(I : \mathrm{Set}(\alpha ) \to \mathbb {R}_{\ge 0}^\infty \) is a <em>Choquet capacity</em> iff (i) it is monotone, (ii) continuous from below along increasing sequences, and (iii) continuous from above along antitone sequences of closed sets. Every finite Borel measure on a Polish space is a Choquet capacity <span class="cite">
+<p> A map \(I : \mathrm{Set}(\alpha ) \to \mathbb {R}_{\ge 0}^\infty \) is a <em>Choquet capacity</em> iff (i) it is monotone, (ii) continuous from below along increasing sequences, and (iii) continuous from above along antitone sequences of closed sets <span class="cite">
+	[
+	<a href="sect0003.html#choquet1955" >6</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	Defn 30.1
+	]
+</span>, <span class="cite">
 	[
 	<a href="sect0003.html#dellacherie-meyer" >8</a>
+	, 
+	III.1
 	]
-</span>. </p>
+</span>. Every finite Borel measure on a Polish space is a Choquet capacity. </p>
 
   </div>
 </div>
@@ -195,12 +207,75 @@
 
   </div>
 </div>
-<div class="thm_thmwrapper theorem-style-plain" id="thm:analytic-capacitability">
+<div class="thm_thmwrapper theorem-style-plain" id="thm:measure-isChoquetCapacity">
   <div class="thm_thmheading">
     <span class="thm_thmcaption">
     Theorem
     </span>
     <span class="thm_thmlabel">2.5</span>
+    <span class="thm_thmtitle">Every finite Borel measure is a Choquet capacity</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.measure_isChoquetCapacity</span></span></small></p>
+<p>  Every finite Borel measure on a Polish space satisfies the three axioms of Definition&#160;<a href="sec-choquet-capacity.html#def:choquet-capacity">2.3</a> <span class="cite">
+	[
+	<a href="sect0003.html#dellacherie-meyer" >8</a>
+	, 
+	III.7
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	Thm 17.11
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:compactCap-mono">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">2.6</span>
+    <span class="thm_thmtitle">Monotonicity of <span class="ttfamily">compactCap</span></span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.compactCap_mono</span></span></small></p>
+<p>  \(S \subseteq T \Rightarrow \mathrm{compactCap}\, \mu \, S \le \mathrm{compactCap}\, \mu \, T\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:measurable-compactCap-eq">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">2.7</span>
+    <span class="thm_thmtitle">Measurable inner approximation</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.MeasurableSet_compactCap_eq</span></span></small></p>
+<p>  If \(S\) is measurable then \(\mu (S) = \mathrm{compactCap}\, \mu \, S\) <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	Thm 17.11
+	]
+</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:analytic-capacitability">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">2.8</span>
     <span class="thm_thmtitle">Kechris 30.13: analytic capacitability</span>
   </div>
   <div class="thm_thmcontent">
@@ -208,13 +283,46 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.AnalyticSet.cap_eq_iSup_isCompact</span></span></small></p>
 <p>  Let \(I\) be a Choquet capacity on a Polish space \(\alpha \), and \(S\) an analytic subset of \(\alpha \). Then </p>
 <div class="displaymath" id="a0000000007">
-  \[  I(S) \; =\;  \sup \{  I(K) : K \subseteq S,\;  K \text{ compact} \} .  \]
+  \[  I(S) \; =\;  \sup \{  I(K) : K \subseteq S,\;  K \text{ compact} \}   \]
 </div>
-<p> The proof is the Kechris&#160;30.13 diagonal construction on cylinders in Baire space \(\mathbb {N}^\mathbb {N}\) <span class="cite">
+<p> <span class="cite">
 	[
 	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	Thm 30.13
 	]
-</span>. Together with Definition&#160;<a href="sec-choquet-capacity.html#def:compact-cap">2.4</a> and the fact that every finite Borel measure is a Choquet capacity, this specializes to \(\mu (S) = \mathrm{compactCap}\, \mu \, S\) (Theorem&#160;<a href="sec-analytic-measurability.html#thm:analytic-null-measurable">2.1</a> is an immediate corollary). </p>
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#choquet1955" >6</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#dellacherie-meyer" >8</a>
+	, 
+	III.29–III.33
+	]
+</span>. Together with Definition&#160;<a href="sec-choquet-capacity.html#def:compact-cap">2.4</a> and Theorem&#160;<a href="sec-choquet-capacity.html#thm:measure-isChoquetCapacity">2.5</a>, this specializes to \(\mu (S) = \mathrm{compactCap}\, \mu \, S\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:analytic-compactCap-eq">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">2.9</span>
+    <span class="thm_thmtitle">Analytic compact-hull equality</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.AnalyticSet.compactCap_eq</span></span></small></p>
+<p>  For analytic \(S\), \(\mu (S) = \mathrm{compactCap}\, \mu \, S\). Corollary of Theorem&#160;<a href="sec-choquet-capacity.html#thm:analytic-capacitability">2.8</a> <span class="cite">
+	[
+	<a href="sect0003.html#kechris1995classical" >14</a>
+	, 
+	Thm 30.13
+	]
+</span>. </p>
 
   </div>
 </div>

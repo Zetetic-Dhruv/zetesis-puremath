@@ -163,7 +163,7 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">5.7</span>
+    <span class="thm_thmlabel">5.8</span>
     <span class="thm_thmtitle">Approximate minimax via MWU</span>
   </div>
   <div class="thm_thmcontent">
@@ -195,13 +195,17 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">5.8</span>
+    <span class="thm_thmlabel">5.9</span>
     <span class="thm_thmtitle">Covering-based minimax existence</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.covering_minimax</span></span></small></p>
-<p> Given the <span class="ttfamily">hrow</span> hypothesis, there exists a mixed-row PMF whose payoff against every pure column is at least \(1 / |C|\). Proof by pigeonhole-averaging over per-column pure-row witnesses extracted via <span class="ttfamily">ProbabilityTheory.exists_covering_row</span>. </p>
+<p> Given the <span class="ttfamily">hrow</span> hypothesis, there exists a mixed-row PMF whose payoff against every pure column is at least \(1 / |C|\). Proof by pigeonhole-averaging over per-column pure-row witnesses extracted via <span class="ttfamily">ProbabilityTheory.exists_covering_row</span> <span class="cite">
+	[
+	<a href="sect0003.html#freund1999games" >10</a>
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -210,13 +214,24 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">5.9</span>
+    <span class="thm_thmlabel">5.10</span>
     <span class="thm_thmtitle">\(\varepsilon \)-approximate finite minimax</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.finite_approx_minimax</span></span></small></p>
-<p>  Under a feasibility side-condition \(v - \varepsilon \le 1/|C|\), the covering-based mixed-row strategy from Theorem&#160;<a href="sec-approx-minimax.html#thm:covering-minimax">5.8</a> achieves payoff \(\ge v - \varepsilon \) against every pure column. This is the logical dual of the quantitative MWU bound in Theorem&#160;<a href="sec-approx-minimax.html#thm:mwu-approx-minimax">5.7</a>. </p>
+<p>  Under a feasibility side-condition \(v - \varepsilon \le 1/|C|\), the covering-based mixed-row strategy from Theorem&#160;<a href="sec-approx-minimax.html#thm:covering-minimax">5.9</a> achieves payoff \(\ge v - \varepsilon \) against every pure column. This is the logical dual of the quantitative MWU bound in Theorem&#160;<a href="sec-approx-minimax.html#thm:mwu-approx-minimax">5.8</a> <span class="cite">
+	[
+	<a href="sect0003.html#freund1999games" >10</a>
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#arora2012multiplicative" >3</a>
+	, 
+	§
+	3.1
+	]
+</span>. </p>
 
   </div>
 </div>

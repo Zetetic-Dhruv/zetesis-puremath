@@ -173,7 +173,21 @@
 <div class="displaymath" id="a0000000011">
   \[  \mathrm{KL}_\mathbb {R}(P, Q) \; :=\;  \begin{cases}  \int \log \tfrac {\mathrm{d}P}{\mathrm{d}Q}\, \mathrm{d}P &  \text{if $P \ll Q$,}\\ 0 &  \text{otherwise.} \end{cases}  \]
 </div>
-<p> This bridges Mathlib’s <span class="ttfamily">ENNReal</span>-valued <span class="ttfamily">klDiv</span> to \(\mathbb {R}\) for <span class="ttfamily">linarith</span>-compatible arithmetic; the identity \(\mathrm{KL}_\mathbb {R}(P,Q) = (\mathrm{KL}(P,Q)).\mathrm{toReal}\) holds unconditionally (<span class="ttfamily">klDivReal_eq_toReal_klDiv</span>). </p>
+<p> This bridges Mathlib’s <span class="ttfamily">ENNReal</span>-valued <span class="ttfamily">klDiv</span> to \(\mathbb {R}\) for <span class="ttfamily">linarith</span>-compatible arithmetic; the identity \(\mathrm{KL}_\mathbb {R}(P,Q) = (\mathrm{KL}(P,Q)).\mathrm{toReal}\) holds unconditionally (<span class="ttfamily">klDivReal_eq_toReal_klDiv</span>) <span class="cite">
+	[
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	§
+	2.3
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#polyanskiy-wu" >16</a>
+	, 
+	§
+	2.1
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -188,7 +202,13 @@
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klDivReal_nonneg</span></span></small></p>
-<p> \(\mathrm{KL}_\mathbb {R}(P, Q) \ge 0\) for all measures (Gibbs’ inequality). </p>
+<p> \(\mathrm{KL}_\mathbb {R}(P, Q) \ge 0\) for all measures (Gibbs’ inequality) <span class="cite">
+	[
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	Thm 2.6.3
+	]
+</span>. </p>
 
   </div>
 </div>

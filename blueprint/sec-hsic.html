@@ -163,7 +163,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">6.12</span>
+    <span class="defn_thmlabel">6.17</span>
     <span class="defn_thmtitle">HSIC via product-space MMD</span>
   </div>
   <div class="defn_thmcontent">
@@ -192,13 +192,17 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.13</span>
+    <span class="thm_thmlabel">6.18</span>
     <span class="thm_thmtitle">Non-negativity of HSIC</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_nonneg</span></span></small></p>
-<p>  \(\mathrm{HSIC}(P) \ge 0\). </p>
+<p>  \(\mathrm{HSIC}(P) \ge 0\) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2005hsic" >12</a>
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -207,13 +211,17 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.14</span>
+    <span class="thm_thmlabel">6.19</span>
     <span class="thm_thmtitle">HSIC vanishes on independent measures</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_eq_zero_of_independent</span></span></small></p>
-<p>  If \(P = P_X \otimes P_Y\) then \(\mathrm{HSIC}(P) = 0\) (direct consequence of \(\mathrm{MMD}^2(P, P) = 0\)). </p>
+<p>  If \(P = P_X \otimes P_Y\) then \(\mathrm{HSIC}(P) = 0\) (direct consequence of \(\mathrm{MMD}^2(P, P) = 0\)) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2005hsic" >12</a>
+	]
+</span>. </p>
 
   </div>
 </div>
@@ -222,13 +230,28 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.15</span>
+    <span class="thm_thmlabel">6.20</span>
     <span class="thm_thmtitle">HSIC zero iff independent</span>
   </div>
   <div class="thm_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_zero_iff_independent</span></span></small></p>
-<p>  Under <span class="ttfamily">IsCharacteristic</span>&#160;\(\mathcal{H}\) on \(X \times Y\), \(\mathrm{HSIC}(P) = 0 \iff P = P_X \otimes P_Y\). </p>
+<p>  Under <span class="ttfamily">IsCharacteristic</span>&#160;\(\mathcal{H}\) on \(X \times Y\), \(\mathrm{HSIC}(P) = 0 \iff P = P_X \otimes P_Y\) <span class="cite">
+	[
+	<a href="sect0003.html#gretton2005hsic" >12</a>
+	, 
+	Thm
+	
+	4
+	]
+</span>, <span class="cite">
+	[
+	<a href="sect0003.html#sriperumbudur2010hilbert" >20</a>
+	, 
+	§
+	4.2
+	]
+</span>. </p>
 
   </div>
 </div>

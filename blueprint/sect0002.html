@@ -159,9 +159,9 @@
 <h1 id="a0000000003">1.2 Verification tiers</h1>
 <p>All 114 public theorems discharge under the following tiers, all green at commit <span class="ttfamily">471e5d5</span> (see <a href ="https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/test/verification/CI"><span class="ttfamily">test/verification/CI/</span></a>): </p>
 <ul class="itemize">
-  <li><p><b class="bfseries">Tier 0</b>: <span class="ttfamily">lake build</span> — 0 errors, 0 warnings, 0 <span class="ttfamily">sorry</span> in <span class="ttfamily">ZPM/</span>. </p>
+  <li><p><b class="bfseries">Tier 0</b>: <span class="ttfamily">lake build</span>, 0 errors, 0 warnings, 0 <span class="ttfamily">sorry</span> in <span class="ttfamily">ZPM/</span>. </p>
 </li>
-  <li><p><b class="bfseries">Tier 1</b>: <span class="ttfamily">#print axioms</span> — 113 theorems use only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>; the 114th (<span class="ttfamily">challenge_bnd_subset_cyl</span>) uses none. </p>
+  <li><p><b class="bfseries">Tier 1</b>: <span class="ttfamily">#print axioms</span>. 113 theorems use only <span class="ttfamily">propext</span>, <span class="ttfamily">Classical.choice</span>, <span class="ttfamily">Quot.sound</span>; the 114th (<span class="ttfamily">challenge_bnd_subset_cyl</span>) uses none. </p>
 </li>
   <li><p><b class="bfseries">Tier 2</b>: <span class="ttfamily">leanchecker –fresh</span> per module (GitHub Actions <span class="ttfamily">workflow_dispatch</span>). </p>
 </li>
