@@ -87,6 +87,85 @@ Downstream projects should pin to a commit hash or a tagged release. The repo is
 
 Raw CI artifacts committed under [`test/verification/CI/`](./test/verification/CI/). A literature review pinning every definition and headline theorem to its canonical source is at [`Verification/DEFINITIONS_REVIEW.md`](./Verification/DEFINITIONS_REVIEW.md).
 
+## Cite this work
+
+GitHub shows a "Cite this repository" button that reads from [`CITATION.cff`](./CITATION.cff) and emits BibTeX / APA / Chicago automatically. For direct BibTeX, pick whichever granularity fits the citing context.
+
+### Whole repository
+
+```bibtex
+@software{gupta2026zpm,
+  author  = {Gupta, Dhruv},
+  title   = {{zetesis-puremath}: A {Lean 4} pure-mathematics reservoir},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath},
+  license = {Apache-2.0},
+  version = {main}
+}
+```
+
+### By concept class
+
+Each cluster stands alone; cite the one closest to the result you actually use.
+
+```bibtex
+@software{gupta2026zpm-measure,
+  author  = {Gupta, Dhruv},
+  title   = {Analytic measurability, {Choquet} capacity, and real-valued total variation in {Lean 4}},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/ZPM/MeasureTheory},
+  note    = {Part of zetesis-puremath; includes {Kechris 30.13} capacitability},
+  license = {Apache-2.0}
+}
+
+@software{gupta2026zpm-information,
+  author  = {Gupta, Dhruv},
+  title   = {Real-valued {Kullback}--{Leibler}, binary {KL}, {Pinsker}'s inequality, and mutual information in {Lean 4}},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/ZPM/InformationTheory},
+  note    = {Part of zetesis-puremath; sharp-constant binary Pinsker + measure-theoretic form},
+  license = {Apache-2.0}
+}
+
+@software{gupta2026zpm-probability,
+  author  = {Gupta, Dhruv},
+  title   = {Concentration, double-sample exchangeability, and finite-type {PMF} infrastructure in {Lean 4}},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/ZPM/Probability},
+  note    = {Part of zetesis-puremath; BoundedRandomVariable, ValidSplit, FintypePMF},
+  license = {Apache-2.0}
+}
+
+@software{gupta2026zpm-decision,
+  author  = {Gupta, Dhruv},
+  title   = {Multiplicative weights update and approximate minimax for {Boolean}-matrix games in {Lean 4}},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/ZPM/Probability/Decision},
+  note    = {Part of zetesis-puremath; Freund--Schapire Hedge analysis with T = O(log N / eps^2)},
+  license = {Apache-2.0}
+}
+
+@software{gupta2026zpm-rkhs,
+  author  = {Gupta, Dhruv},
+  title   = {Kernel mean embedding, {MMD}, and {HSIC} in {Lean 4}},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/ZPM/Analysis/InnerProductSpace},
+  note    = {Part of zetesis-puremath; includes IsCharacteristic and MMD zero-iff},
+  license = {Apache-2.0}
+}
+
+@software{gupta2026zpm-combinatorics,
+  author  = {Gupta, Dhruv},
+  title   = {{Assouad}'s dual {VC} bound for binary matrices in {Lean 4}},
+  year    = {2026},
+  url     = {https://github.com/Zetetic-Dhruv/zetesis-puremath/tree/main/ZPM/Combinatorics},
+  note    = {Part of zetesis-puremath; VCDim(M^T) <= 2^(d+1) - 1},
+  license = {Apache-2.0}
+}
+```
+
+For reproducibility, please pin to a specific commit hash when citing (replace `version = {main}` with the hash you used).
+
 ## License
 
 Apache 2.0; see [LICENSE](./LICENSE).

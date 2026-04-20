@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use zetesis-puremath in academic work, please cite the entry below (or one of the per-concept-class BibTeX entries in the README)."
+title: "zetesis-puremath: A Lean 4 pure-mathematics reservoir"
+abstract: >-
+  A personal pure-mathematics reservoir in Lean 4 covering six clusters:
+  analytic measurability and Choquet capacity on Polish spaces; real-valued
+  Kullback--Leibler divergence with binary Pinsker's inequality and mutual
+  information; concentration and double-sample exchangeability with a
+  Fintype-indexed PMF; multiplicative-weights-update approximate minimax
+  for Boolean-matrix games; kernel mean embedding with MMD and HSIC; and
+  Assouad's dual VC bound.
+authors:
+  - family-names: Gupta
+    given-names: Dhruv
+type: software
+license: Apache-2.0
+repository-code: "https://github.com/Zetetic-Dhruv/zetesis-puremath"
+url: "https://zetetic-dhruv.github.io/zetesis-puremath/"
+keywords:
+  - Lean 4
+  - formal mathematics
+  - Mathlib
+  - measure theory
+  - information theory
+  - reproducing kernel Hilbert space
+  - VC dimension
+  - minimax
+  - multiplicative weights
+year: 2026
