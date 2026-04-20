@@ -8,7 +8,8 @@
   \leanok
 Let $\alpha$ be a Polish space, $\mu$ a finite Borel measure on
 $\alpha$, and $S \subseteq \alpha$ analytic. Then $S$ is
-$\mu$-null-measurable.
+$\mu$-null-measurable \cite[Thm 29.5]{kechris1995classical},
+\cite[\S7.4.11]{bogachev2007}.
 \end{thm}
 
 \begin{thm}[Inner approximation by compacts]
@@ -17,7 +18,8 @@ $\mu$-null-measurable.
   \leanok
 Under the hypotheses of Theorem~\ref{thm:analytic-null-measurable},
 for every $\delta > 0$ there exists a compact $K \subseteq S$ with
-$\mu(S) - \mu(K) < \delta$ (in $\R$-valued form).
+$\mu(S) - \mu(K) < \delta$ (in $\R$-valued form)
+\cite[Thm 17.11]{kechris1995classical}.
 \end{thm}
 
 \section{Choquet capacity}\label{sec:choquet-capacity}
@@ -29,8 +31,10 @@ $\mu(S) - \mu(K) < \delta$ (in $\R$-valued form).
 A map $I : \mathrm{Set}(\alpha) \to \R_{\ge 0}^\infty$ is a
 \emph{Choquet capacity} iff (i) it is monotone, (ii) continuous from
 below along increasing sequences, and (iii) continuous from above
-along antitone sequences of closed sets. Every finite Borel measure
-on a Polish space is a Choquet capacity \cite{dellacherie-meyer}.
+along antitone sequences of closed sets
+\cite{choquet1955}, \cite[Defn 30.1]{kechris1995classical},
+\cite[III.1]{dellacherie-meyer}.
+Every finite Borel measure on a Polish space is a Choquet capacity.
 \end{defn}
 
 \begin{defn}[Compact capacity hull]
@@ -43,6 +47,33 @@ For $\mu$ and $S$ as above,
 \]
 \end{defn}
 
+\begin{thm}[Every finite Borel measure is a Choquet capacity]
+\label{thm:measure-isChoquetCapacity}
+  \lean{MeasureTheory.measure\_isChoquetCapacity}
+  \leanok
+  \uses{def:choquet-capacity}
+Every finite Borel measure on a Polish space satisfies the three
+axioms of Definition~\ref{def:choquet-capacity}
+\cite[III.7]{dellacherie-meyer}, \cite[Thm 17.11]{kechris1995classical}.
+\end{thm}
+
+\begin{thm}[Monotonicity of \texttt{compactCap}]
+\label{thm:compactCap-mono}
+  \lean{MeasureTheory.compactCap\_mono}
+  \leanok
+  \uses{def:compact-cap}
+$S \subseteq T \Rightarrow \mathrm{compactCap}\,\mu\,S \le \mathrm{compactCap}\,\mu\,T$.
+\end{thm}
+
+\begin{thm}[Measurable inner approximation]
+\label{thm:measurable-compactCap-eq}
+  \lean{MeasureTheory.MeasurableSet\_compactCap\_eq}
+  \leanok
+  \uses{def:compact-cap}
+If $S$ is measurable then $\mu(S) = \mathrm{compactCap}\,\mu\,S$
+\cite[Thm 17.11]{kechris1995classical}.
+\end{thm}
+
 \begin{thm}[Kechris 30.13: analytic capacitability]
 \label{thm:analytic-capacitability}
   \lean{MeasureTheory.AnalyticSet.cap\_eq\_iSup\_isCompact}
@@ -51,20 +82,30 @@ For $\mu$ and $S$ as above,
 Let $I$ be a Choquet capacity on a Polish space $\alpha$, and $S$ an
 analytic subset of $\alpha$. Then
 \[
-  I(S) \;=\; \sup \{ I(K) : K \subseteq S,\; K \text{ compact} \}.
+  I(S) \;=\; \sup \{ I(K) : K \subseteq S,\; K \text{ compact} \}
 \]
-The proof is the Kechris~30.13 diagonal construction on cylinders in
-Baire space $\N^\N$ \cite{kechris1995classical}. Together with
-Definition~\ref{def:compact-cap} and the fact that every finite Borel
-measure is a Choquet capacity, this specializes to
-$\mu(S) = \mathrm{compactCap}\,\mu\,S$
-(Theorem~\ref{thm:analytic-null-measurable} is an immediate corollary).
+\cite[Thm 30.13]{kechris1995classical}, \cite{choquet1955},
+\cite[III.29--III.33]{dellacherie-meyer}.
+Together with Definition~\ref{def:compact-cap} and
+Theorem~\ref{thm:measure-isChoquetCapacity}, this specializes to
+$\mu(S) = \mathrm{compactCap}\,\mu\,S$.
+\end{thm}
+
+\begin{thm}[Analytic compact-hull equality]
+\label{thm:analytic-compactCap-eq}
+  \lean{MeasureTheory.AnalyticSet.compactCap\_eq}
+  \leanok
+  \uses{thm:analytic-capacitability}
+For analytic $S$, $\mu(S) = \mathrm{compactCap}\,\mu\,S$. Corollary
+of Theorem~\ref{thm:analytic-capacitability}
+\cite[Thm 30.13]{kechris1995classical}.
 \end{thm}
 
 \section{Baire-space cylinder infrastructure}\label{sec:cylinders}
 
 The proof of Theorem~\ref{thm:analytic-capacitability} requires a
-small theory of cylinders in $\N^\N$.
+small theory of cylinders in $\N^\N$, adapted from
+\cite[\S7.A]{kechris1995classical}.
 
 \begin{defn}[Cylinder]
 \label{def:cyl}
@@ -72,8 +113,9 @@ small theory of cylinders in $\N^\N$.
   \leanok
 For $N : \N \to \N$ and $n \in \N$,
 \[
-  \mathrm{Cyl}\,N\,n \;:=\; \{ g : \N \to \N \mid \forall i \le n,\; g\,i \le N\,i \}.
+  \mathrm{Cyl}\,N\,n \;:=\; \{ g : \N \to \N \mid \forall i \le n,\; g\,i \le N\,i \}
 \]
+\cite[\S7.A]{kechris1995classical}.
 \end{defn}
 
 \begin{defn}[Bounded box]
@@ -81,7 +123,8 @@ For $N : \N \to \N$ and $n \in \N$,
   \lean{Bnd}
   \leanok
   \uses{def:cyl}
-$\mathrm{Bnd}\,N \;:=\; \bigcap_n \mathrm{Cyl}\,N\,n \;=\; \prod_i [0, N_i]$.
+$\mathrm{Bnd}\,N \;:=\; \bigcap_n \mathrm{Cyl}\,N\,n \;=\; \prod_i [0, N_i]$
+\cite[\S7.A]{kechris1995classical}.
 \end{defn}
 
 \begin{defn}[Truncation map]
@@ -182,14 +225,27 @@ For finite Borel measures $P, Q$ on $\alpha$,
   \TV(P, Q) \;:=\; \sup_A \bigl| P(A).\mathrm{toReal} - Q(A).\mathrm{toReal} \bigr|
 \]
 where the supremum is over measurable $A \subseteq \alpha$. This is
-the \emph{half-sup} / metric convention (Billingsley, Villani),
-chosen so that Pinsker reads as
-$\TV(P,Q) \le \sqrt{\KL(P\|Q)/2}$.
-The lemmas
-\texttt{tvDistReal\_set\_nonempty} and
-\texttt{tvDistReal\_set\_bddAbove} discharge the nonemptiness and
-boundedness conditions that $\R$-valued \texttt{sSup} requires.
+the \emph{half-sup} / metric convention, chosen so that Pinsker
+reads as $\TV(P,Q) \le \sqrt{\KL(P\|Q)/2}$
+\cite[\S3]{bogachev2007}, \cite[Ch.~1]{villani2009}.
 \end{defn}
+
+\begin{lemma}[Set nonempty]
+\label{lem:tvDistReal-set-nonempty}
+  \lean{MeasureTheory.tvDistReal\_set\_nonempty}
+  \leanok
+  \uses{def:tv-dist-real}
+The set $\{ |P(A).\mathrm{toReal} - Q(A).\mathrm{toReal}| : A \text{ measurable} \}$
+is nonempty (witnessed by $A = \emptyset$).
+\end{lemma}
+
+\begin{lemma}[Set bounded above]
+\label{lem:tvDistReal-set-bddAbove}
+  \lean{MeasureTheory.tvDistReal\_set\_bddAbove}
+  \leanok
+  \uses{def:tv-dist-real}
+The same set is bounded above by $P(\alpha).\mathrm{toReal} + Q(\alpha).\mathrm{toReal}$.
+\end{lemma}
 
 \begin{remark}
 The repository also contains a second total-variation object,

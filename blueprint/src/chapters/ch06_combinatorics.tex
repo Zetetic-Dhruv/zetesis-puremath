@@ -17,7 +17,8 @@ Type-definitionally equal to $\mathrm{Matrix}\,(\mathrm{Fin}\,m)\,(\mathrm{Fin}\
   \uses{def:binary-matrix}
 The \emph{induced set family} of a binary matrix $M : \mathrm{Fin}\,m \to \mathrm{Fin}\,n \to \mathrm{Bool}$
 consists of the true-supports of its rows,
-$\{ \{ j : M\,i\,j = \mathrm{true} \} : i \in \mathrm{Fin}\,m \}$.
+$\{ \{ j : M\,i\,j = \mathrm{true} \} : i \in \mathrm{Fin}\,m \}$
+\cite{vapnik1971}, \cite{sauer1972}.
 \end{defn}
 
 \begin{defn}[Matrix shattering]
@@ -27,7 +28,7 @@ $\{ \{ j : M\,i\,j = \mathrm{true} \} : i \in \mathrm{Fin}\,m \}$.
   \uses{def:binary-matrix}
 For a binary matrix $M$ and $S \subseteq \mathrm{Fin}\,n$, $M$
 \emph{shatters} $S$ iff every pattern $t \subseteq S$ is realized by
-some row of $M$ (Vapnik--Chervonenkis 1971; Sauer 1972).
+some row of $M$ \cite{vapnik1971}, \cite{sauer1972}.
 \end{defn}
 
 \begin{thm}[Consistency with \texttt{Finset.Shatters}]
@@ -36,8 +37,16 @@ some row of $M$ (Vapnik--Chervonenkis 1971; Sauer 1972).
   \leanok
   \uses{def:shatters}
 $M$ shatters $S \iff \mathrm{toFinsetFamily}\,M$ shatters $S$ in
-Mathlib's sense.
+Mathlib's sense \cite{sauer1972}.
 \end{thm}
+
+\begin{lemma}[Boolean function equality via filter]
+\label{lem:bool-fun-eq-of-filter-eq}
+  \lean{BinaryMatrix.bool\_fun\_eq\_of\_filter\_eq}
+  \leanok
+Two Boolean-valued functions $f, g : \mathrm{Fin}\,n \to \mathrm{Bool}$
+with equal true-filters are equal.
+\end{lemma}
 
 \section{Sauer-Shelah corollary}\label{sec:sauer-shelah}
 
@@ -48,8 +57,8 @@ Mathlib's sense.
   \uses{def:shatters}
 If $\VCdim(\mathrm{toFinsetFamily}\,M) \le d$ then
 $|\mathrm{toFinsetFamily}\,M| \le \sum_{k = 0}^{d} \binom{n}{k}$.
-This is the Sauer-Shelah bound \cite{sauer1972,vapnik1971} routed
-through Mathlib's
+This is the Sauer-Shelah bound \cite{sauer1972}, \cite{shelah1972},
+\cite{vapnik1971} routed through Mathlib's
 \texttt{Finset.card\_shatterer\_le\_sum\_vcDim}
 (Pajor + Sauer-Shelah) into the matrix setting.
 \end{thm}

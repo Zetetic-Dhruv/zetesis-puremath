@@ -22,7 +22,8 @@ pure column play, in the matrix game $M$ \cite{freund1999games}.
   \leanok
   \uses{def:bool-game-payoff}
 If the row player can guarantee value $v$ against every mixed
-column (the \texttt{hrow} hypothesis), then $v \le 1$.
+column (the \texttt{hrow} hypothesis), then $v \le 1$
+\cite{freund1999games}.
 \end{thm}
 
 \section{Multiplicative weights update}\label{sec:mwu}
@@ -61,7 +62,8 @@ is Theorem \texttt{mwu\_weight\_eq\_pow\_hitCount}.
   \uses{def:mwu-config, def:mwu-update}
 If the row player can guarantee value $v$ against every mixed column
 and $0 \le \eta < 1$, then after one MWU step
-$\Phi_{t+1} \le \Phi_t \cdot (1 - \eta v)$.
+$\Phi_{t+1} \le \Phi_t \cdot (1 - \eta v)$
+\cite[Cor.~2.2]{arora2012multiplicative}.
 \end{thm}
 
 \begin{thm}[$T$-step potential bound]
@@ -69,7 +71,17 @@ $\Phi_{t+1} \le \Phi_t \cdot (1 - \eta v)$.
   \lean{ProbabilityTheory.mwu\_potential\_T\_bound}
   \leanok
   \uses{thm:potential-one-step}
-Induction gives $\Phi_T \;\le\; |C| \cdot (1 - \eta v)^T$.
+Induction gives $\Phi_T \;\le\; |C| \cdot (1 - \eta v)^T$
+\cite[Thm~2.1]{arora2012multiplicative}.
+\end{thm}
+
+\begin{thm}[Closed-form weight]
+\label{thm:mwu-weight-eq-pow-hitCount}
+  \lean{ProbabilityTheory.mwu\_weight\_eq\_pow\_hitCount}
+  \leanok
+  \uses{def:mwu-update}
+$w_T(c) = w_0(c) \cdot (1 - \eta)^{\mathrm{hitCount}_T(c)}$
+\cite[eq.~(2)]{freund1997}.
 \end{thm}
 
 \section{Approximate minimax}\label{sec:approx-minimax}
@@ -100,7 +112,8 @@ unifies this with general online learning.
 Given the \texttt{hrow} hypothesis, there exists a mixed-row PMF
 whose payoff against every pure column is at least $1 / |C|$. Proof
 by pigeonhole-averaging over per-column pure-row witnesses extracted
-via \texttt{ProbabilityTheory.exists\_covering\_row}.
+via \texttt{ProbabilityTheory.exists\_covering\_row}
+\cite{freund1999games}.
 \end{thm}
 
 \begin{thm}[$\eps$-approximate finite minimax]
@@ -113,5 +126,6 @@ covering-based mixed-row strategy from
 Theorem~\ref{thm:covering-minimax} achieves payoff $\ge v - \eps$
 against every pure column. This is the logical dual of the
 quantitative MWU bound in
-Theorem~\ref{thm:mwu-approx-minimax}.
+Theorem~\ref{thm:mwu-approx-minimax}
+\cite{freund1999games}, \cite[\S3.1]{arora2012multiplicative}.
 \end{thm}

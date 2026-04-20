@@ -17,14 +17,16 @@ For measures $P, Q$ on a measurable space, set
 This bridges Mathlib's \texttt{ENNReal}-valued \texttt{klDiv} to $\R$
 for \texttt{linarith}-compatible arithmetic; the identity
 $\KL_\R(P,Q) = (\KL(P,Q)).\mathrm{toReal}$ holds unconditionally
-(\texttt{klDivReal\_eq\_toReal\_klDiv}).
+(\texttt{klDivReal\_eq\_toReal\_klDiv})
+\cite[\S2.3]{cover-thomas}, \cite[\S2.1]{polyanskiy-wu}.
 \end{defn}
 
 \begin{thm}[Non-negativity]
 \label{thm:kl-real-nonneg}
   \lean{InformationTheory.klDivReal\_nonneg}
   \leanok
-$\KL_\R(P, Q) \ge 0$ for all measures (Gibbs' inequality).
+$\KL_\R(P, Q) \ge 0$ for all measures (Gibbs' inequality)
+\cite[Thm 2.6.3]{cover-thomas}.
 \end{thm}
 
 \begin{thm}[Zero iff equal, under finiteness]
@@ -45,15 +47,18 @@ For $p, q \in [0, 1]$,
 \[
   \KL_\mathrm{bin}(p, q) \;:=\; p \log \tfrac{p}{q} + (1-p) \log \tfrac{1-p}{1-q}
 \]
-with the convention $0 \cdot \log(0/\cdot) = 0$.
+with the convention $0 \cdot \log(0/\cdot) = 0$
+\cite[\S2.3, eq.~(2.26)]{cover-thomas}, \cite[\S2.1]{polyanskiy-wu}.
 \end{defn}
 
 \begin{lemma}[Derivative in $q$]
 \label{lem:deriv-kl-bin}
   \lean{InformationTheory.hasDerivAt\_klBin\_q}
   \leanok
+  \uses{def:kl-bin}
 For $q \in (0, 1)$,
-$\partial_q \KL_\mathrm{bin}(p, q) = (q - p) / (q (1 - q))$.
+$\partial_q \KL_\mathrm{bin}(p, q) = (q - p) / (q (1 - q))$
+\cite[\S2.1, eq.~(2.6)]{polyanskiy-wu}, \cite[\S4.4]{boucheron2013concentration}.
 \end{lemma}
 
 \begin{thm}[Binary Pinsker, sharp constant $2$]
@@ -62,7 +67,8 @@ $\partial_q \KL_\mathrm{bin}(p, q) = (q - p) / (q (1 - q))$.
   \leanok
   \uses{def:kl-bin, lem:deriv-kl-bin}
 For $p \in [0, 1]$ and $q \in (0, 1)$,
-$2 (p - q)^2 \;\le\; \KL_\mathrm{bin}(p, q)$.
+$2 (p - q)^2 \;\le\; \KL_\mathrm{bin}(p, q)$
+\cite{kullback1967}, \cite[Lemma 11.6.1]{cover-thomas}.
 \end{thm}
 
 \begin{thm}[Pinsker's inequality]
@@ -87,9 +93,10 @@ $\| P - Q \|_1 \le \sqrt{2\,\KL}$.
   \leanok
   \uses{def:kl-bin, def:kl-div-real}
 For every measurable $A$ with $P(A) = p$, $Q(A) = q$,
-$\KL_\mathrm{bin}(p, q) \le \KL_\R(P, Q)$. This is
-the two-point data-processing inequality and is the step linking the
-binary Pinsker to the general measure-theoretic Pinsker.
+$\KL_\mathrm{bin}(p, q) \le \KL_\R(P, Q)$. This is the two-point
+data-processing inequality and is the step linking the binary Pinsker
+to the general measure-theoretic Pinsker
+\cite[Thm 2.8.1]{cover-thomas}.
 \end{thm}
 
 \section{Mutual information}\label{sec:mi}
@@ -100,7 +107,8 @@ binary Pinsker to the general measure-theoretic Pinsker.
   \leanok
 For a probability measure $P$ on $X \times Y$ with marginals
 $P_X, P_Y$,
-$\MI_\R(P) \;:=\; \KL_\R(P, P_X \otimes P_Y)$.
+$\MI_\R(P) \;:=\; \KL_\R(P, P_X \otimes P_Y)$
+\cite[\S2.3, Defn~2.28]{cover-thomas}, \cite[\S3.1]{polyanskiy-wu}.
 \end{defn}
 
 \begin{thm}[Non-negativity of mutual information]
@@ -108,7 +116,8 @@ $\MI_\R(P) \;:=\; \KL_\R(P, P_X \otimes P_Y)$.
   \lean{InformationTheory.mutualInformationReal\_nonneg}
   \leanok
   \uses{def:mi-real}
-$\MI_\R(P) \ge 0$ (Gibbs applied to the joint vs.\ product-of-marginals).
+$\MI_\R(P) \ge 0$ (Gibbs applied to the joint vs.\ product-of-marginals)
+\cite[Thm 2.6.3]{cover-thomas}.
 \end{thm}
 
 \begin{thm}[Mutual information vanishes iff independent]
@@ -117,5 +126,6 @@ $\MI_\R(P) \ge 0$ (Gibbs applied to the joint vs.\ product-of-marginals).
   \leanok
   \uses{def:mi-real}
 Under $P \ll P_X \otimes P_Y$ and $\KL(P, P_X \otimes P_Y) \ne \infty$,
-$\MI_\R(P) = 0 \iff P = P_X \otimes P_Y$.
+$\MI_\R(P) = 0 \iff P = P_X \otimes P_Y$
+\cite[Thm 2.6.5]{cover-thomas}.
 \end{thm}

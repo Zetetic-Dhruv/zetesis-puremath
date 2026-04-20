@@ -8,7 +8,7 @@
   \leanok
 $f : \Omega \to \R$ is \emph{bounded} in $[a, b]$ under $\mu$ iff
 $f$ is measurable and $f(\omega) \in [a, b]$ for $\mu$-almost every
-$\omega$.
+$\omega$ \cite[\S2.6]{boucheron2013concentration}.
 \end{defn}
 
 \begin{thm}[Chebyshev majority bound]
@@ -32,7 +32,8 @@ bound + Chebyshev's inequality \cite[\S2]{boucheron2013concentration}.
 A bundle $\langle m, \mu, \mathrm{IsProbabilityMeasure}\,\mu \rangle$
 where $m \in \N$ is the sample size and $\mu$ is a probability measure
 on the sample space. Used with the product measure
-$\mu^{\otimes 2m}$ as the natural exchangeable double-sample domain.
+$\mu^{\otimes 2m}$ as the natural exchangeable double-sample domain
+\cite[\S11]{kallenberg}, \cite[Ch.~12]{boucheron2013concentration}.
 \end{defn}
 
 \begin{defn}[Valid split]
@@ -51,7 +52,8 @@ $\binom{2m}{m}$ valid splits (Vapnik-Chervonenkis double-sample
   \leanok
   \uses{def:valid-split}
 The uniform probability measure on the set of valid splits. This is
-the symmetrization measure for the double-sample trick.
+the symmetrization measure for the double-sample trick
+\cite{vapnik1971}, \cite[Ch.~12]{boucheron2013concentration}.
 \end{defn}
 
 \section{Finite-type PMF}\label{sec:fintype-pmf}
@@ -74,7 +76,8 @@ $\R_{\ge 0}^\infty$-valued \texttt{PMF} \cite[\S4]{boucheron2013concentration}.
   \uses{def:fintype-pmf}
 The map $\mathrm{toPMF} : \mathrm{FintypePMF}\,\alpha \to \mathrm{PMF}\,\alpha$
 satisfies $(\mathrm{toPMF}\,p)(a) = \mathrm{ENNReal.ofReal}(p.\mathrm{prob}\,a)$,
-which is lossless on valid FintypePMF inputs.
+which is lossless on valid FintypePMF inputs
+\cite[\S4.1]{boucheron2013concentration}.
 \end{thm}
 
 \begin{defn}[$L^1$ TV distance]
@@ -84,7 +87,8 @@ which is lossless on valid FintypePMF inputs.
 $\mathrm{tvDistance}\,p\,q \;:=\; \sum_{a : \alpha} | p(a) - q(a) |$.
 This is the \emph{full $L^1$} convention, not the half-sup TV of
 Definition~\ref{def:tv-dist-real}; on discrete supports they differ
-by a factor of $2$.
+by a factor of $2$
+\cite[\S4.1]{boucheron2013concentration}, \cite[Ch.~1]{villani2009}.
 \end{defn}
 
 \begin{thm}[Non-negativity of $\mathrm{tvDistance}$]
@@ -92,7 +96,8 @@ by a factor of $2$.
   \lean{ProbabilityTheory.FintypePMF.tvDistance\_nonneg}
   \leanok
   \uses{def:tv-distance-fintype}
-$\mathrm{tvDistance}(p, q) \ge 0$.
+$\mathrm{tvDistance}(p, q) \ge 0$
+\cite[\S4.1]{boucheron2013concentration}.
 \end{thm}
 
 \begin{thm}[Symmetry of $\mathrm{tvDistance}$]
@@ -100,7 +105,8 @@ $\mathrm{tvDistance}(p, q) \ge 0$.
   \lean{ProbabilityTheory.FintypePMF.tvDistance\_comm}
   \leanok
   \uses{def:tv-distance-fintype}
-$\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)$.
+$\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)$
+\cite[\S4.1]{boucheron2013concentration}.
 \end{thm}
 
 \begin{thm}[Self-distance is zero]
@@ -108,7 +114,8 @@ $\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)$.
   \lean{ProbabilityTheory.FintypePMF.tvDistance\_self}
   \leanok
   \uses{def:tv-distance-fintype}
-$\mathrm{tvDistance}(p, p) = 0$.
+$\mathrm{tvDistance}(p, p) = 0$
+\cite[\S4.1]{boucheron2013concentration}.
 \end{thm}
 
 \begin{thm}[Transfer principle]
@@ -118,5 +125,6 @@ $\mathrm{tvDistance}(p, p) = 0$.
   \uses{def:tv-distance-fintype}
 For Boolean-valued $f$,
 $\bigl| \E_p[f] - \E_q[f] \bigr| \;\le\; \mathrm{tvDistance}(p, q)$.
-In the half-sup TV convention this would read $\le 2 \cdot \TV(p, q)$.
+In the half-sup TV convention this would read $\le 2 \cdot \TV(p, q)$
+\cite[\S4.1]{boucheron2013concentration}.
 \end{thm}

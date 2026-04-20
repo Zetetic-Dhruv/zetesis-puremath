@@ -24,7 +24,34 @@ kernels are the canonical setting for kernel mean embeddings
   \lean{norm\_apply\_le\_bound\_mul\_norm}
   \leanok
   \uses{def:bounded-kernel}
-$|f(x)| \le C \cdot \|f\|$ for every $f \in \RKHS$ and $x \in X$.
+$|f(x)| \le C \cdot \|f\|$ for every $f \in \RKHS$ and $x \in X$
+\cite[Thm~4.23]{steinwart-christmann}.
+\end{thm}
+
+\begin{thm}[Reproducing identity]
+\label{thm:rkhs-eval-eq-inner}
+  \lean{rkhs\_eval\_eq\_inner}
+  \leanok
+$f(x) = \langle k_x,\, f \rangle$ for every $f \in \RKHS$ and
+$x \in X$ \cite{aronszajn1950}.
+\end{thm}
+
+\begin{thm}[Continuity of RKHS evaluations]
+\label{thm:continuous-rkhs-apply}
+  \lean{continuous\_rkhs\_apply}
+  \leanok
+If the feature map $x \mapsto k_x$ is continuous, then every
+$f \in \RKHS$ is continuous on $X$
+\cite[Lemma~4.29]{steinwart-christmann}.
+\end{thm}
+
+\begin{thm}[RKHS functions are integrable under a finite measure]
+\label{thm:rkhs-fun-integrable}
+  \lean{rkhs\_fun\_integrable}
+  \leanok
+Under \texttt{IsFiniteMeasure}~$P$ and a continuous feature map,
+every $f \in \RKHS$ is $P$-integrable
+(via $L^\infty \subset L^1$ on finite measures).
 \end{thm}
 
 \section{Kernel mean embedding}\label{sec:kme}
@@ -48,7 +75,7 @@ For a measure $P$ on $X$, set
   \uses{def:kme}
 For integrable $f$,
 $\langle \mu_P, f \rangle \;=\; \int_X f(x) \,\mathrm{d}P(x)$
-\cite[\S2, eq.\ (2)]{gretton2012kernel}.
+\cite[eq.~(4)]{smola2007kme}, \cite[\S2, eq.~(2)]{gretton2012kernel}.
 \end{thm}
 
 \begin{thm}[Norm bound]
@@ -56,7 +83,20 @@ $\langle \mu_P, f \rangle \;=\; \int_X f(x) \,\mathrm{d}P(x)$
   \lean{kernelMeanEmbedding\_norm\_le}
   \leanok
   \uses{def:kme, def:bounded-kernel}
-Under \texttt{IsProbabilityMeasure}~$P$, $\|\mu_P\| \le C$.
+Under \texttt{IsProbabilityMeasure}~$P$, $\|\mu_P\| \le C$
+\cite[Lemma~4]{gretton2012kernel}.
+\end{thm}
+
+\begin{thm}[Integrability of the KME integrand]
+\label{thm:kme-integrable}
+  \lean{kernelMeanEmbedding\_integrable}
+  \leanok
+  \uses{def:kme, def:bounded-kernel}
+Under \texttt{IsFiniteMeasure}~$P$, continuity of $x \mapsto k_x$,
+and a bounded kernel, the feature map $x \mapsto k_x$ is
+Bochner-integrable against $P$, so
+$\int_X k_x \,\mathrm{d}P(x)$ is well-defined
+\cite[\S2]{gretton2012kernel}.
 \end{thm}
 
 \section{Maximum Mean Discrepancy}\label{sec:mmd}
@@ -74,7 +114,7 @@ $\MMD^2(P, Q) \;:=\; \| \mu_P - \mu_Q \|^2$ \cite[Defn.\ 2]{gretton2012kernel}.
   \lean{mmdSq\_nonneg}
   \leanok
   \uses{def:mmd-sq}
-$\MMD^2(P, Q) \ge 0$.
+$\MMD^2(P, Q) \ge 0$ \cite[Lemma~5]{gretton2012kernel}.
 \end{thm}
 
 \begin{thm}[$\MMD^2$ on identical measures]
@@ -82,7 +122,7 @@ $\MMD^2(P, Q) \ge 0$.
   \lean{mmdSq\_self}
   \leanok
   \uses{def:mmd-sq}
-$\MMD^2(P, P) = 0$.
+$\MMD^2(P, P) = 0$ \cite[Lemma~5]{gretton2012kernel}.
 \end{thm}
 
 \begin{thm}[Symmetry of $\MMD^2$]
@@ -90,7 +130,7 @@ $\MMD^2(P, P) = 0$.
   \lean{mmdSq\_comm}
   \leanok
   \uses{def:mmd-sq}
-$\MMD^2(P, Q) = \MMD^2(Q, P)$.
+$\MMD^2(P, Q) = \MMD^2(Q, P)$ \cite[Lemma~5]{gretton2012kernel}.
 \end{thm}
 
 \begin{defn}[Characteristic RKHS]
@@ -108,7 +148,17 @@ $P \mapsto \mu_P$ is injective. This is the modern definition
   \leanok
   \uses{def:mmd-sq, def:is-characteristic}
 Under \texttt{IsCharacteristic}~$\RKHS$,
-$\MMD^2(P, Q) = 0 \iff P = Q$.
+$\MMD^2(P, Q) = 0 \iff P = Q$
+\cite[Thm~8]{sriperumbudur2010hilbert}, \cite[Thm~5]{gretton2012kernel}.
+\end{thm}
+
+\begin{thm}[Forward direction: equal measures $\Rightarrow$ zero MMD]
+\label{thm:mmd-eq-zero}
+  \lean{mmdSq\_eq\_zero}
+  \leanok
+  \uses{def:mmd-sq}
+$P = Q \Rightarrow \MMD^2(P, Q) = 0$ (direct consequence of
+$\mu_P = \mu_Q$) \cite[Lemma~5]{gretton2012kernel}.
 \end{thm}
 
 \section{Hilbert-Schmidt Independence Criterion}\label{sec:hsic}
@@ -132,7 +182,7 @@ norm \cite{gretton2005hsic}.
   \lean{hsicDef\_nonneg}
   \leanok
   \uses{def:hsic}
-$\HSIC(P) \ge 0$.
+$\HSIC(P) \ge 0$ \cite{gretton2005hsic}.
 \end{thm}
 
 \begin{thm}[HSIC vanishes on independent measures]
@@ -141,7 +191,7 @@ $\HSIC(P) \ge 0$.
   \leanok
   \uses{def:hsic}
 If $P = P_X \otimes P_Y$ then $\HSIC(P) = 0$ (direct consequence of
-$\MMD^2(P, P) = 0$).
+$\MMD^2(P, P) = 0$) \cite{gretton2005hsic}.
 \end{thm}
 
 \begin{thm}[HSIC zero iff independent]
@@ -150,5 +200,6 @@ $\MMD^2(P, P) = 0$).
   \leanok
   \uses{def:hsic, def:is-characteristic}
 Under \texttt{IsCharacteristic}~$\RKHS$ on $X \times Y$,
-$\HSIC(P) = 0 \iff P = P_X \otimes P_Y$.
+$\HSIC(P) = 0 \iff P = P_X \otimes P_Y$
+\cite[Thm~4]{gretton2005hsic}, \cite[\S4.2]{sriperumbudur2010hilbert}.
 \end{thm}
