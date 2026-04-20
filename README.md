@@ -1,19 +1,33 @@
 # zetesis-puremath
 
-> **Blueprint** (definitions + crown theorems, with clickable Lean cross-refs): <https://zetetic-dhruv.github.io/zetesis-puremath/blueprint/>
-> &nbsp;&nbsp;**API docs**: <https://zetetic-dhruv.github.io/zetesis-puremath/docs/> &nbsp;&middot;&nbsp; **Landing**: <https://zetetic-dhruv.github.io/zetesis-puremath/>
+[![CI](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/ci.yml/badge.svg)](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/ci.yml)
+[![lean4checker](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/lean4checker.yml/badge.svg)](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/lean4checker.yml)
+[![Docs](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/docs.yml/badge.svg)](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/docs.yml)
+[![Blueprint](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/blueprint.yml/badge.svg)](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/workflows/blueprint.yml)
+[![Comparator](https://img.shields.io/badge/comparator-PASS-brightgreen)](https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification/-/pipelines/2463996501)
 
-A personal pure-mathematics reservoir in Lean 4: pieces of mathematics I have needed in my formalization projects (the [formal-learning-theory-kernel](https://github.com/Zetetic-Dhruv/formal-learning-theory-kernel), SMFE, and others) that are absent from Mathlib, or that I have chosen to specialize in a way Mathlib's current formulation does not support directly.
+![Lean](https://img.shields.io/badge/Lean-v4.30.0--rc2-blue)
+![Mathlib](https://img.shields.io/badge/mathlib4-2c53994-blue)
+![Theorems](https://img.shields.io/badge/theorems-114-informational)
+![sorry](https://img.shields.io/badge/sorry-0-brightgreen)
+![Axioms](https://img.shields.io/badge/axioms-propext%20%7C%20Quot.sound%20%7C%20Classical.choice-brightgreen)
+[![License](https://img.shields.io/badge/license-Apache_2.0-green)](./LICENSE)
+
+**[Blueprint](https://zetetic-dhruv.github.io/zetesis-puremath/blueprint/)** &nbsp;·&nbsp;
+**[API docs](https://zetetic-dhruv.github.io/zetesis-puremath/docs/)** &nbsp;·&nbsp;
+**[Landing page](https://zetetic-dhruv.github.io/zetesis-puremath/)** &nbsp;·&nbsp;
+**[Red-team audit](./Verification/RED_TEAM_AUDIT.md)** &nbsp;·&nbsp;
+**[Comparator pipeline](https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification)**
+
+---
+
+A personal pure-mathematics reservoir in Lean 4: pieces of mathematics I have needed in my formalization projects — the [formal-learning-theory-kernel](https://github.com/Zetetic-Dhruv/formal-learning-theory-kernel), SMFE, and others — that are absent from Mathlib, or that I have chosen to specialize in a way Mathlib's current formulation does not support directly.
 
 Every declaration in this repo is proved in Lean 4. Zero `sorry`. Only the standard Lean kernel axioms (`propext`, `Classical.choice`, `Quot.sound`) appear in the axiom closure.
 
 Open for anyone who wants to use it.
 
-## Charter
-
-See [CHARTER.md](CHARTER.md) for the admission rule, duplicate policy, and dependency policy.
-
-## What is in here (today)
+## What is in here
 
 | Area | What |
 |---|---|
@@ -22,8 +36,8 @@ See [CHARTER.md](CHARTER.md) for the admission rule, duplicate policy, and depen
 | `ZPM/MeasureTheory/ProbabilityMeasure/TotalVariation/` | ℝ-valued metric TV distance `tvDistReal` |
 | `ZPM/InformationTheory/KullbackLeibler/Real/` | ℝ-valued KL bridge to Mathlib's ENNReal `klDiv` |
 | `ZPM/InformationTheory/KullbackLeibler/Binary/` | Binary KL `klBin` with its full derivative / monotonicity chain |
-| `ZPM/InformationTheory/KullbackLeibler/Fintype` | Fintype-indexed ℝ-valued KL |
-| `ZPM/InformationTheory/CrossEntropy/Fintype` | Fintype-indexed cross-entropy |
+| `ZPM/InformationTheory/KullbackLeibler/Fintype/` | Fintype-indexed ℝ-valued KL |
+| `ZPM/InformationTheory/CrossEntropy/Fintype/` | Fintype-indexed cross-entropy |
 | `ZPM/InformationTheory/MutualInformation/` | ℝ-valued MI, nonnegativity, zero-iff-product |
 | `ZPM/InformationTheory/Pinsker/` | Pinsker's inequality with the sharp constant |
 | `ZPM/Probability/Concentration/` | `BoundedRandomVariable` typeclass, Chebyshev majority bound |
@@ -34,7 +48,7 @@ See [CHARTER.md](CHARTER.md) for the admission rule, duplicate policy, and depen
 | `ZPM/Analysis/InnerProductSpace/MMD/` | Maximum Mean Discrepancy, `IsCharacteristic`, zero-iff-equal |
 | `ZPM/Analysis/InnerProductSpace/HSIC/` | Hilbert-Schmidt Independence Criterion, zero-iff-independent |
 | `ZPM/Combinatorics/SetFamily/DualVC/` | Assouad's dual VC bound `VCDim(Mᵀ) ≤ 2^(d+1) − 1` for binary matrices |
-| `ZPM/Combinatorics/SetFamily/BoolFamily` | VC dimension of a finite `Bool`-valued function family |
+| `ZPM/Combinatorics/SetFamily/BoolFamily/` | VC dimension of a finite `Bool`-valued function family |
 
 ## Build
 
@@ -60,17 +74,19 @@ import ZPM.InformationTheory.Pinsker.Basic
 import ZPM.Probability.FintypePMF.Basic
 ```
 
-Downstream projects should pin to a commit hash or a tagged release. The repo is work in progress and will have its first tagged release once the full verification suite (including the Tier 3 comparator) is wired up.
+Downstream projects should pin to a commit hash or a tagged release. The repo is work-in-progress and will have its first tagged release once the full verification suite is stable on a tagged Lean toolchain.
 
 ## Verification
 
-| Tier | Status |
-|---|---|
-| 0: `lake build` | ✔ 0 errors, 0 warnings |
-| 1: `#print axioms` on crown-jewel theorems | ✔ only `propext`, `Classical.choice`, `Quot.sound` |
-| 2: `leanchecker --fresh` | ✔ available via `workflow_dispatch` |
-| 3: comparator + Landlock sandbox | pending |
+| Tier | Check | Status |
+|---|---|---|
+| **0** | `lake build` | ![Tier 0](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; 0 errors, 0 warnings, 0 `sorry` |
+| **1** | `#print axioms` on every public theorem | ![Tier 1](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; 113 / 114 use only `propext` + `Quot.sound` + `Classical.choice`; 1 uses none |
+| **2** | `leanchecker --fresh` per module | ![Tier 2](https://img.shields.io/badge/workflow__dispatch-available-blue) &nbsp; [`lean4checker.yml`](.github/workflows/lean4checker.yml) |
+| **3** | `comparator` + Landlock sandbox | ![Tier 3](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; [pipeline #2463996501](https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification/-/pipelines/2463996501) — *"Lean default kernel accepts the solution. Your solution is okay!"* |
+
+Raw CI artifacts committed under [`test/verification/CI/`](./test/verification/CI/). A consolidated red-team audit of all 114 theorems (premise quality, definition alignment with literature, Mathlib overlap, generalizability) is at [`Verification/RED_TEAM_AUDIT.md`](./Verification/RED_TEAM_AUDIT.md).
 
 ## License
 
-Apache 2.0.
+Apache 2.0 — see [LICENSE](./LICENSE).
