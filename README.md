@@ -82,7 +82,7 @@ Downstream projects should pin to a commit hash or a tagged release. The repo is
 |---|---|---|
 | **0** | `lake build` | ![Tier 0](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; 0 errors, 0 warnings, 0 `sorry` |
 | **1** | `#print axioms` on every public theorem | ![Tier 1](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; 113 / 114 use only `propext` + `Quot.sound` + `Classical.choice`; 1 uses none |
-| **2** | `leanchecker --fresh` per module | ![Tier 2](https://img.shields.io/badge/workflow__dispatch-available-blue) &nbsp; [`lean4checker.yml`](.github/workflows/lean4checker.yml) |
+| **2** | `leanchecker --fresh` per module | ![Tier 2](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; 84/84 library modules, matrix-split across 6 clusters via [`lean4checker.yml`](.github/workflows/lean4checker.yml) ([run #24646107151](https://github.com/Zetetic-Dhruv/zetesis-puremath/actions/runs/24646107151)) |
 | **3** | `comparator` + Landlock sandbox | ![Tier 3](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; [pipeline #2463996501](https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification/-/pipelines/2463996501): *"Lean default kernel accepts the solution. Your solution is okay!"* |
 
 Raw CI artifacts committed under [`test/verification/CI/`](./test/verification/CI/). A literature review pinning every definition and headline theorem to its canonical source is at [`Verification/DEFINITIONS_REVIEW.md`](./Verification/DEFINITIONS_REVIEW.md).

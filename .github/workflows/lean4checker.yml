@@ -72,7 +72,12 @@ jobs:
             echo "Toolchain: $(cat lean-toolchain)"
             echo "Commit:    ${{ github.sha }}"
             echo ""
+            # Exclude files that are lean_exe / scripts (no olean):
+            #   Verification/Extract.lean      (lean_exe verification_extract)
+            #   Verification/PrintAxioms.lean  (script; just runs #print axioms)
             MODULES=$(find ${{ matrix.path }} -name "*.lean" -type f \
+              ! -name "Extract.lean" \
+              ! -name "PrintAxioms.lean" \
               | sed 's|/|.|g; s|\.lean$||' \
               | sort)
             for mod in $MODULES; do
