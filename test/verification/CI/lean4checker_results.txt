@@ -1,0 +1,175 @@
+lean4checker --fresh: matrix-split full-repo replay
+Date:      2026-04-20T05:07:35Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+---- lean4checker_Analysis.txt ----
+lean4checker --fresh: cluster Analysis
+Path:      ZPM/Analysis
+Date:      2026-04-20T02:52:30Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+ZPM.Analysis.InnerProductSpace.Basic ... OK
+ZPM.Analysis.InnerProductSpace.HSIC.Basic ... OK
+ZPM.Analysis.InnerProductSpace.HSIC.Def ... OK
+ZPM.Analysis.InnerProductSpace.HSIC.ZeroIff ... OK
+ZPM.Analysis.InnerProductSpace.KernelMeanEmbedding.Basic ... OK
+ZPM.Analysis.InnerProductSpace.KernelMeanEmbedding.Def ... OK
+ZPM.Analysis.InnerProductSpace.KernelMeanEmbedding.Integrable ... OK
+ZPM.Analysis.InnerProductSpace.KernelMeanEmbedding.NormBound ... OK
+ZPM.Analysis.InnerProductSpace.KernelMeanEmbedding.Reproducing ... OK
+ZPM.Analysis.InnerProductSpace.MMD.Basic ... OK
+ZPM.Analysis.InnerProductSpace.MMD.Characteristic ... OK
+ZPM.Analysis.InnerProductSpace.MMD.Def ... OK
+
+=== Summary (Analysis) ===
+Passed: 12
+Failed: 0
+Total:  12
+
+---- lean4checker_Combinatorics.txt ----
+lean4checker --fresh: cluster Combinatorics
+Path:      ZPM/Combinatorics
+Date:      2026-04-20T02:52:26Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+ZPM.Combinatorics.SetFamily.Basic ... OK
+ZPM.Combinatorics.SetFamily.BoolFamily ... OK
+ZPM.Combinatorics.SetFamily.DualVC.Assouad ... OK
+ZPM.Combinatorics.SetFamily.DualVC.Basic ... OK
+ZPM.Combinatorics.SetFamily.DualVC.Def ... OK
+ZPM.Combinatorics.SetFamily.DualVC.MathlibBridge ... OK
+ZPM.Combinatorics.SetFamily.DualVC.SauerShelah ... OK
+ZPM.Combinatorics.SetFamily.DualVC.TransposeCoding ... OK
+
+=== Summary (Combinatorics) ===
+Passed: 8
+Failed: 0
+Total:  8
+
+---- lean4checker_InformationTheory.txt ----
+lean4checker --fresh: cluster InformationTheory
+Path:      ZPM/InformationTheory
+Date:      2026-04-20T02:52:34Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+ZPM.InformationTheory.Basic ... OK
+ZPM.InformationTheory.CrossEntropy.Basic ... OK
+ZPM.InformationTheory.CrossEntropy.Fintype ... OK
+ZPM.InformationTheory.KullbackLeibler.Basic ... OK
+ZPM.InformationTheory.KullbackLeibler.Binary.Basic ... OK
+ZPM.InformationTheory.KullbackLeibler.Binary.Def ... OK
+ZPM.InformationTheory.KullbackLeibler.Binary.Derivatives ... OK
+ZPM.InformationTheory.KullbackLeibler.Binary.Monotonicity ... OK
+ZPM.InformationTheory.KullbackLeibler.Binary.TwoSqLeNegLog ... OK
+ZPM.InformationTheory.KullbackLeibler.Fintype ... OK
+ZPM.InformationTheory.KullbackLeibler.Real ... OK
+ZPM.InformationTheory.MutualInformation.Basic ... OK
+ZPM.InformationTheory.MutualInformation.Def ... OK
+ZPM.InformationTheory.MutualInformation.Nonneg ... OK
+ZPM.InformationTheory.MutualInformation.ZeroIffProduct ... OK
+ZPM.InformationTheory.Pinsker.Basic ... OK
+ZPM.InformationTheory.Pinsker.Binary ... OK
+ZPM.InformationTheory.Pinsker.Bridge ... OK
+ZPM.InformationTheory.Pinsker.General ... OK
+
+=== Summary (InformationTheory) ===
+Passed: 19
+Failed: 0
+Total:  19
+
+---- lean4checker_MeasureTheory.txt ----
+lean4checker --fresh: cluster MeasureTheory
+Path:      ZPM/MeasureTheory
+Date:      2026-04-20T02:52:25Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+ZPM.MeasureTheory.AnalyticMeasurability.NullMeasurable ... OK
+ZPM.MeasureTheory.ChoquetCapacity.AnalyticCompactCap ... OK
+ZPM.MeasureTheory.ChoquetCapacity.Basic ... OK
+ZPM.MeasureTheory.ChoquetCapacity.Capacitability ... OK
+ZPM.MeasureTheory.ChoquetCapacity.CylinderMachinery ... OK
+ZPM.MeasureTheory.ChoquetCapacity.Def ... OK
+ZPM.MeasureTheory.ChoquetCapacity.MeasurableSetCap ... OK
+ZPM.MeasureTheory.ProbabilityMeasure.TotalVariation.Basic ... OK
+ZPM.MeasureTheory.ProbabilityMeasure.TotalVariation.Real ... OK
+
+=== Summary (MeasureTheory) ===
+Passed: 9
+Failed: 0
+Total:  9
+
+---- lean4checker_Probability.txt ----
+lean4checker --fresh: cluster Probability
+Path:      ZPM/Probability
+Date:      2026-04-20T02:52:24Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+ZPM.Probability.Concentration.Basic ... OK
+ZPM.Probability.Concentration.BoundedRandomVariable ... OK
+ZPM.Probability.Concentration.ChebyshevMajority ... OK
+ZPM.Probability.Decision.Minimax.Basic ... OK
+ZPM.Probability.Decision.Minimax.BoolGame ... OK
+ZPM.Probability.Decision.Minimax.BoolTestBridge ... OK
+ZPM.Probability.Decision.Minimax.Covering ... OK
+ZPM.Probability.Decision.Minimax.CoveringRow ... OK
+ZPM.Probability.Decision.Minimax.FiniteApproxMinimax ... OK
+ZPM.Probability.Decision.Minimax.MWU.ApproxMinimax ... OK
+ZPM.Probability.Decision.Minimax.MWU.Basic ... OK
+ZPM.Probability.Decision.Minimax.MWU.Config ... OK
+ZPM.Probability.Decision.Minimax.MWU.EmpiricalPayoff ... OK
+ZPM.Probability.Decision.Minimax.MWU.HitRate ... OK
+ZPM.Probability.Decision.Minimax.MWU.Run ... OK
+ZPM.Probability.Decision.Minimax.MWU.Update ... OK
+ZPM.Probability.Decision.Minimax.MWU.WeightTracking ... OK
+ZPM.Probability.Exchangeability.Basic ... OK
+ZPM.Probability.Exchangeability.DoubleSample ... OK
+ZPM.Probability.Exchangeability.SplitMeasure ... OK
+ZPM.Probability.Exchangeability.ValidSplit ... OK
+ZPM.Probability.FintypePMF.Basic ... OK
+ZPM.Probability.FintypePMF.Bridge ... OK
+ZPM.Probability.FintypePMF.Def ... OK
+ZPM.Probability.FintypePMF.Empirical ... OK
+ZPM.Probability.FintypePMF.Expectation ... OK
+ZPM.Probability.FintypePMF.Normalize ... OK
+ZPM.Probability.FintypePMF.PointMass ... OK
+ZPM.Probability.FintypePMF.PositivePrior ... OK
+ZPM.Probability.FintypePMF.TVDistance ... OK
+ZPM.Probability.FintypePMF.TransferPrinciple ... OK
+ZPM.Probability.FintypePMF.Uniform ... OK
+
+=== Summary (Probability) ===
+Passed: 32
+Failed: 0
+Total:  32
+
+---- lean4checker_Verification.txt ----
+lean4checker --fresh: cluster Verification
+Path:      Verification
+Date:      2026-04-20T02:52:29Z
+Toolchain: leanprover/lean4:v4.30.0-rc2
+Commit:    43c8e037e11743b1437192ab38d11bb1413d1525
+
+Verification.ChallengeCrown ... OK
+Verification.Definitions ... OK
+Verification.Extract ... uncaught exception: Could not find any oleans for: Verification.Extract
+FAILED
+Verification.Headlines ... OK
+Verification.PrintAxioms ... uncaught exception: Could not find any oleans for: Verification.PrintAxioms
+FAILED
+Verification.SolutionCrown ... OK
+
+=== Summary (Verification) ===
+Passed: 4
+Failed: 2
+Total:  6
+
+=== Grand Summary ===
+Passed: 84
+Failed: 2
+Total:  86
