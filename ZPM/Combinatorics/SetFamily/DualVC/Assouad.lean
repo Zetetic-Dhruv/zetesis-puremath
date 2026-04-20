@@ -27,9 +27,7 @@ theorem assouad_transpose_vcDim {m n : ℕ} (M : BinaryMatrix m n)
   by_contra hlt
   push Not at hlt
   have hge : 2 ^ (d + 1) ≤ M.transpose.vcDim := by omega
-  have hpos : (⊥ : ℕ) < 2 ^ (d + 1) := by
-    show 0 < 2 ^ (d + 1)
-    exact Nat.two_pow_pos (d + 1)
+  have hpos : 0 < 2 ^ (d + 1) := Nat.two_pow_pos (d + 1)
   have hge' : 2 ^ (d + 1) ≤ M.transpose.toFinsetFamily.shatterer.sup Finset.card := hge
   obtain ⟨S, hS_mem, hS_card⟩ := (Finset.le_sup_iff hpos).mp hge'
   rw [Finset.mem_shatterer] at hS_mem

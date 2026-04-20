@@ -16,8 +16,6 @@ and VC dimension via Mathlib's `Finset.vcDim`.
 
 open Classical Finset
 
-universe u
-
 /-- An `m × n` binary matrix, represented as `Fin m → Fin n → Bool`. -/
 abbrev BinaryMatrix (m n : ℕ) := Fin m → Fin n → Bool
 
