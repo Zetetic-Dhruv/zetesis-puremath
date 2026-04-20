@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -171,6 +171,10 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.MWUConfig</span></span></small></p>
 <p> An <span class="ttfamily">MWUConfig</span>&#160;\(C\) is a pair \(\langle w, h_{{\gt}0} \rangle \) where \(w : C \to \mathbb {R}\) is the strictly positive weight vector. The <em>potential</em> is \(\Phi (w) := \sum _c w(c)\), the <em>induced PMF</em> is \(\mathrm{toPMF}(w)(c) := w(c) / \Phi (w)\) <span class="cite">
 	[
+	<a href="sect0003.html#arora2012multiplicative" >3</a>
+	, 
+	Thm 2.1
+	]
 </span>. </p>
 
   </div>
@@ -188,8 +192,10 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.mwuUpdateWeights</span></span></small></p>
 <p>  Given a row \(r : R\) and step size \(\eta {\lt} 1\), the update is \(w'(c) := w(c) \cdot (1 - \eta )\) if \(M\, r\, c = \mathrm{true}\), else \(w'(c) := w(c)\). This is the Freund-Schapire \(\beta = (1 - \eta )\) Hedge convention <span class="cite">
 	[
+	<a href="sect0003.html#freund1997" >9</a>
+	]
 </span>. The closed form </p>
-<div class="displaymath" id="a0000000014">
+<div class="displaymath" id="a0000000015">
   \[  w_T(c) \; =\;  w_0(c) \cdot (1 - \eta )^{\mathrm{hitCount}_T(c)}  \]
 </div>
 <p> is Theorem <span class="ttfamily">mwu_weight_eq_pow_hitCount</span>. </p>

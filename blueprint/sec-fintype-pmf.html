@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -171,6 +171,11 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF</span></span></small></p>
 <p> For a fintype \(\alpha \), a <span class="ttfamily">FintypePMF</span>&#160;\(\alpha \) is a pair \(\langle p, h_{\ge 0}, h_{\sum = 1} \rangle \) where \(p : \alpha \to \mathbb {R}\), \(p \ge 0\) pointwise, and \(\sum _{a : \alpha } p(a) = 1\). This is an \(\mathbb {R}\)-valued, <span class="ttfamily">linarith</span>-compatible specialization of Mathlib’s \(\mathbb {R}_{\ge 0}^\infty \)-valued <span class="ttfamily">PMF</span> <span class="cite">
 	[
+	<a href="sect0003.html#boucheron2013concentration" >5</a>
+	, 
+	§
+	4
+	]
 </span>. </p>
 
   </div>
@@ -201,22 +206,52 @@
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance</span></span></small></p>
-<p> \(\mathrm{tvDistance}\, p\, q \; :=\;  \sum _{a : \alpha } | p(a) - q(a) |\). This is the <em>full \(L^1\)</em> convention, not the half-sup TV of Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.7</a>; on discrete supports they differ by a factor of \(2\). </p>
+<p> \(\mathrm{tvDistance}\, p\, q \; :=\;  \sum _{a : \alpha } | p(a) - q(a) |\). This is the <em>full \(L^1\)</em> convention, not the half-sup TV of Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.18</a>; on discrete supports they differ by a factor of \(2\). </p>
 
   </div>
 </div>
-<div class="thm_thmwrapper theorem-style-plain" id="thm:tv-distance-props">
+<div class="thm_thmwrapper theorem-style-plain" id="thm:tv-distance-nonneg">
   <div class="thm_thmheading">
     <span class="thm_thmcaption">
     Theorem
     </span>
     <span class="thm_thmlabel">4.9</span>
-    <span class="thm_thmtitle">Basic properties</span>
+    <span class="thm_thmtitle">Non-negativity of \(\mathrm{tvDistance}\)</span>
   </div>
   <div class="thm_thmcontent">
   
-<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_nonneg, ProbabilityTheory.FintypePMF.tvDistance_comm, ProbabilityTheory.FintypePMF.tvDistance_self</span></span></small></p>
-<p>  \(\mathrm{tvDistance}\) is non-negative, symmetric, and \(0\) on \(p = q\). </p>
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_nonneg</span></span></small></p>
+<p>  \(\mathrm{tvDistance}(p, q) \ge 0\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:tv-distance-comm">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">4.10</span>
+    <span class="thm_thmtitle">Symmetry of \(\mathrm{tvDistance}\)</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_comm</span></span></small></p>
+<p>  \(\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:tv-distance-self">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">4.11</span>
+    <span class="thm_thmtitle">Self-distance is zero</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.FintypePMF.tvDistance_self</span></span></small></p>
+<p>  \(\mathrm{tvDistance}(p, p) = 0\). </p>
 
   </div>
 </div>
@@ -225,7 +260,7 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">4.10</span>
+    <span class="thm_thmlabel">4.12</span>
     <span class="thm_thmtitle">Transfer principle</span>
   </div>
   <div class="thm_thmcontent">

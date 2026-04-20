@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -171,22 +171,58 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq</span></span></small></p>
 <p>  \(\mathrm{MMD}^2(P, Q) \; :=\;  \|  \mu _P - \mu _Q \| ^2\) <span class="cite">
 	[
+	<a href="sect0003.html#gretton2012kernel" >11</a>
+	, 
+	Defn.
+	 
+	2
+	]
 </span>. </p>
 
   </div>
 </div>
-<div class="thm_thmwrapper theorem-style-plain" id="thm:mmd-sq-props">
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mmd-sq-nonneg">
   <div class="thm_thmheading">
     <span class="thm_thmcaption">
     Theorem
     </span>
     <span class="thm_thmlabel">6.7</span>
-    <span class="thm_thmtitle">Metric axioms mod characteristic</span>
+    <span class="thm_thmtitle">Non-negativity of \(\mathrm{MMD}^2\)</span>
   </div>
   <div class="thm_thmcontent">
   
-<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_nonneg, mmdSq_self, mmdSq_comm</span></span></small></p>
-<p>  \(\mathrm{MMD}^2 \ge 0\), \(\mathrm{MMD}^2(P, P) = 0\), and \(\mathrm{MMD}^2\) is symmetric in its arguments. </p>
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_nonneg</span></span></small></p>
+<p>  \(\mathrm{MMD}^2(P, Q) \ge 0\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mmd-sq-self">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.8</span>
+    <span class="thm_thmtitle">\(\mathrm{MMD}^2\) on identical measures</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_self</span></span></small></p>
+<p>  \(\mathrm{MMD}^2(P, P) = 0\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mmd-sq-comm">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.9</span>
+    <span class="thm_thmtitle">Symmetry of \(\mathrm{MMD}^2\)</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">mmdSq_comm</span></span></small></p>
+<p>  \(\mathrm{MMD}^2(P, Q) = \mathrm{MMD}^2(Q, P)\). </p>
 
   </div>
 </div>
@@ -195,7 +231,7 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">6.8</span>
+    <span class="defn_thmlabel">6.10</span>
     <span class="defn_thmtitle">Characteristic RKHS</span>
   </div>
   <div class="defn_thmcontent">
@@ -203,6 +239,12 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">IsCharacteristic</span></span></small></p>
 <p> \(\mathcal{H}\) is <em>characteristic on \(X\)</em> iff the kernel mean embedding \(P \mapsto \mu _P\) is injective. This is the modern definition <span class="cite">
 	[
+	<a href="sect0003.html#sriperumbudur2010hilbert" >20</a>
+	, 
+	Defn.
+	 
+	6
+	]
 </span>. </p>
 
   </div>
@@ -212,7 +254,7 @@
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.9</span>
+    <span class="thm_thmlabel">6.11</span>
     <span class="thm_thmtitle">Zero-iff-equal under characteristic kernel</span>
   </div>
   <div class="thm_thmcontent">

@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -158,23 +158,190 @@
 <div class="main-text">
 <h1 id="sec:cylinders">2.3 Baire-space cylinder infrastructure</h1>
 
-<p>The proof of Theorem&#160;<a href="sec-choquet-capacity.html#thm:analytic-capacitability">2.5</a> requires a small theory of cylinders in \(\mathbb {N}^\mathbb {N}\): </p>
-<div class="defn_thmwrapper theorem-style-definition" id="def:cyl-bnd">
+<p>The proof of Theorem&#160;<a href="sec-choquet-capacity.html#thm:analytic-capacitability">2.5</a> requires a small theory of cylinders in \(\mathbb {N}^\mathbb {N}\). </p>
+<div class="defn_thmwrapper theorem-style-definition" id="def:cyl">
   <div class="defn_thmheading">
     <span class="defn_thmcaption">
     Definition
     </span>
     <span class="defn_thmlabel">2.6</span>
-    <span class="defn_thmtitle">Cylinder, bounded box, truncate</span>
+    <span class="defn_thmtitle">Cylinder</span>
   </div>
   <div class="defn_thmcontent">
   
-<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">Cyl, Bnd, truncate</span></span></small></p>
-<p> For \(N : \mathbb {N}\to \mathbb {N}\) and \(n \in \mathbb {N}\), \(\mathrm{Cyl}\, N\, n \; :=\;  \{  g : \mathbb {N}\to \mathbb {N}\mid \forall i \le n,\;  g\, i \le N\, i \} \) and \(\mathrm{Bnd}\, N \; :=\;  \bigcap _n \mathrm{Cyl}\, N\, n\). \(\mathrm{Bnd}\, N = \prod _i [0, N_i]\) is compact. The map \(\mathrm{truncate}\, N\, g\, i := \min (g\, i, N\, i)\) sends any sequence into \(\mathrm{Bnd}\, N\) and agrees with \(g\) on cylinders. </p>
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">Cyl</span></span></small></p>
+<p> For \(N : \mathbb {N}\to \mathbb {N}\) and \(n \in \mathbb {N}\), </p>
+<div class="displaymath" id="a0000000008">
+  \[  \mathrm{Cyl}\, N\, n \; :=\;  \{  g : \mathbb {N}\to \mathbb {N}\mid \forall i \le n,\;  g\, i \le N\, i \} .  \]
+</div>
 
   </div>
 </div>
-<p>The lemmas <span class="ttfamily">bnd_subset_cyl</span>, <span class="ttfamily">cyl_succ_eq</span>, <span class="ttfamily">cyl_inter_eq_cyl_update</span>, <span class="ttfamily">monotone_cyl_split</span>, <span class="ttfamily">iInter_closure_image_cyl_eq</span>, <span class="ttfamily">isCompact_bnd</span>, and <span class="ttfamily">truncate_mem_bnd</span> are the technical core of the proof; they are annotated with <span class="ttfamily">\lean</span> in the source repository and are all <span class="ttfamily">\leanok</span>. </p>
+<div class="defn_thmwrapper theorem-style-definition" id="def:bnd">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">2.7</span>
+    <span class="defn_thmtitle">Bounded box</span>
+  </div>
+  <div class="defn_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">Bnd</span></span></small></p>
+<p>  \(\mathrm{Bnd}\, N \; :=\;  \bigcap _n \mathrm{Cyl}\, N\, n \; =\;  \prod _i [0, N_i]\). </p>
+
+  </div>
+</div>
+<div class="defn_thmwrapper theorem-style-definition" id="def:truncate">
+  <div class="defn_thmheading">
+    <span class="defn_thmcaption">
+    Definition
+    </span>
+    <span class="defn_thmlabel">2.8</span>
+    <span class="defn_thmtitle">Truncation map</span>
+  </div>
+  <div class="defn_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">truncate</span></span></small></p>
+<p> \(\mathrm{truncate}\, N\, g\, i \; :=\;  \min (g\, i,\;  N\, i)\). Sends any sequence into \(\mathrm{Bnd}\, N\) and agrees with \(g\) on cylinders. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:isCompact-bnd">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.9</span>
+    <span class="lemma_thmtitle">\(\mathrm{Bnd}\, N\) is compact</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">isCompact_bnd</span></span></small></p>
+<p>  \(\mathrm{Bnd}\, N\) is compact (Tychonoff applied to the finite intervals \([0, N_i]\)). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:bnd-subset-cyl">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.10</span>
+    <span class="lemma_thmtitle">\(\mathrm{Bnd} \subseteq \mathrm{Cyl}\)</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">bnd_subset_cyl</span></span></small></p>
+<p>  \(\mathrm{Bnd}\, N \subseteq \mathrm{Cyl}\, N\, n\) for every \(n\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:cyl-succ-eq">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.11</span>
+    <span class="lemma_thmtitle">Cylinder successor splits along the next coordinate</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">cyl_succ_eq</span></span></small></p>
+<p>  \(\mathrm{Cyl}\, N\, (n+1) = \mathrm{Cyl}\, N\, n \cap \{ g : g\, (n+1) \le N\, (n+1)\} \). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:cyl-inter-update">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.12</span>
+    <span class="lemma_thmtitle">Intersection with a coordinate update</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">cyl_inter_eq_cyl_update</span></span></small></p>
+<p>  Intersecting a cylinder with a coordinate-level constraint rewrites as a cylinder with an updated bound at that coordinate. </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:monotone-cyl-split">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.13</span>
+    <span class="lemma_thmtitle">Monotone split</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">monotone_cyl_split</span></span></small></p>
+<p>  The map \(k \mapsto \mathrm{Cyl}\, N\, n \cap \{ g : g\, (n+1) \le k\} \) is monotone in \(k\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:truncate-mem-bnd">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.14</span>
+    <span class="lemma_thmtitle">Truncate lands in \(\mathrm{Bnd}\)</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">truncate_mem_bnd</span></span></small></p>
+<p>  \(\mathrm{truncate}\, N\, g \in \mathrm{Bnd}\, N\) for every \(g\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:truncate-agree-on-cyl">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.15</span>
+    <span class="lemma_thmtitle">Truncate agrees on cylinders</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">truncate_agree_on_cyl</span></span></small></p>
+<p>  If \(g \in \mathrm{Cyl}\, N\, n\) then \(\mathrm{truncate}\, N\, g\, i = g\, i\) for all \(i \le n\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:cyl-ext">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.16</span>
+    <span class="lemma_thmtitle">Cylinder extensionality</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">cyl_ext</span></span></small></p>
+<p>  Two elements of \(\mathrm{Cyl}\, N\, n\) agreeing on the first \(n+1\) coordinates are equal on \(\mathrm{Cyl}\). </p>
+
+  </div>
+</div>
+<div class="lemma_thmwrapper theorem-style-plain" id="lem:iInter-closure-image-cyl-eq">
+  <div class="lemma_thmheading">
+    <span class="lemma_thmcaption">
+    Lemma
+    </span>
+    <span class="lemma_thmlabel">2.17</span>
+    <span class="lemma_thmtitle">Intersection of cylinder-closure images equals compact image</span>
+  </div>
+  <div class="lemma_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">iInter_closure_image_cyl_eq</span></span></small></p>
+<p>  Under a continuous parametrization \(f : \mathbb {N}^\mathbb {N}\to \alpha \) into a Polish space, \(\bigcap _n \overline{f(\mathrm{Cyl}\, N\, n)} = f(\mathrm{Bnd}\, N)\). </p>
+
+  </div>
+</div>
 
 </div> <!--main-text -->
 </div> <!-- content-wrapper -->

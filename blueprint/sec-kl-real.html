@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -170,7 +170,7 @@
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klDivReal</span></span></small></p>
 <p> For measures \(P, Q\) on a measurable space, set </p>
-<div class="displaymath" id="a0000000010">
+<div class="displaymath" id="a0000000011">
   \[  \mathrm{KL}_\mathbb {R}(P, Q) \; :=\;  \begin{cases}  \int \log \tfrac {\mathrm{d}P}{\mathrm{d}Q}\, \mathrm{d}P &  \text{if $P \ll Q$,}\\ 0 &  \text{otherwise.} \end{cases}  \]
 </div>
 <p> This bridges Mathlib’s <span class="ttfamily">ENNReal</span>-valued <span class="ttfamily">klDiv</span> to \(\mathbb {R}\) for <span class="ttfamily">linarith</span>-compatible arithmetic; the identity \(\mathrm{KL}_\mathbb {R}(P,Q) = (\mathrm{KL}(P,Q)).\mathrm{toReal}\) holds unconditionally (<span class="ttfamily">klDivReal_eq_toReal_klDiv</span>). </p>
@@ -205,6 +205,10 @@
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klDivReal_eq_zero_iff</span></span></small></p>
 <p> If \(P \ll Q\), \(\mathrm{KL}(P, Q) \ne \infty \), and both are finite measures, then \(\mathrm{KL}_\mathbb {R}(P, Q) = 0 \iff P = Q\) <span class="cite">
 	[
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	Thm 2.6.3
+	]
 </span>. </p>
 
   </div>

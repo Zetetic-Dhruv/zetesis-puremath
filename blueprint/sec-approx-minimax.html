@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -170,13 +170,22 @@
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.mwu_approx_minimax</span></span></small></p>
 <p>  Fix \(\varepsilon {\gt} 0\), set \(\eta = \varepsilon /4\) and \(T = \max \{ 1, \lceil 16 \log N / \varepsilon ^2 \rceil \} \) where \(N = |C|\). If the row player can guarantee value \(v\) against every mixed column, then the empirical row mixture produced by \(T\) rounds of MWU achieves </p>
-<div class="displaymath" id="a0000000015">
+<div class="displaymath" id="a0000000016">
   \[  v - \varepsilon \; \le \;  \mathrm{boolGamePayoff}\, M\, p\, c \qquad \text{for every pure $c \in C$.}  \]
 </div>
 <p> This is the Freund-Schapire constructive minimax <span class="cite">
 	[
+	<a href="sect0003.html#freund1999games" >10</a>
+	, 
+	Thm 3
+	]
 </span>; <span class="cite">
 	[
+	<a href="sect0003.html#arora2012multiplicative" >3</a>
+	, 
+	§
+	3.1
+	]
 </span> unifies this with general online learning. </p>
 
   </div>
@@ -187,12 +196,27 @@
     Theorem
     </span>
     <span class="thm_thmlabel">5.8</span>
-    <span class="thm_thmtitle">Covering-based minimax (existential)</span>
+    <span class="thm_thmtitle">Covering-based minimax existence</span>
   </div>
   <div class="thm_thmcontent">
   
-<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.covering_minimax, ProbabilityTheory.finite_approx_minimax</span></span></small></p>
-<p> An existence counterpart to Theorem&#160;<a href="sec-approx-minimax.html#thm:mwu-approx-minimax">5.7</a>: given the same row-guarantees hypothesis, there is a mixed-row PMF with payoff at least \(1 / |C|\) against every pure column. This gives \(v - \varepsilon \le 1/|C|\) under a feasibility side-condition and is the logical dual of the quantitative MWU bound. </p>
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.covering_minimax</span></span></small></p>
+<p> Given the <span class="ttfamily">hrow</span> hypothesis, there exists a mixed-row PMF whose payoff against every pure column is at least \(1 / |C|\). Proof by pigeonhole-averaging over per-column pure-row witnesses extracted via <span class="ttfamily">ProbabilityTheory.exists_covering_row</span>. </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:finite-approx-minimax">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">5.9</span>
+    <span class="thm_thmtitle">\(\varepsilon \)-approximate finite minimax</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">ProbabilityTheory.finite_approx_minimax</span></span></small></p>
+<p>  Under a feasibility side-condition \(v - \varepsilon \le 1/|C|\), the covering-based mixed-row strategy from Theorem&#160;<a href="sec-approx-minimax.html#thm:covering-minimax">5.8</a> achieves payoff \(\ge v - \varepsilon \) against every pure column. This is the logical dual of the quantitative MWU bound in Theorem&#160;<a href="sec-approx-minimax.html#thm:mwu-approx-minimax">5.7</a>. </p>
 
   </div>
 </div>

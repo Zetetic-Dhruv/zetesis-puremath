@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -170,7 +170,7 @@
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.klBin</span></span></small></p>
 <p> For \(p, q \in [0, 1]\), </p>
-<div class="displaymath" id="a0000000011">
+<div class="displaymath" id="a0000000012">
   \[  \mathrm{KL}_\mathrm {bin}(p, q) \; :=\;  p \log \tfrac {p}{q} + (1-p) \log \tfrac {1-p}{1-q}  \]
 </div>
 <p> with the convention \(0 \cdot \log (0/\cdot ) = 0\). </p>
@@ -219,12 +219,16 @@
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.pinsker_proof</span></span></small></p>
 <p>  For probability measures \(P \ll Q\) with \(\mathrm{KL}(P,Q) {\lt} \infty \), </p>
-<div class="displaymath" id="a0000000012">
+<div class="displaymath" id="a0000000013">
   \[  \mathrm{TV}(P, Q) \; \le \;  \sqrt{\mathrm{KL}_\mathbb {R}(P, Q) / 2}  \]
 </div>
 <p> <span class="cite">
 	[
-</span>. The convention matches Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.7</a> (half-sup TV); with the \(L^1\) convention the bound reads \(\|  P - Q \| _1 \le \sqrt{2\, \mathrm{KL}}\). </p>
+	<a href="sect0003.html#cover-thomas" >7</a>
+	, 
+	Thm 11.6.1
+	]
+</span>. The convention matches Definition&#160;<a href="sec-tv.html#def:tv-dist-real">2.18</a> (half-sup TV); with the \(L^1\) convention the bound reads \(\|  P - Q \| _1 \le \sqrt{2\, \mathrm{KL}}\). </p>
 
   </div>
 </div>

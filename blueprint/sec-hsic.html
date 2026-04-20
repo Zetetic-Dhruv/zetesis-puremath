@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -163,36 +163,72 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">6.10</span>
+    <span class="defn_thmlabel">6.12</span>
     <span class="defn_thmtitle">HSIC via product-space MMD</span>
   </div>
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef</span></span></small></p>
 <p>  For a joint measure \(P\) on \(X \times Y\) with marginals \(P_X\), \(P_Y\), </p>
-<div class="displaymath" id="a0000000017">
+<div class="displaymath" id="a0000000018">
   \[  \mathrm{HSIC}(P) \; :=\;  \mathrm{MMD}^2\bigl(P,\;  P_X \otimes P_Y\bigr).  \]
 </div>
 <p> This is the modern unified formulation <span class="cite">
 	[
+	<a href="sect0003.html#sriperumbudur2010hilbert" >20</a>
+	, 
+	Thm 24
+	]
 </span>; originally introduced as a cross-covariance-operator Hilbert-Schmidt norm <span class="cite">
 	[
+	<a href="sect0003.html#gretton2005hsic" >12</a>
+	]
 </span>. </p>
 
   </div>
 </div>
-<div class="thm_thmwrapper theorem-style-plain" id="thm:hsic-zero-iff">
+<div class="thm_thmwrapper theorem-style-plain" id="thm:hsic-nonneg">
   <div class="thm_thmheading">
     <span class="thm_thmcaption">
     Theorem
     </span>
-    <span class="thm_thmlabel">6.11</span>
-    <span class="thm_thmtitle">Zero-iff-independent</span>
+    <span class="thm_thmlabel">6.13</span>
+    <span class="thm_thmtitle">Non-negativity of HSIC</span>
   </div>
   <div class="thm_thmcontent">
   
-<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_nonneg, hsicDef_eq_zero_of_independent, hsicDef_zero_iff_independent</span></span></small></p>
-<p>  \(\mathrm{HSIC}(P) \ge 0\); \(P = P_X \otimes P_Y\) implies \(\mathrm{HSIC}(P) = 0\); conversely, under characteristic kernels on \(X \times Y\), \(\mathrm{HSIC}(P) = 0 \iff P = P_X \otimes P_Y\). </p>
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_nonneg</span></span></small></p>
+<p>  \(\mathrm{HSIC}(P) \ge 0\). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:hsic-eq-zero-of-indep">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.14</span>
+    <span class="thm_thmtitle">HSIC vanishes on independent measures</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_eq_zero_of_independent</span></span></small></p>
+<p>  If \(P = P_X \otimes P_Y\) then \(\mathrm{HSIC}(P) = 0\) (direct consequence of \(\mathrm{MMD}^2(P, P) = 0\)). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:hsic-zero-iff-indep">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">6.15</span>
+    <span class="thm_thmtitle">HSIC zero iff independent</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">hsicDef_zero_iff_independent</span></span></small></p>
+<p>  Under <span class="ttfamily">IsCharacteristic</span>&#160;\(\mathcal{H}\) on \(X \times Y\), \(\mathrm{HSIC}(P) = 0 \iff P = P_X \otimes P_Y\). </p>
 
   </div>
 </div>

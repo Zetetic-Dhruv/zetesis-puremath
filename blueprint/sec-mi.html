@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -173,18 +173,33 @@
 
   </div>
 </div>
-<div class="thm_thmwrapper theorem-style-plain" id="thm:mi-zero-iff">
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mi-nonneg">
   <div class="thm_thmheading">
     <span class="thm_thmcaption">
     Theorem
     </span>
     <span class="thm_thmlabel">3.10</span>
-    <span class="thm_thmtitle">Non-negativity and independence</span>
+    <span class="thm_thmtitle">Non-negativity of mutual information</span>
   </div>
   <div class="thm_thmcontent">
   
-<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.mutualInformationReal_nonneg, InformationTheory.mutualInformationReal_eq_zero_iff_product</span></span></small></p>
-<p>  \(\mathrm{MI}_\mathbb {R}(P) \ge 0\); under \(P \ll P_X \otimes P_Y\) and finiteness, \(\mathrm{MI}_\mathbb {R}(P) = 0 \iff P = P_X \otimes P_Y\). </p>
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.mutualInformationReal_nonneg</span></span></small></p>
+<p>  \(\mathrm{MI}_\mathbb {R}(P) \ge 0\) (Gibbs applied to the joint vs. product-of-marginals). </p>
+
+  </div>
+</div>
+<div class="thm_thmwrapper theorem-style-plain" id="thm:mi-zero-iff">
+  <div class="thm_thmheading">
+    <span class="thm_thmcaption">
+    Theorem
+    </span>
+    <span class="thm_thmlabel">3.11</span>
+    <span class="thm_thmtitle">Mutual information vanishes iff independent</span>
+  </div>
+  <div class="thm_thmcontent">
+  
+<p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">InformationTheory.mutualInformationReal_eq_zero_iff_product</span></span></small></p>
+<p>  Under \(P \ll P_X \otimes P_Y\) and \(\mathrm{KL}(P, P_X \otimes P_Y) \ne \infty \), \(\mathrm{MI}_\mathbb {R}(P) = 0 \iff P = P_X \otimes P_Y\). </p>
 
   </div>
 </div>

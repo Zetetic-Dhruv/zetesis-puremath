@@ -146,7 +146,7 @@
   </ul>
  </li>
 <li class="">
-  <a href="sect0003.html"><span class="toc_ref">8</span> <span class="toc_entry">Bibliography</span></a>
+  <a href="sect0003.html"><span class="toc_ref"></span> <span class="toc_entry">References</span></a>
  </li>
 </ul>
 </nav>
@@ -163,26 +163,26 @@
     <span class="defn_thmcaption">
     Definition
     </span>
-    <span class="defn_thmlabel">2.7</span>
+    <span class="defn_thmlabel">2.18</span>
     <span class="defn_thmtitle">Real-valued total variation</span>
   </div>
   <div class="defn_thmcontent">
   
 <p><small class="footnotesize"><span class="sffamily">Lean:&#160;<span class="ttfamily">MeasureTheory.tvDistReal</span></span></small></p>
 <p> For finite Borel measures \(P, Q\) on \(\alpha \), </p>
-<div class="displaymath" id="a0000000008">
+<div class="displaymath" id="a0000000009">
   \[  \mathrm{TV}(P, Q) \; :=\;  \sup _A \bigl| P(A).\mathrm{toReal} - Q(A).\mathrm{toReal} \bigr|  \]
 </div>
 <p> where the supremum is over measurable \(A \subseteq \alpha \). This is the <em>half-sup</em> / metric convention (Billingsley, Villani), chosen so that Pinsker reads as \(\mathrm{TV}(P,Q) \le \sqrt{\mathrm{KL}(P\| Q)/2}\). The lemmas <span class="ttfamily">tvDistReal_set_nonempty</span> and <span class="ttfamily">tvDistReal_set_bddAbove</span> discharge the nonemptiness and boundedness conditions that \(\mathbb {R}\)-valued <span class="ttfamily">sSup</span> requires. </p>
 
   </div>
 </div>
-<div class="remark_thmwrapper theorem-style-remark" id="a0000000009">
+<div class="remark_thmwrapper theorem-style-remark" id="a0000000010">
   <div class="remark_thmheading">
     <span class="remark_thmcaption">
     Remark
     </span>
-    <span class="remark_thmlabel">2.8</span>
+    <span class="remark_thmlabel">2.19</span>
   </div>
   <div class="remark_thmcontent">
   <p>The repository also contains a second total-variation object, \(\mathrm{FintypePMF.tvDistance}\, p\, q = \sum _a |p\, a - q\, a|\) (the \(L^1\) convention, see Chapter&#160;<a href="chap-probability.html">4</a>); the two conventions differ by a factor of \(2\) on discrete supports. Downstream consumers should not compose them without inserting the factor-of-\(\tfrac {1}{2}\) correction. </p>
