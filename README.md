@@ -16,7 +16,7 @@
 **[Blueprint](https://zetetic-dhruv.github.io/zetesis-puremath/blueprint/)** &nbsp;·&nbsp;
 **[API docs](https://zetetic-dhruv.github.io/zetesis-puremath/docs/)** &nbsp;·&nbsp;
 **[Landing page](https://zetetic-dhruv.github.io/zetesis-puremath/)** &nbsp;·&nbsp;
-**[Red-team audit](./Verification/RED_TEAM_AUDIT.md)** &nbsp;·&nbsp;
+**[Definitions review](./Verification/DEFINITIONS_REVIEW.md)** &nbsp;·&nbsp;
 **[Comparator pipeline](https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification)**
 
 ---
@@ -85,7 +85,7 @@ Downstream projects should pin to a commit hash or a tagged release. The repo is
 | **2** | `leanchecker --fresh` per module | ![Tier 2](https://img.shields.io/badge/workflow__dispatch-available-blue) &nbsp; [`lean4checker.yml`](.github/workflows/lean4checker.yml) |
 | **3** | `comparator` + Landlock sandbox | ![Tier 3](https://img.shields.io/badge/%E2%9C%94-PASS-brightgreen) &nbsp; [pipeline #2463996501](https://gitlab.com/Zetetic-Dhruv/zetesis-puremath-verification/-/pipelines/2463996501) — *"Lean default kernel accepts the solution. Your solution is okay!"* |
 
-Raw CI artifacts committed under [`test/verification/CI/`](./test/verification/CI/). A consolidated red-team audit of all 114 theorems (premise quality, definition alignment with literature, Mathlib overlap, generalizability) is at [`Verification/RED_TEAM_AUDIT.md`](./Verification/RED_TEAM_AUDIT.md).
+Raw CI artifacts committed under [`test/verification/CI/`](./test/verification/CI/). A literature review pinning every definition and headline theorem to its canonical source is at [`Verification/DEFINITIONS_REVIEW.md`](./Verification/DEFINITIONS_REVIEW.md).
 
 ## License
 
