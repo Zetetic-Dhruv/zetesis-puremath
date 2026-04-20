@@ -7,9 +7,30 @@ permissions:
   contents: write
 
 jobs:
-  lean4checker:
+  # ---------------------------------------------------------------
+  # Per-cluster lean4checker --fresh replay, run in parallel.
+  # Each cluster has ~5-20 modules; at ~6 min per module the
+  # slowest cluster lands well under the 4h per-job timeout.
+  # ---------------------------------------------------------------
+  check:
     runs-on: ubuntu-latest
     timeout-minutes: 240
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - cluster: MeasureTheory
+            path: ZPM/MeasureTheory
+          - cluster: InformationTheory
+            path: ZPM/InformationTheory
+          - cluster: Probability
+            path: ZPM/Probability
+          - cluster: Analysis
+            path: ZPM/Analysis
+          - cluster: Combinatorics
+            path: ZPM/Combinatorics
+          - cluster: Verification
+            path: Verification
     steps:
       - uses: actions/checkout@v4
 
@@ -38,18 +59,20 @@ jobs:
       - name: Build Verification
         run: lake build Verification
 
-      - name: Run lean4checker --fresh on every ZPM + Verification module
+      - name: Run lean4checker --fresh on ${{ matrix.cluster }}
         run: |
           mkdir -p test/verification/CI
+          OUT="test/verification/CI/lean4checker_${{ matrix.cluster }}.txt"
           PASS=0
           FAIL=0
           {
-            echo "lean4checker --fresh: full repo replay"
-            echo "Date: $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "lean4checker --fresh: cluster ${{ matrix.cluster }}"
+            echo "Path:      ${{ matrix.path }}"
+            echo "Date:      $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             echo "Toolchain: $(cat lean-toolchain)"
-            echo "Commit: ${{ github.sha }}"
+            echo "Commit:    ${{ github.sha }}"
             echo ""
-            MODULES=$(find ZPM Verification -name "*.lean" -type f \
+            MODULES=$(find ${{ matrix.path }} -name "*.lean" -type f \
               | sed 's|/|.|g; s|\.lean$||' \
               | sort)
             for mod in $MODULES; do
@@ -63,16 +86,121 @@ jobs:
               fi
             done
             echo ""
-            echo "=== Summary ==="
+            echo "=== Summary (${{ matrix.cluster }}) ==="
             echo "Passed: $PASS"
             echo "Failed: $FAIL"
             echo "Total:  $((PASS + FAIL))"
-          } 2>&1 | tee test/verification/CI/lean4checker_results.txt
+          } 2>&1 | tee "$OUT"
+
+      - name: Upload cluster report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean4checker-${{ matrix.cluster }}
+          path: test/verification/CI/lean4checker_${{ matrix.cluster }}.txt
+
+  # ---------------------------------------------------------------
+  # Tier 1: `#print axioms` over every Solution theorem. Runs in
+  # parallel with the cluster matrix.
+  # ---------------------------------------------------------------
+  axioms:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install elan
+        run: |
+          curl https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh -sSf \
+            | sh -s -- -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Cache .lake and elan
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.elan
+            .lake
+          key: lean4checker-${{ hashFiles('lean-toolchain', 'lake-manifest.json') }}
+          restore-keys: |
+            lean4checker-
+
+      - name: Fetch Mathlib cache
+        run: lake exe cache get
+
+      - name: Build ZPM
+        run: lake build ZPM
+
+      - name: Build Verification
+        run: lake build Verification
 
       - name: Print axioms
         run: |
+          mkdir -p test/verification/CI
           lake env lean Verification/PrintAxioms.lean 2>&1 \
             | tee test/verification/CI/print_axioms_results.txt
+
+      - name: Upload axioms report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lean4checker-axioms
+          path: test/verification/CI/print_axioms_results.txt
+
+  # ---------------------------------------------------------------
+  # Aggregate: pull all cluster reports + axioms, stitch into a
+  # single lean4checker_results.txt, commit alongside
+  # print_axioms_results.txt.
+  # ---------------------------------------------------------------
+  aggregate:
+    needs: [check, axioms]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download cluster reports
+        uses: actions/download-artifact@v4
+        with:
+          pattern: lean4checker-*
+          path: /tmp/reports
+          merge-multiple: true
+
+      - name: Stitch reports into a single summary
+        run: |
+          mkdir -p test/verification/CI
+          OUT="test/verification/CI/lean4checker_results.txt"
+          {
+            echo "lean4checker --fresh: matrix-split full-repo replay"
+            echo "Date:      $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            echo "Toolchain: $(cat lean-toolchain)"
+            echo "Commit:    ${{ github.sha }}"
+            echo ""
+            TOTAL_P=0
+            TOTAL_F=0
+            for f in /tmp/reports/lean4checker_*.txt; do
+              [ -f "$f" ] || continue
+              echo "---- $(basename "$f") ----"
+              cat "$f"
+              echo ""
+              P=$(grep -E "^Passed:" "$f" | awk '{print $2}')
+              F=$(grep -E "^Failed:" "$f" | awk '{print $2}')
+              TOTAL_P=$((TOTAL_P + ${P:-0}))
+              TOTAL_F=$((TOTAL_F + ${F:-0}))
+            done
+            echo "=== Grand Summary ==="
+            echo "Passed: $TOTAL_P"
+            echo "Failed: $TOTAL_F"
+            echo "Total:  $((TOTAL_P + TOTAL_F))"
+          } > "$OUT"
+          cat "$OUT"
+
+      - name: Move print_axioms artifact into place
+        run: |
+          mkdir -p test/verification/CI
+          if [ -f /tmp/reports/print_axioms_results.txt ]; then
+            cp /tmp/reports/print_axioms_results.txt test/verification/CI/print_axioms_results.txt
+          fi
 
       - name: Commit results to repo
         if: success()
@@ -84,7 +212,7 @@ jobs:
           git commit -m "Update lean4checker verification results [CI skip]"
           git push
 
-      - name: Upload report
+      - name: Upload combined report
         if: always()
         uses: actions/upload-artifact@v4
         with:
