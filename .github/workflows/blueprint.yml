@@ -28,11 +28,8 @@ jobs:
           run: |
             cd blueprint/src
             mkdir -p ../print
-            cp references.bib ../print/
-            pdflatex -output-directory=../print -interaction=nonstopmode print.tex || true
-            cd ../print
-            bibtex print || echo "bibtex failed, citations will show as [?]"
-            cd ../src
+            # Bibliography is inline (thebibliography in ch07), so two
+            # pdflatex passes suffice to resolve cite + ref cross-links.
             pdflatex -output-directory=../print -interaction=nonstopmode print.tex || true
             pdflatex -output-directory=../print -interaction=nonstopmode print.tex || true
             test -f ../print/print.pdf || (echo "PDF build failed" && exit 1)
@@ -86,8 +83,7 @@ jobs:
           \input{ch04_decision}
           \input{ch05_rkhs}
           \input{ch06_combinatorics}
-          \bibliographystyle{alpha}
-          \bibliography{references}
+          \input{ch07_references}
           \end{document}
           FLATEOF
 

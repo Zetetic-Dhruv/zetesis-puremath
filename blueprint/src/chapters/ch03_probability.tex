@@ -87,13 +87,28 @@ Definition~\ref{def:tv-dist-real}; on discrete supports they differ
 by a factor of $2$.
 \end{defn}
 
-\begin{thm}[Basic properties]
-\label{thm:tv-distance-props}
-  \lean{ProbabilityTheory.FintypePMF.tvDistance\_nonneg, ProbabilityTheory.FintypePMF.tvDistance\_comm, ProbabilityTheory.FintypePMF.tvDistance\_self}
+\begin{thm}[Non-negativity of $\mathrm{tvDistance}$]
+\label{thm:tv-distance-nonneg}
+  \lean{ProbabilityTheory.FintypePMF.tvDistance\_nonneg}
   \leanok
   \uses{def:tv-distance-fintype}
-$\mathrm{tvDistance}$ is non-negative, symmetric, and $0$ on
-$p = q$.
+$\mathrm{tvDistance}(p, q) \ge 0$.
+\end{thm}
+
+\begin{thm}[Symmetry of $\mathrm{tvDistance}$]
+\label{thm:tv-distance-comm}
+  \lean{ProbabilityTheory.FintypePMF.tvDistance\_comm}
+  \leanok
+  \uses{def:tv-distance-fintype}
+$\mathrm{tvDistance}(p, q) = \mathrm{tvDistance}(q, p)$.
+\end{thm}
+
+\begin{thm}[Self-distance is zero]
+\label{thm:tv-distance-self}
+  \lean{ProbabilityTheory.FintypePMF.tvDistance\_self}
+  \leanok
+  \uses{def:tv-distance-fintype}
+$\mathrm{tvDistance}(p, p) = 0$.
 \end{thm}
 
 \begin{thm}[Transfer principle]

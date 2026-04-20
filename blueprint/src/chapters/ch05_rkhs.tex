@@ -69,13 +69,28 @@ Under \texttt{IsProbabilityMeasure}~$P$, $\|\mu_P\| \le C$.
 $\MMD^2(P, Q) \;:=\; \| \mu_P - \mu_Q \|^2$ \cite[Defn.\ 2]{gretton2012kernel}.
 \end{defn}
 
-\begin{thm}[Metric axioms mod characteristic]
-\label{thm:mmd-sq-props}
-  \lean{mmdSq\_nonneg, mmdSq\_self, mmdSq\_comm}
+\begin{thm}[Non-negativity of $\MMD^2$]
+\label{thm:mmd-sq-nonneg}
+  \lean{mmdSq\_nonneg}
   \leanok
   \uses{def:mmd-sq}
-$\MMD^2 \ge 0$, $\MMD^2(P, P) = 0$, and $\MMD^2$ is symmetric in its
-arguments.
+$\MMD^2(P, Q) \ge 0$.
+\end{thm}
+
+\begin{thm}[$\MMD^2$ on identical measures]
+\label{thm:mmd-sq-self}
+  \lean{mmdSq\_self}
+  \leanok
+  \uses{def:mmd-sq}
+$\MMD^2(P, P) = 0$.
+\end{thm}
+
+\begin{thm}[Symmetry of $\MMD^2$]
+\label{thm:mmd-sq-comm}
+  \lean{mmdSq\_comm}
+  \leanok
+  \uses{def:mmd-sq}
+$\MMD^2(P, Q) = \MMD^2(Q, P)$.
 \end{thm}
 
 \begin{defn}[Characteristic RKHS]
@@ -112,12 +127,28 @@ originally introduced as a cross-covariance-operator Hilbert-Schmidt
 norm \cite{gretton2005hsic}.
 \end{defn}
 
-\begin{thm}[Zero-iff-independent]
-\label{thm:hsic-zero-iff}
-  \lean{hsicDef\_nonneg, hsicDef\_eq\_zero\_of\_independent, hsicDef\_zero\_iff\_independent}
+\begin{thm}[Non-negativity of HSIC]
+\label{thm:hsic-nonneg}
+  \lean{hsicDef\_nonneg}
+  \leanok
+  \uses{def:hsic}
+$\HSIC(P) \ge 0$.
+\end{thm}
+
+\begin{thm}[HSIC vanishes on independent measures]
+\label{thm:hsic-eq-zero-of-indep}
+  \lean{hsicDef\_eq\_zero\_of\_independent}
+  \leanok
+  \uses{def:hsic}
+If $P = P_X \otimes P_Y$ then $\HSIC(P) = 0$ (direct consequence of
+$\MMD^2(P, P) = 0$).
+\end{thm}
+
+\begin{thm}[HSIC zero iff independent]
+\label{thm:hsic-zero-iff-indep}
+  \lean{hsicDef\_zero\_iff\_independent}
   \leanok
   \uses{def:hsic, def:is-characteristic}
-$\HSIC(P) \ge 0$; $P = P_X \otimes P_Y$ implies $\HSIC(P) = 0$;
-conversely, under characteristic kernels on $X \times Y$,
+Under \texttt{IsCharacteristic}~$\RKHS$ on $X \times Y$,
 $\HSIC(P) = 0 \iff P = P_X \otimes P_Y$.
 \end{thm}

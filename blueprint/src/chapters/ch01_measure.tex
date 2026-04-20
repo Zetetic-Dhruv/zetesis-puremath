@@ -64,25 +64,112 @@ $\mu(S) = \mathrm{compactCap}\,\mu\,S$
 \section{Baire-space cylinder infrastructure}\label{sec:cylinders}
 
 The proof of Theorem~\ref{thm:analytic-capacitability} requires a
-small theory of cylinders in $\N^\N$:
+small theory of cylinders in $\N^\N$.
 
-\begin{defn}[Cylinder, bounded box, truncate]
-\label{def:cyl-bnd}
-  \lean{Cyl, Bnd, truncate}
+\begin{defn}[Cylinder]
+\label{def:cyl}
+  \lean{Cyl}
   \leanok
 For $N : \N \to \N$ and $n \in \N$,
-$\mathrm{Cyl}\,N\,n \;:=\; \{ g : \N \to \N \mid \forall i \le n,\; g\,i \le N\,i \}$
-and $\mathrm{Bnd}\,N \;:=\; \bigcap_n \mathrm{Cyl}\,N\,n$.
-$\mathrm{Bnd}\,N = \prod_i [0, N_i]$ is compact. The map $\mathrm{truncate}\,N\,g\,i := \min(g\,i, N\,i)$ sends any sequence
-into $\mathrm{Bnd}\,N$ and agrees with $g$ on cylinders.
+\[
+  \mathrm{Cyl}\,N\,n \;:=\; \{ g : \N \to \N \mid \forall i \le n,\; g\,i \le N\,i \}.
+\]
 \end{defn}
 
-The lemmas \texttt{bnd\_subset\_cyl}, \texttt{cyl\_succ\_eq},
-\texttt{cyl\_inter\_eq\_cyl\_update}, \texttt{monotone\_cyl\_split},
-\texttt{iInter\_closure\_image\_cyl\_eq}, \texttt{isCompact\_bnd},
-and \texttt{truncate\_mem\_bnd} are the technical core of the proof;
-they are annotated with \texttt{\textbackslash lean} in the source
-repository and are all \texttt{\textbackslash leanok}.
+\begin{defn}[Bounded box]
+\label{def:bnd}
+  \lean{Bnd}
+  \leanok
+  \uses{def:cyl}
+$\mathrm{Bnd}\,N \;:=\; \bigcap_n \mathrm{Cyl}\,N\,n \;=\; \prod_i [0, N_i]$.
+\end{defn}
+
+\begin{defn}[Truncation map]
+\label{def:truncate}
+  \lean{truncate}
+  \leanok
+$\mathrm{truncate}\,N\,g\,i \;:=\; \min(g\,i,\; N\,i)$. Sends any
+sequence into $\mathrm{Bnd}\,N$ and agrees with $g$ on cylinders.
+\end{defn}
+
+\begin{lemma}[$\mathrm{Bnd}\,N$ is compact]
+\label{lem:isCompact-bnd}
+  \lean{isCompact\_bnd}
+  \leanok
+  \uses{def:bnd}
+$\mathrm{Bnd}\,N$ is compact (Tychonoff applied to the finite
+intervals $[0, N_i]$).
+\end{lemma}
+
+\begin{lemma}[$\mathrm{Bnd} \subseteq \mathrm{Cyl}$]
+\label{lem:bnd-subset-cyl}
+  \lean{bnd\_subset\_cyl}
+  \leanok
+  \uses{def:bnd, def:cyl}
+$\mathrm{Bnd}\,N \subseteq \mathrm{Cyl}\,N\,n$ for every $n$.
+\end{lemma}
+
+\begin{lemma}[Cylinder successor splits along the next coordinate]
+\label{lem:cyl-succ-eq}
+  \lean{cyl\_succ\_eq}
+  \leanok
+  \uses{def:cyl}
+$\mathrm{Cyl}\,N\,(n+1) = \mathrm{Cyl}\,N\,n \cap \{g : g\,(n+1) \le N\,(n+1)\}$.
+\end{lemma}
+
+\begin{lemma}[Intersection with a coordinate update]
+\label{lem:cyl-inter-update}
+  \lean{cyl\_inter\_eq\_cyl\_update}
+  \leanok
+  \uses{def:cyl}
+Intersecting a cylinder with a coordinate-level constraint rewrites
+as a cylinder with an updated bound at that coordinate.
+\end{lemma}
+
+\begin{lemma}[Monotone split]
+\label{lem:monotone-cyl-split}
+  \lean{monotone\_cyl\_split}
+  \leanok
+  \uses{def:cyl}
+The map $k \mapsto \mathrm{Cyl}\,N\,n \cap \{g : g\,(n+1) \le k\}$
+is monotone in $k$.
+\end{lemma}
+
+\begin{lemma}[Truncate lands in $\mathrm{Bnd}$]
+\label{lem:truncate-mem-bnd}
+  \lean{truncate\_mem\_bnd}
+  \leanok
+  \uses{def:truncate, def:bnd}
+$\mathrm{truncate}\,N\,g \in \mathrm{Bnd}\,N$ for every $g$.
+\end{lemma}
+
+\begin{lemma}[Truncate agrees on cylinders]
+\label{lem:truncate-agree-on-cyl}
+  \lean{truncate\_agree\_on\_cyl}
+  \leanok
+  \uses{def:truncate, def:cyl}
+If $g \in \mathrm{Cyl}\,N\,n$ then $\mathrm{truncate}\,N\,g\,i = g\,i$
+for all $i \le n$.
+\end{lemma}
+
+\begin{lemma}[Cylinder extensionality]
+\label{lem:cyl-ext}
+  \lean{cyl\_ext}
+  \leanok
+  \uses{def:cyl}
+Two elements of $\mathrm{Cyl}\,N\,n$ agreeing on the first $n+1$
+coordinates are equal on $\mathrm{Cyl}$.
+\end{lemma}
+
+\begin{lemma}[Intersection of cylinder-closure images equals compact image]
+\label{lem:iInter-closure-image-cyl-eq}
+  \lean{iInter\_closure\_image\_cyl\_eq}
+  \leanok
+  \uses{def:cyl, def:bnd}
+Under a continuous parametrization $f : \N^\N \to \alpha$ into a
+Polish space,
+$\bigcap_n \overline{f(\mathrm{Cyl}\,N\,n)} = f(\mathrm{Bnd}\,N)$.
+\end{lemma}
 
 \section{Total variation distance}\label{sec:tv}
 

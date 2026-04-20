@@ -93,13 +93,25 @@ This is the Freund-Schapire constructive minimax
 unifies this with general online learning.
 \end{thm}
 
-\begin{thm}[Covering-based minimax (existential)]
+\begin{thm}[Covering-based minimax existence]
 \label{thm:covering-minimax}
-  \lean{ProbabilityTheory.covering\_minimax, ProbabilityTheory.finite\_approx\_minimax}
+  \lean{ProbabilityTheory.covering\_minimax}
   \leanok
-An existence counterpart to Theorem~\ref{thm:mwu-approx-minimax}: given
-the same row-guarantees hypothesis, there is a mixed-row PMF with
-payoff at least $1 / |C|$ against every pure column. This gives
-$v - \eps \le 1/|C|$ under a feasibility side-condition and is the
-logical dual of the quantitative MWU bound.
+Given the \texttt{hrow} hypothesis, there exists a mixed-row PMF
+whose payoff against every pure column is at least $1 / |C|$. Proof
+by pigeonhole-averaging over per-column pure-row witnesses extracted
+via \texttt{ProbabilityTheory.exists\_covering\_row}.
+\end{thm}
+
+\begin{thm}[$\eps$-approximate finite minimax]
+\label{thm:finite-approx-minimax}
+  \lean{ProbabilityTheory.finite\_approx\_minimax}
+  \leanok
+  \uses{thm:covering-minimax}
+Under a feasibility side-condition $v - \eps \le 1/|C|$, the
+covering-based mixed-row strategy from
+Theorem~\ref{thm:covering-minimax} achieves payoff $\ge v - \eps$
+against every pure column. This is the logical dual of the
+quantitative MWU bound in
+Theorem~\ref{thm:mwu-approx-minimax}.
 \end{thm}

@@ -103,11 +103,19 @@ $P_X, P_Y$,
 $\MI_\R(P) \;:=\; \KL_\R(P, P_X \otimes P_Y)$.
 \end{defn}
 
-\begin{thm}[Non-negativity and independence]
-\label{thm:mi-zero-iff}
-  \lean{InformationTheory.mutualInformationReal\_nonneg, InformationTheory.mutualInformationReal\_eq\_zero\_iff\_product}
+\begin{thm}[Non-negativity of mutual information]
+\label{thm:mi-nonneg}
+  \lean{InformationTheory.mutualInformationReal\_nonneg}
   \leanok
   \uses{def:mi-real}
-$\MI_\R(P) \ge 0$; under $P \ll P_X \otimes P_Y$ and finiteness,
+$\MI_\R(P) \ge 0$ (Gibbs applied to the joint vs.\ product-of-marginals).
+\end{thm}
+
+\begin{thm}[Mutual information vanishes iff independent]
+\label{thm:mi-zero-iff}
+  \lean{InformationTheory.mutualInformationReal\_eq\_zero\_iff\_product}
+  \leanok
+  \uses{def:mi-real}
+Under $P \ll P_X \otimes P_Y$ and $\KL(P, P_X \otimes P_Y) \ne \infty$,
 $\MI_\R(P) = 0 \iff P = P_X \otimes P_Y$.
 \end{thm}

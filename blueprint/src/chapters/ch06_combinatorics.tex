@@ -10,16 +10,24 @@ $\mathrm{BinaryMatrix}\,m\,n \;:=\; \mathrm{Fin}\,m \to \mathrm{Fin}\,n \to \mat
 Type-definitionally equal to $\mathrm{Matrix}\,(\mathrm{Fin}\,m)\,(\mathrm{Fin}\,n)\,\mathrm{Bool}$.
 \end{defn}
 
-\begin{defn}[Shattering]
+\begin{defn}[Induced set family]
+\label{def:to-finset-family}
+  \lean{BinaryMatrix.toFinsetFamily}
+  \leanok
+  \uses{def:binary-matrix}
+The \emph{induced set family} of a binary matrix $M : \mathrm{Fin}\,m \to \mathrm{Fin}\,n \to \mathrm{Bool}$
+consists of the true-supports of its rows,
+$\{ \{ j : M\,i\,j = \mathrm{true} \} : i \in \mathrm{Fin}\,m \}$.
+\end{defn}
+
+\begin{defn}[Matrix shattering]
 \label{def:shatters}
-  \lean{BinaryMatrix.shatters, BinaryMatrix.toFinsetFamily}
+  \lean{BinaryMatrix.shatters}
   \leanok
   \uses{def:binary-matrix}
 For a binary matrix $M$ and $S \subseteq \mathrm{Fin}\,n$, $M$
 \emph{shatters} $S$ iff every pattern $t \subseteq S$ is realized by
-some row. The induced set family
-$\mathrm{toFinsetFamily}\,M$ consists of the true-supports of the rows
-of $M$ \cite{vapnik1971,sauer1972}.
+some row of $M$ (Vapnik--Chervonenkis 1971; Sauer 1972).
 \end{defn}
 
 \begin{thm}[Consistency with \texttt{Finset.Shatters}]
